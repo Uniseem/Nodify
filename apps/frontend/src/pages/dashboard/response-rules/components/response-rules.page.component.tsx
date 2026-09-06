@@ -1,4 +1,4 @@
-import { Box, Flex } from '@mantine/core'
+import { Box, Flex } from '@shared/heroui-compat'
 import {
     GetSubscriptionSettingsCommand,
     TSubscriptionTemplateType

@@ -1,4 +1,4 @@
-import { Center, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Center, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { GetNodesCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { PiCpu } from 'react-icons/pi'

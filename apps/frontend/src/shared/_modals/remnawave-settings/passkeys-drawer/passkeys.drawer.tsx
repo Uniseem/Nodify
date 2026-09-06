@@ -10,9 +10,9 @@ import {
     Text,
     ThemeIcon,
     Tooltip
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import {
     type PublicKeyCredentialCreationOptionsJSON,
     startRegistration

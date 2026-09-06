@@ -1,5 +1,5 @@
-import { Badge, RenderTreeNodePayload, Tree, TreeNodeData } from '@mantine/core'
-import { Group, Text } from '@mantine/core'
+import { Badge, RenderTreeNodePayload, Tree, TreeNodeData } from '@shared/heroui-compat'
+import { Group, Text } from '@shared/heroui-compat'
 import { GetInternalSquadAccessibleNodesCommand } from '@remnawave/backend-contract'
 import { useMemo } from 'react'
 import { PiTag } from 'react-icons/pi'

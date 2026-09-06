@@ -1,5 +1,5 @@
 import { ShowConfigProfilesWithInboundsFeature } from '@features/ui/dashboard/nodes/show-config-profiles-with-inbounds'
-import { Button, Group, Skeleton, Stack } from '@mantine/core'
+import { Button, Group, Skeleton, Stack } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import { CreateNodeCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'

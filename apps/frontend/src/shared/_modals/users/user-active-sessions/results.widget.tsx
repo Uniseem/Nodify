@@ -1,4 +1,4 @@
-import { Stack } from '@mantine/core'
+import { Stack } from '@shared/heroui-compat'
 import { useMemo } from 'react'
 import { TbRadar } from 'react-icons/tb'
 

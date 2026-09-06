@@ -1,4 +1,4 @@
-import { Code, Paper } from '@mantine/core'
+import { Code, Paper } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 
 import styles from './CodeEditor.module.css'

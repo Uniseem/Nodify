@@ -1,4 +1,4 @@
-import { Card, CardProps, Flex } from '@mantine/core'
+import { Card, CardProps, Flex } from '@shared/heroui-compat'
 
 import classes from './settings-card.module.css'
 

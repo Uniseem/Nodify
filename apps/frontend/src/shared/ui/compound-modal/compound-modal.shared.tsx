@@ -1,4 +1,4 @@
-import { Group, Modal, ModalProps, useProps } from '@mantine/core'
+import { Group, Modal, ModalProps, useProps } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 
 import classes from '@shared/constants/theme/overrides/modal/modal.module.css'

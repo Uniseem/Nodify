@@ -1,6 +1,6 @@
 import type { IProps } from './interfaces/props.interface'
 
-import { Box, Checkbox } from '@mantine/core'
+import { Box, Checkbox } from '@shared/heroui-compat'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { memo, useRef } from 'react'
 

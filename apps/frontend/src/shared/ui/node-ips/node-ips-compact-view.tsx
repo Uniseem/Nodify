@@ -1,4 +1,4 @@
-import { Badge, Group, HoverCard, ScrollArea, Stack, Text } from '@mantine/core'
+import { Badge, Group, HoverCard, ScrollArea, Stack, Text } from '@shared/heroui-compat'
 import { TNodeIps } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 

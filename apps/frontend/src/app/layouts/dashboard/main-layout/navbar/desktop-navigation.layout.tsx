@@ -1,4 +1,4 @@
-import { Menu, Menubar } from '@mantine/core'
+import { Menu, Menubar } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { ElementType, Fragment } from 'react'
 import { PiCaretDownBold } from 'react-icons/pi'

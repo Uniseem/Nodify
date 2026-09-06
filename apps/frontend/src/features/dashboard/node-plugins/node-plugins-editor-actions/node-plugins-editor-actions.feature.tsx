@@ -1,8 +1,8 @@
 import type { editor } from 'monaco-editor'
 
-import { ActionIcon, Button, Group, Menu } from '@mantine/core'
+import { ActionIcon, Button, Group, Menu } from '@shared/heroui-compat'
 import { useClipboard, useDisclosure } from '@mantine/hooks'
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import { Monaco } from '@monaco-editor/react'
 import { UpdateNodePluginCommand } from '@remnawave/backend-contract'
 import consola from 'consola/browser'

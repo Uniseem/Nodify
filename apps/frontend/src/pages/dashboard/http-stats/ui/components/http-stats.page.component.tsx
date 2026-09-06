@@ -1,4 +1,4 @@
-import { ActionIcon, ActionIconGroup, Tooltip } from '@mantine/core'
+import { ActionIcon, ActionIconGroup, Tooltip } from '@shared/heroui-compat'
 import { GetHttpStatsCommand } from '@remnawave/backend-contract'
 import { HttpStatsTableWidget } from '@widgets/dashboard/http-stats/http-stats-table/http-stats-table.widget'
 import { useTranslation } from 'react-i18next'

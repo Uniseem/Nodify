@@ -12,7 +12,7 @@ import {
     ThemeIcon,
     Tooltip,
     Transition
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useDebouncedValue, useWindowScroll } from '@mantine/hooks'
 import { useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'

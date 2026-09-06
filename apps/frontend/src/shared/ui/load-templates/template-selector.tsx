@@ -9,7 +9,7 @@ import {
     Text,
     TextInput,
     UnstyledButton
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { IconSearch } from '@tabler/icons-react'
 import ColorHash from 'color-hash'
 import { useState } from 'react'

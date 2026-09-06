@@ -1,4 +1,4 @@
-import { Switch } from '@mantine/core'
+import { Switch } from '@shared/heroui-compat'
 
 import { useSettingsRowControl } from '@shared/ui/settings-row'
 

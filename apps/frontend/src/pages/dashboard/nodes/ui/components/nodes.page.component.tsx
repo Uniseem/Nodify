@@ -1,6 +1,6 @@
 import { MultiSelectNodesFeature } from '@features/dashboard/nodes/multi-select-nodes/multi-select-nodes.feature'
 import { NodesHeaderActionButtonsFeature } from '@features/ui/dashboard/nodes/nodes-header-action-buttons'
-import { Grid, Stack } from '@mantine/core'
+import { Grid, Stack } from '@shared/heroui-compat'
 /* eslint-disable no-nested-ternary */
 import { GetNodesCommand } from '@remnawave/backend-contract'
 import { NodesDataTableWidget } from '@widgets/dashboard/nodes/nodes-datatable/nodes-datatable.widget'

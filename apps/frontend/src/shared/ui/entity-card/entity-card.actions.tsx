@@ -1,4 +1,4 @@
-import { Group } from '@mantine/core'
+import { Group } from '@shared/heroui-compat'
 
 import classes from './entity-card.module.css'
 

@@ -11,10 +11,10 @@ import {
     Text,
     TextInput,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useField } from '@mantine/form'
-import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
+import { modals } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { CreateApiTokenCommand } from '@remnawave/backend-contract'
 import { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'

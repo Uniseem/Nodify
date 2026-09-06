@@ -7,7 +7,7 @@ import {
     Tree,
     TreeNodeData,
     useTree
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import {
     GetConfigProfilesCommand,
     GetHostsCommand,

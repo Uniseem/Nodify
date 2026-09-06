@@ -1,4 +1,4 @@
-import { Accordion, Card, Divider, Group, Select, Stack, Text } from '@mantine/core'
+import { Accordion, Card, Divider, Group, Select, Stack, Text } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import {
     TSubscriptionPagePlatformKey,

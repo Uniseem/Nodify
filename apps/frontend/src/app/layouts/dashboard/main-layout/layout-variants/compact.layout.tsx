@@ -1,4 +1,4 @@
-import { AppShell, Group, Divider } from '@mantine/core'
+import { AppShell, Group, Divider } from '@shared/heroui-compat'
 
 import { LayoutBrand, LayoutMain } from '../layout-shared'
 import classes from '../layout.module.css'

@@ -1,6 +1,6 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { ActionIcon, Group, NativeSelect, SimpleGrid, Stack } from '@mantine/core'
-import { DatePickerInput, DatesRangeValue } from '@mantine/dates'
+import { ActionIcon, Group, NativeSelect, SimpleGrid, Stack } from '@shared/heroui-compat'
+import { DatePickerInput, DatesRangeValue } from '@shared/heroui-compat'
 import { UserUsageBarchartWidget } from '@widgets/dashboard/users/user-usage-statistic/usage-barchart'
 import { UserUsageSparklineCardWidget } from '@widgets/dashboard/users/user-usage-statistic/usage-sparkline-card'
 import dayjs from 'dayjs'

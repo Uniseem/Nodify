@@ -1,4 +1,4 @@
-import { Button, CopyButton, Group, Skeleton } from '@mantine/core'
+import { Button, CopyButton, Group, Skeleton } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { PiCheck } from 'react-icons/pi'
 import { SiDocker } from 'react-icons/si'

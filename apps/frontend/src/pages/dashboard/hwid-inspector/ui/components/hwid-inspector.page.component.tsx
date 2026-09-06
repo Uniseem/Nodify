@@ -1,4 +1,4 @@
-import { Stack } from '@mantine/core'
+import { Stack } from '@shared/heroui-compat'
 import { useMediaQuery } from '@mantine/hooks'
 import { HwidInspectorLeaderboardWidget } from '@widgets/dashboard/hwid-inspector/hwid-inspector-leaderboard'
 import { HwidInspectorMetrics } from '@widgets/dashboard/hwid-inspector/hwid-inspector-metrics'

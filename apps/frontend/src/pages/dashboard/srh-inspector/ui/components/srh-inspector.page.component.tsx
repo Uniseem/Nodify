@@ -1,4 +1,4 @@
-import { Stack } from '@mantine/core'
+import { Stack } from '@shared/heroui-compat'
 import { useMediaQuery } from '@mantine/hooks'
 import { SrhInspectorMetrics } from '@widgets/dashboard/srh-inspector/srh-inspector-metrics'
 import { SrhInspectorTableWidget } from '@widgets/dashboard/srh-inspector/srh-inspector-table'

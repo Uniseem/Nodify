@@ -1,5 +1,5 @@
 import { DataTableColumn } from '@kastov/mantine-datatable'
-import { ActionIcon, Group, MultiSelect, Text } from '@mantine/core'
+import { ActionIcon, Group, MultiSelect, Text } from '@shared/heroui-compat'
 import { GetHostsCommand } from '@remnawave/backend-contract'
 import { TFunction } from 'i18next'
 import { PiProhibit, PiPulse } from 'react-icons/pi'

@@ -7,10 +7,10 @@ import {
     Text,
     TextInput,
     Title
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
 import { useClipboard } from '@mantine/hooks'
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import { RegisterCommand } from '@remnawave/backend-contract'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'

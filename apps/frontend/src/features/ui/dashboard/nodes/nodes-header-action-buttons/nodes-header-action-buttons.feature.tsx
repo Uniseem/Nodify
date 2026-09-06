@@ -1,6 +1,6 @@
-import { ActionIcon, ActionIconGroup, Group, Stack, Tooltip } from '@mantine/core'
-import { modals } from '@mantine/modals'
-import { spotlight } from '@mantine/spotlight'
+import { ActionIcon, ActionIconGroup, Group, Stack, Tooltip } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
+import { spotlight } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { PiSpiral } from 'react-icons/pi'
 import {

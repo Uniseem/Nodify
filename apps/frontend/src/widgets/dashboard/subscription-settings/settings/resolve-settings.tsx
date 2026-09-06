@@ -1,4 +1,4 @@
-import { ActionIcon, HoverCard, Stack, Text } from '@mantine/core'
+import { ActionIcon, HoverCard, Stack, Text } from '@shared/heroui-compat'
 import { ExternalSquadSubscriptionSettingsSchema } from '@remnawave/backend-contract'
 import { TFunction } from 'i18next'
 import { HiQuestionMarkCircle } from 'react-icons/hi'

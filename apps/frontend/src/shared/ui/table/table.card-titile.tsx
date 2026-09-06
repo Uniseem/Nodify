@@ -8,7 +8,7 @@ import {
     Stack,
     Text,
     Title
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { motion } from 'motion/react'
 import { forwardRef, ReactNode } from 'react'
 

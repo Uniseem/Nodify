@@ -1,5 +1,5 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Center, Drawer, Loader, Stack, Text } from '@mantine/core'
+import { Center, Drawer, Loader, Stack, Text } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbCirclesRelation } from 'react-icons/tb'
 

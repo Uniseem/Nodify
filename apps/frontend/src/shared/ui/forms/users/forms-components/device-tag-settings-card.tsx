@@ -1,4 +1,4 @@
-import { Anchor, Checkbox, Code, Input, NumberInput, Stack, Text, Textarea } from '@mantine/core'
+import { Anchor, Checkbox, Code, Input, NumberInput, Stack, Text, Textarea } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import {
     CreateUserCommand,

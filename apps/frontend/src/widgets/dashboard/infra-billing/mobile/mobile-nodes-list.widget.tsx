@@ -10,7 +10,7 @@ import {
     Stack,
     Text,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { GetInfraBillingNodesCommand } from '@remnawave/backend-contract'
 import dayjs from 'dayjs'
 import { useMemo, useState } from 'react'

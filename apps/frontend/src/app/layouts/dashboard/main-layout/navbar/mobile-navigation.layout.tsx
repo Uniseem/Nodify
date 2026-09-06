@@ -1,4 +1,4 @@
-import { Box, Divider, NavLink, Stack, Title } from '@mantine/core'
+import { Box, Divider, NavLink, Stack, Title } from '@shared/heroui-compat'
 import { PiArrowRight } from 'react-icons/pi'
 import { NavLink as RouterLink, useLocation } from 'react-router'
 

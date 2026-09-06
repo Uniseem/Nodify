@@ -1,9 +1,9 @@
 import type { editor } from 'monaco-editor'
 
 import { MonacoSetupSnippetsFeature } from '@features/dashboard/config-profiles/monaco-setup'
-import { Box, Button, Group, Paper } from '@mantine/core'
+import { Box, Button, Group, Paper } from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
-import { modals } from '@mantine/modals'
+import { modals } from '@shared/heroui-compat'
 import { useMonaco } from '@monaco-editor/react'
 import { UpdateSnippetCommand } from '@remnawave/backend-contract'
 import clsx from 'clsx'

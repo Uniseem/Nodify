@@ -1,4 +1,4 @@
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import { TbCheck as IconCheck } from 'react-icons/tb'
 
 export const baseNotificationsMutations = (id: string, refetch: () => void) => {

@@ -10,7 +10,7 @@ import {
     Text,
     TextInput,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { ComponentType, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbBolt, TbChevronDown, TbChevronUp, TbDeviceFloppy, TbPlus, TbTrash } from 'react-icons/tb'

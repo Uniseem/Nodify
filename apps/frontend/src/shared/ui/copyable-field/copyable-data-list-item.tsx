@@ -1,4 +1,4 @@
-import { CopyButton, DataList, Tooltip, UnstyledButton } from '@mantine/core'
+import { CopyButton, DataList, Tooltip, UnstyledButton } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy } from 'react-icons/pi'
 

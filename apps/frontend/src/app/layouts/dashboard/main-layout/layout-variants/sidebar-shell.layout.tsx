@@ -1,4 +1,4 @@
-import { AppShell, Box, Burger, Container, Group, ScrollArea } from '@mantine/core'
+import { AppShell, Box, Burger, Container, Group, ScrollArea } from '@shared/heroui-compat'
 import clsx from 'clsx'
 
 import { LayoutBrand, LayoutMain } from '../layout-shared'

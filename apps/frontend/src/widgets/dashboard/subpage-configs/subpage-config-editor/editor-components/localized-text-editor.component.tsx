@@ -8,7 +8,7 @@ import {
     Textarea,
     TextInput,
     UnstyledButton
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useDisclosure } from '@mantine/hooks'
 import {
     getLanguageName,

@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 // import { splashScreen } from 'vite-plugin-splash-screen'
@@ -11,6 +12,7 @@ export default defineConfig({
     assetsInclude: ['**/*.lottie'],
     plugins: [
         react(),
+        tailwindcss(),
         removeConsole(),
         webfontDownload()
         // splashScreen({
@@ -67,6 +69,10 @@ export default defineConfig({
                         {
                             name: 'utils',
                             test: /node_modules[\\/](nanoid|ufo|consola|semver|is-svg|sax|jsonc-parser|json-edit-react|dayjs)[\\/]/
+                        },
+                        {
+                            name: 'heroui',
+                            test: /node_modules[\\/]@heroui[\\/]/
                         },
                         {
                             name: 'mantine',

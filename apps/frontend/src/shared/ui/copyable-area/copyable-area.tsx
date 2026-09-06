@@ -1,4 +1,4 @@
-import { ActionIcon, CopyButton, Textarea } from '@mantine/core'
+import { ActionIcon, CopyButton, Textarea } from '@shared/heroui-compat'
 import { PiCheck, PiCopy } from 'react-icons/pi'
 
 export const CopyableAreaShared = ({

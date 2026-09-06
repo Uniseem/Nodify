@@ -1,4 +1,4 @@
-import { ActionIcon, ActionIconGroup, Group, Tooltip } from '@mantine/core'
+import { ActionIcon, ActionIconGroup, Group, Tooltip } from '@shared/heroui-compat'
 import { TSubscriptionTemplateType } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { TbPlus, TbRefresh } from 'react-icons/tb'

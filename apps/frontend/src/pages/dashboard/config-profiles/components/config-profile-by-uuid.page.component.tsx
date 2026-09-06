@@ -1,4 +1,4 @@
-import { ActionIcon, ActionIconGroup, Group, Tooltip } from '@mantine/core'
+import { ActionIcon, ActionIconGroup, Group, Tooltip } from '@shared/heroui-compat'
 import { GetConfigProfileByUuidCommand, GetSnippetsCommand } from '@remnawave/backend-contract'
 import { ConfigEditorWidget } from '@widgets/dashboard/config-profiles/config-editor/config-editor.widget'
 import { useTranslation } from 'react-i18next'

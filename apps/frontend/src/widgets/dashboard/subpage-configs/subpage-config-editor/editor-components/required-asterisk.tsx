@@ -1,4 +1,4 @@
-import { Text } from '@mantine/core'
+import { Text } from '@shared/heroui-compat'
 
 export function RequiredAsterisk() {
     return (

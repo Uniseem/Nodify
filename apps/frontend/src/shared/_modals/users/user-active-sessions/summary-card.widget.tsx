@@ -1,5 +1,5 @@
-import { ActionIcon, Group, Tooltip } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { ActionIcon, Group, Tooltip } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbAlertTriangle, TbQuestionMark, TbRadar, TbRefresh, TbUnlink } from 'react-icons/tb'

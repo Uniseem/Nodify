@@ -8,10 +8,10 @@ import {
     Stack,
     ThemeIcon,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
-import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
+import { modals } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { GetSubpageConfigCommand } from '@remnawave/backend-contract'
 import {
     SubscriptionPageRawConfigSchema,

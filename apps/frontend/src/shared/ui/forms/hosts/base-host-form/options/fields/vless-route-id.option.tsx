@@ -1,4 +1,4 @@
-import { NumberInput } from '@mantine/core'
+import { NumberInput } from '@shared/heroui-compat'
 
 import { useSettingsRowControl } from '@shared/ui/settings-row'
 

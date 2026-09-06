@@ -1,4 +1,4 @@
-import { Group, Loader, rem, Text } from '@mantine/core'
+import { Group, Loader, rem, Text } from '@shared/heroui-compat'
 import { TbBrandGithub, TbStar } from 'react-icons/tb'
 
 import { HeaderControl } from './HeaderControl'

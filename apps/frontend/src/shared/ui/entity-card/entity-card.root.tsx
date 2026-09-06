@@ -1,4 +1,4 @@
-import { Box, Card } from '@mantine/core'
+import { Box, Card } from '@shared/heroui-compat'
 import clsx from 'clsx'
 
 import classes from './entity-card.module.css'

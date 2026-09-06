@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, Group, Tooltip } from '@mantine/core'
+import { ActionIcon, Badge, Group, Tooltip } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbRadar, TbServer, TbUnlink } from 'react-icons/tb'
 

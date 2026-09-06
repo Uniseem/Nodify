@@ -1,5 +1,5 @@
 /* eslint-disable @stylistic/indent */
-import { Box, BoxProps, ElementProps } from '@mantine/core'
+import { Box, BoxProps, ElementProps } from '@shared/heroui-compat'
 
 interface LogoProps
     extends ElementProps<'svg', keyof BoxProps>, Omit<BoxProps, 'children' | 'ref'> {

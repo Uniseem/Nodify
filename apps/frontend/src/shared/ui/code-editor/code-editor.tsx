@@ -1,7 +1,7 @@
 import type { editor } from 'monaco-editor'
 
-import { Box, Text } from '@mantine/core'
-import { notifications } from '@mantine/notifications'
+import { Box, Text } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import Editor, { EditorProps, OnMount } from '@monaco-editor/react'
 import clsx from 'clsx'
 import { parse } from 'jsonc-parser'

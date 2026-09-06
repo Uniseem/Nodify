@@ -9,7 +9,7 @@ import {
     Text,
     ThemeIcon,
     Title
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { PiDeviceMobile, PiMonitor, PiWarning } from 'react-icons/pi'
 import { TbBaselineDensitySmall, TbColumns, TbMaximize, TbRotate2 } from 'react-icons/tb'

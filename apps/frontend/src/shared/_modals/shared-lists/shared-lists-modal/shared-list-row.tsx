@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Badge, Text, Tooltip } from '@shared/heroui-compat'
 import { GetSharedListsCommand } from '@remnawave/backend-contract'
 import { t } from 'i18next'
 import { TbTrash } from 'react-icons/tb'

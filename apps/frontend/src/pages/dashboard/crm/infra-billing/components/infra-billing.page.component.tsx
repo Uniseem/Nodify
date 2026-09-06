@@ -1,4 +1,4 @@
-import { Stack } from '@mantine/core'
+import { Stack } from '@shared/heroui-compat'
 import { DesktopColumnsInfraBillingWidget } from '@widgets/dashboard/infra-billing/desktop-columns'
 import { MobileInfraBillingWidget } from '@widgets/dashboard/infra-billing/mobile'
 import { StatsWidget } from '@widgets/dashboard/infra-billing/stats-widget/stats.widget'

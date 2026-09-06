@@ -1,4 +1,4 @@
-import { Select } from '@mantine/core'
+import { Select } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 
 import { useSettingsRowControl } from '@shared/ui/settings-row'

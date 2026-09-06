@@ -1,4 +1,4 @@
-import { Code, SimpleGrid, Stack, Text } from '@mantine/core'
+import { Code, SimpleGrid, Stack, Text } from '@shared/heroui-compat'
 import { Trans, useTranslation } from 'react-i18next'
 import {
     TbBolt,

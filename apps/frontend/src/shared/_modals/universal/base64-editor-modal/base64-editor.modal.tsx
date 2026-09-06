@@ -1,7 +1,7 @@
 import type { editor } from 'monaco-editor'
 
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Box, Button, Modal, Paper, SegmentedControl } from '@mantine/core'
+import { Box, Button, Modal, Paper, SegmentedControl } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'

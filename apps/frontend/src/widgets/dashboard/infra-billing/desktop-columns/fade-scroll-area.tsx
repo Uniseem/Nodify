@@ -1,4 +1,4 @@
-import { ScrollArea } from '@mantine/core'
+import { ScrollArea } from '@shared/heroui-compat'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import styles from '../mobile/fade-mask.module.css'

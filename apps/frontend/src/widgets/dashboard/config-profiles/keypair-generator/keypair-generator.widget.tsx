@@ -1,4 +1,4 @@
-import { Button, Divider, Group, px, Stack, Tabs, Transition } from '@mantine/core'
+import { Button, Divider, Group, px, Stack, Tabs, Transition } from '@shared/heroui-compat'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiKey } from 'react-icons/pi'

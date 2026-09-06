@@ -1,4 +1,4 @@
-import { Checkbox, MultiSelect, SegmentedControl } from '@mantine/core'
+import { Checkbox, MultiSelect, SegmentedControl } from '@shared/heroui-compat'
 import { INTERNAL_SQUADS_MODE } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 

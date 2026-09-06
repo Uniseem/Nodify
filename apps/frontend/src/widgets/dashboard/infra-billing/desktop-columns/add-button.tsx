@@ -1,4 +1,4 @@
-import { ActionIcon } from '@mantine/core'
+import { ActionIcon } from '@shared/heroui-compat'
 import { TbPlus } from 'react-icons/tb'
 
 interface AddButtonProps {

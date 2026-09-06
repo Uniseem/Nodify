@@ -1,4 +1,4 @@
-import { Group, Paper, Text } from '@mantine/core'
+import { Group, Paper, Text } from '@shared/heroui-compat'
 import { useMemo } from 'react'
 import { TbClockCheck, TbClockExclamation, TbClockPause } from 'react-icons/tb'
 

@@ -1,4 +1,4 @@
-import { ActionIcon, Group } from '@mantine/core'
+import { ActionIcon, Group } from '@shared/heroui-compat'
 import { GetHostsCommand, GetSubscriptionTemplateCommand } from '@remnawave/backend-contract'
 import { SubscriptionTemplateEditorWidget } from '@widgets/dashboard/templates/subscription-template-editor'
 import { TbArrowBackUp } from 'react-icons/tb'

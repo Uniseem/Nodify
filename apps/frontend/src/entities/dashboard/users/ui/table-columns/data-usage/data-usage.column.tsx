@@ -1,4 +1,4 @@
-import { Box, Group, Progress, Text } from '@mantine/core'
+import { Box, Group, Progress, Text } from '@shared/heroui-compat'
 import { RESET_PERIODS } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 

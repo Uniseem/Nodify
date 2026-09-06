@@ -1,4 +1,4 @@
-import { Center, Loader, Stack } from '@mantine/core'
+import { Center, Loader, Stack } from '@shared/heroui-compat'
 
 import { SectionCard } from '../section-card'
 

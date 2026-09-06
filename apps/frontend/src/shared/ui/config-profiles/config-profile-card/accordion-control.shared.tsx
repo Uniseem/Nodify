@@ -6,8 +6,8 @@ import {
     Box,
     Center,
     Group
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetConfigProfilesCommand } from '@remnawave/backend-contract'
 import { githubDarkTheme, JsonEditor } from 'json-edit-react'
 import { PiCheckBold, PiXBold } from 'react-icons/pi'

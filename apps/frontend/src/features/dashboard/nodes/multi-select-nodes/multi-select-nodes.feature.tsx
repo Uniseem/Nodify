@@ -9,8 +9,8 @@ import {
     Stack,
     Tooltip,
     Transition
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetNodesCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import {

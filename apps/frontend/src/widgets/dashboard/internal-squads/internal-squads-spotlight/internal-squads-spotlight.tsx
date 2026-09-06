@@ -1,4 +1,4 @@
-import { Badge, Group } from '@mantine/core'
+import { Badge, Group } from '@shared/heroui-compat'
 import { GetInternalSquadsCommand } from '@remnawave/backend-contract'
 import { PiTag, PiUsers } from 'react-icons/pi'
 import { TbCirclesRelation } from 'react-icons/tb'

@@ -1,4 +1,4 @@
-import { Button, Center, Group, LoadingOverlay, Stack, Text } from '@mantine/core'
+import { Button, Center, Group, LoadingOverlay, Stack, Text } from '@shared/heroui-compat'
 import { useFetch } from '@mantine/hooks'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'

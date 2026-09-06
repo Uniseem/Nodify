@@ -1,4 +1,4 @@
-import { CopyButton, Menu } from '@mantine/core'
+import { CopyButton, Menu } from '@shared/heroui-compat'
 import { GetNodePluginsCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy, PiCpu, PiPencil, PiTrashDuotone } from 'react-icons/pi'

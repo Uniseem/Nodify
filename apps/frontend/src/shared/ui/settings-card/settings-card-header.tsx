@@ -1,4 +1,4 @@
-import { Box, Divider, Group, Stack, Text, ThemeIcon, ThemeIconProps, Title } from '@mantine/core'
+import { Box, Divider, Group, Stack, Text, ThemeIcon, ThemeIconProps, Title } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 
 interface SettingsCardHeaderProps {

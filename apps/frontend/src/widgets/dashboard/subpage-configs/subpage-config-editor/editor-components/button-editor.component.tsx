@@ -8,7 +8,7 @@ import {
     Stack,
     Text,
     TextInput
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useDisclosure } from '@mantine/hooks'
 import {
     BUTTON_TYPES_VALUES,

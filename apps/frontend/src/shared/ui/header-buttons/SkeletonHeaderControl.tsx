@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core'
+import { Box } from '@shared/heroui-compat'
 
 import classes from './SkeletonHeaderControl.module.css'
 

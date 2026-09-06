@@ -2,7 +2,7 @@ import { DeleteNodeFeature } from '@features/ui/dashboard/nodes/delete-node'
 import { ResetNodeTrafficFeature } from '@features/ui/dashboard/nodes/reset-node-traffic'
 import { RestartNodeButtonFeature } from '@features/ui/dashboard/nodes/restart-node-button'
 import { ToggleNodeStatusButtonFeature } from '@features/ui/dashboard/nodes/toggle-node-status-button'
-import { Button, CopyButton, Group, Menu, px, Stack } from '@mantine/core'
+import { Button, CopyButton, Group, Menu, px, Stack } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import {
     GetNodeIntegrationsCommand,

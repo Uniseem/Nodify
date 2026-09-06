@@ -1,8 +1,8 @@
 import type { editor } from 'monaco-editor'
 
-import { ActionIcon, Button, Group, Menu } from '@mantine/core'
+import { ActionIcon, Button, Group, Menu } from '@shared/heroui-compat'
 import { useClipboard, useDisclosure } from '@mantine/hooks'
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import { GetSubscriptionTemplateCommand } from '@remnawave/backend-contract'
 import { encode } from '@stablelib/base64'
 import { RefObject } from 'react'

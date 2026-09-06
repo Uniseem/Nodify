@@ -9,7 +9,7 @@ import {
     TagsInput,
     Text,
     Textarea
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import { CreateNodeCommand, UpdateNodeCommand } from '@remnawave/backend-contract'
 import { ForwardRefComponent, HTMLMotionProps, Variants } from 'motion/react'

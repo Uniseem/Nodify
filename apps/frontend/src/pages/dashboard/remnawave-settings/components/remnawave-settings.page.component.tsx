@@ -1,4 +1,4 @@
-import { Container } from '@mantine/core'
+import { Container } from '@shared/heroui-compat'
 import { GetApiTokensCommand, GetRemnawaveSettingsCommand } from '@remnawave/backend-contract'
 import { ApiTokensCardWidget } from '@widgets/remnawave-settings/api-tokens-card/api-tokens-card.widget'
 import { AuthentificationSettingsCardWidget } from '@widgets/remnawave-settings/authentification-settings-card/authentification-settings-card.widget'

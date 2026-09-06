@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxCardProps, CheckboxProps, Group, Text } from '@mantine/core'
+import { Checkbox, CheckboxCardProps, CheckboxProps, Group, Text } from '@shared/heroui-compat'
 
 import classes from './CheckboxCard.module.css'
 

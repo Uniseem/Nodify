@@ -1,6 +1,6 @@
 import type { AggregatedUser, AggregatedUserNode } from './use-sessions-explorer'
 
-import { ActionIcon, Badge, Box, Group, Tooltip } from '@mantine/core'
+import { ActionIcon, Badge, Box, Group, Tooltip } from '@shared/heroui-compat'
 import { forwardRef, memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiUserCircle } from 'react-icons/pi'

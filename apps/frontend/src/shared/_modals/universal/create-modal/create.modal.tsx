@@ -1,5 +1,5 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Modal } from '@mantine/core'
+import { Modal } from '@shared/heroui-compat'
 import { TSubscriptionTemplateType } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { TbNewSection } from 'react-icons/tb'

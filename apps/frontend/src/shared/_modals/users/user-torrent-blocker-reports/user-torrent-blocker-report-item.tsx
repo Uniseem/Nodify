@@ -1,5 +1,5 @@
-import { ActionIcon, Box, Divider, Group, Stack } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { ActionIcon, Box, Divider, Group, Stack } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetTorrentBlockerReportsCommand } from '@remnawave/backend-contract'
 import { githubDarkTheme, JsonEditor } from 'json-edit-react'
 import { useTranslation } from 'react-i18next'

@@ -1,4 +1,4 @@
-import { Badge, BadgeProps } from '@mantine/core'
+import { Badge, BadgeProps } from '@shared/heroui-compat'
 import { TUsersStatus, USERS_STATUS } from '@remnawave/backend-contract'
 import { PiClockCountdown, PiClockUser, PiProhibit, PiPulse } from 'react-icons/pi'
 

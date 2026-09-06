@@ -1,7 +1,7 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Drawer } from '@mantine/core'
+import { Drawer } from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import {
     CreateHostCommand,
     INTERNAL_SQUADS_MODE,

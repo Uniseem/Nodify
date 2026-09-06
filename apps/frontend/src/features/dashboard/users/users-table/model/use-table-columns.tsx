@@ -1,5 +1,5 @@
 import { MRT_ColumnDef } from '@kastov/mantine-react-table-open'
-import { Badge, ComboboxItem, Group, SelectProps, Stack, Text, Tooltip } from '@mantine/core'
+import { Badge, ComboboxItem, Group, SelectProps, Stack, Text, Tooltip } from '@shared/heroui-compat'
 import {
     GetNodesCommand,
     GetUsersCommand,

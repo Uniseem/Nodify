@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Group } from '@mantine/core'
+import { Badge, Button, Card, Group } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import {

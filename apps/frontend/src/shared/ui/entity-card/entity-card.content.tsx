@@ -1,4 +1,4 @@
-import { Text } from '@mantine/core'
+import { Text } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 
 import classes from './entity-card.module.css'

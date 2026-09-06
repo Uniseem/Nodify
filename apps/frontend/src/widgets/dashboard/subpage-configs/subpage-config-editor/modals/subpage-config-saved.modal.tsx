@@ -1,5 +1,5 @@
-import { Stack, Text } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Stack, Text } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { TFunction } from 'i18next'
 import { TbCheck } from 'react-icons/tb'
 

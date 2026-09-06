@@ -1,4 +1,4 @@
-import { Center } from '@mantine/core'
+import { Center } from '@shared/heroui-compat'
 import { TbBrowserX } from 'react-icons/tb'
 
 import { EmptyPageLayout } from '@shared/ui/layouts/empty-page'

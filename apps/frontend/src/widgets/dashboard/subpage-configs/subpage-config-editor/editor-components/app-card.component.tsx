@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, Box, Card, Group, Text } from '@mantine/core'
+import { ActionIcon, Badge, Box, Card, Group, Text } from '@shared/heroui-compat'
 import {
     TSubscriptionPageAppConfig,
     TSubscriptionPageSvgLibrary

@@ -7,7 +7,7 @@ import {
     Text,
     TextInput,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { GeocheckByNodeCommand, GetNodeCommand } from '@remnawave/backend-contract'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'

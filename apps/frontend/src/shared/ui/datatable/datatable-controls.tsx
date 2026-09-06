@@ -1,5 +1,5 @@
 import { type DataTableColumnToggle } from '@kastov/mantine-datatable'
-import { Button, Group, Menu } from '@mantine/core'
+import { Button, Group, Menu } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbChevronDown, TbRestore } from 'react-icons/tb'
 

@@ -1,5 +1,5 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Button, Group, Modal, Stack } from '@mantine/core'
+import { Button, Group, Modal, Stack } from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
 import { CreateUserCommand, USERS_STATUS } from '@remnawave/backend-contract'
 import dayjs from 'dayjs'

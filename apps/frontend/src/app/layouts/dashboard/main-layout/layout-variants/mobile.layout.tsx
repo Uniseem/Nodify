@@ -1,4 +1,4 @@
-import { Group } from '@mantine/core'
+import { Group } from '@shared/heroui-compat'
 import { useClickOutside, useDisclosure } from '@mantine/hooks'
 
 import { HeaderControls } from '@shared/ui'

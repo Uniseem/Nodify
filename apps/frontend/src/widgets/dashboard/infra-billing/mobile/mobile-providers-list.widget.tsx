@@ -9,8 +9,8 @@ import {
     Text,
     ThemeIcon,
     Tooltip
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetInfraProvidersCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { TbCloud, TbEdit, TbLink, TbServer, TbTrash } from 'react-icons/tb'

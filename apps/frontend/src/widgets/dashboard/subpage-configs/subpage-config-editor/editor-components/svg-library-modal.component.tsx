@@ -13,7 +13,7 @@ import {
     Textarea,
     TextInput,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useDisclosure } from '@mantine/hooks'
 import { TSubscriptionPageSvgLibrary } from '@remnawave/subscription-page-types'
 import { IconBulb, IconPhoto, IconPlus, IconTrash } from '@tabler/icons-react'

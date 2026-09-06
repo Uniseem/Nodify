@@ -1,4 +1,4 @@
-import { Group, NativeSelect, NumberInput, NumberInputProps } from '@mantine/core'
+import { Group, NativeSelect, NumberInput, NumberInputProps } from '@shared/heroui-compat'
 import { useRef, useState } from 'react'
 
 import {

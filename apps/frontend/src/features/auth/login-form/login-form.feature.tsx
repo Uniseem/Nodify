@@ -1,4 +1,4 @@
-import { Button, Container, Paper, PasswordInput, TextInput } from '@mantine/core'
+import { Button, Container, Paper, PasswordInput, TextInput } from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
 import { LoginCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'

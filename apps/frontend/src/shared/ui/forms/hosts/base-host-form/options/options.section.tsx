@@ -1,4 +1,4 @@
-import { Divider, Group, Stack } from '@mantine/core'
+import { Divider, Group, Stack } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { PiListChecks } from 'react-icons/pi'
 

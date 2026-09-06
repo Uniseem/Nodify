@@ -1,4 +1,4 @@
-import { Box, Group, Indicator, Text } from '@mantine/core'
+import { Box, Group, Indicator, Text } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 
 import { getConnectionStatusColorUtil, getTimeAgoUtil } from '@shared/utils/time-utils'

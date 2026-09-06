@@ -1,4 +1,4 @@
-import { Box, Group } from '@mantine/core'
+import { Box, Group } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 
 import { useIsMobile } from '@shared/hooks'

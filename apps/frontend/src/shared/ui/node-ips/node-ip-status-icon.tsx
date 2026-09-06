@@ -1,4 +1,4 @@
-import { ThemeIcon, ThemeIconProps } from '@mantine/core'
+import { ThemeIcon, ThemeIconProps } from '@shared/heroui-compat'
 
 import { resolveNodeIpStatusMeta } from './node-ip-status.constants'
 

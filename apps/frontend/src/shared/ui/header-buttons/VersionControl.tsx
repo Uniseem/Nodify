@@ -1,5 +1,5 @@
-import { Group, Text } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Group, Text } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { useMemo } from 'react'
 import semver from 'semver'

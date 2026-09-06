@@ -1,4 +1,4 @@
-import { Group, Stack, Switch, Text, ThemeIcon } from '@mantine/core'
+import { Group, Stack, Switch, Text, ThemeIcon } from '@shared/heroui-compat'
 import { useId } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiProhibit, PiPulse } from 'react-icons/pi'

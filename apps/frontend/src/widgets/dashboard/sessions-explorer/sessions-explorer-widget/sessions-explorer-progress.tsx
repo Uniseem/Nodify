@@ -1,6 +1,6 @@
 import type { ExplorerProgress } from './use-sessions-explorer'
 
-import { Badge, Box, Group, Progress, Stack, Text } from '@mantine/core'
+import { Badge, Box, Group, Progress, Stack, Text } from '@shared/heroui-compat'
 import { AnimatePresence, motion } from 'motion/react'
 import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'

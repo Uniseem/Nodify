@@ -7,7 +7,7 @@ import {
     SimpleGrid,
     Text,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useDisclosure } from '@mantine/hooks'
 import { TSubscriptionPageSvgLibrary } from '@remnawave/subscription-page-types'
 import { IconCheck, IconPhoto, IconX } from '@tabler/icons-react'

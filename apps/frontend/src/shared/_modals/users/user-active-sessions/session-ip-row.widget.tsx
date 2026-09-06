@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Group, Stack, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Box, Group, Stack, Text, Tooltip } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import {
     TbClockCheck,

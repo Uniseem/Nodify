@@ -1,4 +1,4 @@
-import { Stack, Text } from '@mantine/core'
+import { Stack, Text } from '@shared/heroui-compat'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ReactNode, useRef } from 'react'
 import { useTranslation } from 'react-i18next'

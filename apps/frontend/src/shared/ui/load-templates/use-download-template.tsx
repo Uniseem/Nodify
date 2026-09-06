@@ -1,7 +1,7 @@
 import type { editor } from 'monaco-editor'
 
-import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
+import { modals } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { TSubscriptionTemplateType } from '@remnawave/backend-contract'
 import { RefObject } from 'react'
 import { useTranslation } from 'react-i18next'

@@ -1,4 +1,4 @@
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import { FitAddon } from '@xterm/addon-fit'
 import { Unicode11Addon } from '@xterm/addon-unicode11'
 import { WebLinksAddon } from '@xterm/addon-web-links'

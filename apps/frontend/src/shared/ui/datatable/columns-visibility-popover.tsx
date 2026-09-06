@@ -1,5 +1,5 @@
 import { type DataTableColumnToggle } from '@kastov/mantine-datatable'
-import { Button, Checkbox, Divider, Group, Popover, ScrollArea, Stack, Text } from '@mantine/core'
+import { Button, Checkbox, Divider, Group, Popover, ScrollArea, Stack, Text } from '@shared/heroui-compat'
 import { useDisclosure } from '@mantine/hooks'
 import { useTranslation } from 'react-i18next'
 import { TbColumns3, TbEye, TbEyeOff } from 'react-icons/tb'

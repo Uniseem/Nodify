@@ -1,4 +1,4 @@
-import { ActionIcon, Badge } from '@mantine/core'
+import { ActionIcon, Badge } from '@shared/heroui-compat'
 import { memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import {

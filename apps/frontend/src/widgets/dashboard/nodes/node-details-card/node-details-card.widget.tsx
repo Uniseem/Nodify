@@ -17,8 +17,8 @@ import {
     Text,
     ThemeIconProps,
     Tooltip
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetNodeCommand, UpdateNodeCommand } from '@remnawave/backend-contract'
 import { githubDarkTheme, JsonEditor } from 'json-edit-react'
 import { memo, useCallback, useMemo } from 'react'

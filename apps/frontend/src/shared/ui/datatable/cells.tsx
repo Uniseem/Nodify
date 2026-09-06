@@ -8,7 +8,7 @@ import {
     TextInput,
     ThemeIcon,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useClipboard } from '@mantine/hooks'
 import { ReactNode } from 'react'
 import { PiCheckCircleDuotone, PiXCircleDuotone } from 'react-icons/pi'

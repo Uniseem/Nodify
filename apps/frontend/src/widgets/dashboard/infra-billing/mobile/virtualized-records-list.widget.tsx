@@ -1,4 +1,4 @@
-import { Box, Center, Loader, MantineStyleProp, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Box, Center, Loader, MantineStyleProp, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'

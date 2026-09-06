@@ -1,4 +1,4 @@
-import { Badge, Card, Grid, Group, Progress, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Badge, Card, Grid, Group, Progress, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { GetRemnawaveHealthCommand } from '@remnawave/backend-contract'
 import { PiClockDuotone, PiCloudDuotone, PiGearSixDuotone, PiQueueDuotone } from 'react-icons/pi'
 

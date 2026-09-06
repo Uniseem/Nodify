@@ -1,6 +1,6 @@
 import type { ISshHostKeyPrompt } from './ssh-connection'
 
-import { ActionIcon, Box, Button, CopyButton, Group, Stack, Text, ThemeIcon } from '@mantine/core'
+import { ActionIcon, Box, Button, CopyButton, Group, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbAlertTriangle, TbCheck, TbCopy, TbFingerprint } from 'react-icons/tb'
 

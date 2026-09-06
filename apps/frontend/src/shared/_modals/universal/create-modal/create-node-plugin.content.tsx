@@ -1,4 +1,4 @@
-import { Stack, TextInput, Group, Button } from '@mantine/core'
+import { Stack, TextInput, Group, Button } from '@shared/heroui-compat'
 import { useField } from '@mantine/form'
 import { CreateNodePluginCommand } from '@remnawave/backend-contract'
 import { t } from 'i18next'

@@ -1,5 +1,5 @@
-import { ActionIcon, ColorSwatch, Menu, Tooltip } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { ActionIcon, ColorSwatch, Menu, Tooltip } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbBookmark, TbPlus, TbTrash } from 'react-icons/tb'
 

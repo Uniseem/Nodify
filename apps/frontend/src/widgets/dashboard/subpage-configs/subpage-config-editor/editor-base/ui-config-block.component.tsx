@@ -1,4 +1,4 @@
-import { Card, Divider, Select, SimpleGrid, Stack } from '@mantine/core'
+import { Card, Divider, Select, SimpleGrid, Stack } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import {
     INSTALLATION_GUIDE_BLOCKS_VARIANTS_VALUES,

@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mantine/core'
+import { Button, Stack } from '@shared/heroui-compat'
 import { TOAuth2ProvidersKeys } from '@remnawave/backend-contract'
 import { useState } from 'react'
 import { BiLogoGithub, BiLogoTelegram } from 'react-icons/bi'

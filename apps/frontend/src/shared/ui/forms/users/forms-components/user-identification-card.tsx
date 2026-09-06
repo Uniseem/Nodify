@@ -11,8 +11,8 @@ import {
     Stack,
     Text,
     Tooltip
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetUserByIdCommand, USERS_STATUS } from '@remnawave/backend-contract'
 import { UserStatusBadge } from '@widgets/dashboard/users/user-status-badge'
 import dayjs from 'dayjs'

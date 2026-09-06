@@ -1,4 +1,4 @@
-import { Breadcrumbs, UnstyledButton } from '@mantine/core'
+import { Breadcrumbs, UnstyledButton } from '@shared/heroui-compat'
 import cx from 'clsx'
 import { ReactNode } from 'react'
 import { TbChevronRight } from 'react-icons/tb'

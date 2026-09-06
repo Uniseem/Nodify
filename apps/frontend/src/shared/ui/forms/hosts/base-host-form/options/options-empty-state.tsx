@@ -1,4 +1,4 @@
-import { rem, Stack, Text, ThemeIcon } from '@mantine/core'
+import { rem, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbAdjustmentsHorizontal } from 'react-icons/tb'
 

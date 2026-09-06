@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Input, Tooltip } from '@mantine/core'
+import { ActionIcon, Box, Input, Tooltip } from '@shared/heroui-compat'
 import { createContext, ReactNode, useContext, useId } from 'react'
 import { TbArrowBackUp } from 'react-icons/tb'
 

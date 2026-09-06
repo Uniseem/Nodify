@@ -1,4 +1,4 @@
-import { Alert, Anchor, Button, Group, Stack, Text, Textarea } from '@mantine/core'
+import { Alert, Anchor, Button, Group, Stack, Text, Textarea } from '@shared/heroui-compat'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbAlertTriangle, TbBook, TbLock, TbLockOpen } from 'react-icons/tb'

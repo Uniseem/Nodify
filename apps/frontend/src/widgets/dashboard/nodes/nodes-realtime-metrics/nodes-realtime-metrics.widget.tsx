@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@mantine/core'
+import { SimpleGrid } from '@shared/heroui-compat'
 import { GetNodesCommand } from '@remnawave/backend-contract'
 import { motion } from 'motion/react'
 import { useMemo } from 'react'

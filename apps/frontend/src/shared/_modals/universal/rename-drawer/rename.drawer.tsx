@@ -1,5 +1,5 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { ActionIcon, ModalProps, TextInput } from '@mantine/core'
+import { ActionIcon, ModalProps, TextInput } from '@shared/heroui-compat'
 import { useField } from '@mantine/form'
 import {
     UpdateConfigProfileCommand,

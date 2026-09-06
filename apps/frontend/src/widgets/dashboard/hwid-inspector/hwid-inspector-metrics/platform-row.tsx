@@ -1,4 +1,4 @@
-import { Box, Group, Paper, Progress, Text } from '@mantine/core'
+import { Box, Group, Paper, Progress, Text } from '@shared/heroui-compat'
 
 import { AppBreakdown } from './app-breakdown'
 import { IPlatformDatum } from './hwid-inspector-metrics.types'

@@ -1,5 +1,5 @@
-import { CodeHighlight } from '@mantine/code-highlight'
-import { Group, Stack, Text, ThemeIcon } from '@mantine/core'
+import { CodeHighlight } from '@shared/heroui-compat'
+import { Group, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { Trans, useTranslation } from 'react-i18next'
 import { TbBrandDocker, TbClock, TbHourglass, TbTag } from 'react-icons/tb'
 

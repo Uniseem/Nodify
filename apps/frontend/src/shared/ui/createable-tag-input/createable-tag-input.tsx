@@ -1,6 +1,6 @@
 import type { IProps } from './interfaces/props.interface'
 
-import { CloseButton, Combobox, InputBase, useCombobox } from '@mantine/core'
+import { CloseButton, Combobox, InputBase, useCombobox } from '@shared/heroui-compat'
 import { useEffect, useState } from 'react'
 import { PiTagDuotone } from 'react-icons/pi'
 

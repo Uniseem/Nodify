@@ -1,5 +1,5 @@
-import { Box, BoxProps } from '@mantine/core'
-import { nprogress } from '@mantine/nprogress'
+import { Box, BoxProps } from '@shared/heroui-compat'
+import { nprogress } from '@shared/heroui-compat'
 import { AnimatePresence, motion } from 'framer-motion'
 import { forwardRef, ReactNode, useEffect, useMemo } from 'react'
 import { app } from 'src/config'

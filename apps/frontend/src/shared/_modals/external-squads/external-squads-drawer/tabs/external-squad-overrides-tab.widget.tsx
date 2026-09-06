@@ -12,7 +12,7 @@ import {
     Text,
     Textarea,
     TextInput
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { GetExternalSquadByUuidCommand } from '@remnawave/backend-contract'
 import { TFunction } from 'i18next'
 import { useEffect, useMemo, useState } from 'react'

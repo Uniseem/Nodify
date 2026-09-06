@@ -1,4 +1,4 @@
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import {
     BulkNodesActionsCommand,
     BulkNodesProfileModificationCommand,

@@ -9,7 +9,7 @@ import {
     Stack,
     Text,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { GetConfigProfilesCommand } from '@remnawave/backend-contract'
 import ReactCountryFlag from 'react-country-flag'
 import { useTranslation } from 'react-i18next'

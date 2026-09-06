@@ -1,4 +1,4 @@
-import { CardSection, CardSectionProps, ElementProps } from '@mantine/core'
+import { CardSection, CardSectionProps, ElementProps } from '@shared/heroui-compat'
 import { forwardRef } from 'react'
 
 export const DataTableContent = forwardRef<

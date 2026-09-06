@@ -1,4 +1,4 @@
-import { Box, Center } from '@mantine/core'
+import { Box, Center } from '@shared/heroui-compat'
 import { Outlet } from 'react-router'
 
 export function AuthLayout() {

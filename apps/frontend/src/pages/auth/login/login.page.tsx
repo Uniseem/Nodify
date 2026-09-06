@@ -2,7 +2,7 @@ import { LoginFormFeature } from '@features/auth/login-form'
 import { OAuth2LoginButtonsFeature } from '@features/auth/oauth2-login-button/oauth2-login-button.feature'
 import { PasskeyLoginButtonFeature } from '@features/auth/passkey-login-button'
 import { RegisterFormFeature } from '@features/auth/register-form'
-import { Badge, Box, Center, Divider, Group, Image, Stack, Text, Title } from '@mantine/core'
+import { Badge, Box, Center, Divider, Group, Image, Stack, Text, Title } from '@shared/heroui-compat'
 import { GetStatusCommand } from '@remnawave/backend-contract'
 import { useMemo } from 'react'
 

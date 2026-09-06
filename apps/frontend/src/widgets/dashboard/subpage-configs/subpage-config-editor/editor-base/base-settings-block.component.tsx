@@ -9,7 +9,7 @@ import {
     Text,
     TextInput,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import { TSubscriptionPageRawConfig } from '@remnawave/subscription-page-types'
 import { useTranslation } from 'react-i18next'

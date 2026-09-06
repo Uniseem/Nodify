@@ -1,4 +1,4 @@
-import { Button, Card, Code, Group, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Button, Card, Code, Group, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { useOs } from '@mantine/hooks'
 import { BULLBOARD_ROOT, ROOT, SCALAR_ROOT, SWAGGER_ROOT } from '@remnawave/backend-contract'
 import { TFunction } from 'i18next'

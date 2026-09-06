@@ -9,9 +9,9 @@ import {
     Stack,
     Text,
     TextInput
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
-import { modals } from '@mantine/modals'
+import { modals } from '@shared/heroui-compat'
 import {
     GetRemnawaveSettingsCommand,
     UpdateRemnawaveSettingsCommand

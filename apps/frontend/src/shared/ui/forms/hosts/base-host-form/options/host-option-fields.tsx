@@ -1,4 +1,4 @@
-import { Text } from '@mantine/core'
+import { Text } from '@shared/heroui-compat'
 import { ParseKeys } from 'i18next'
 import { ComponentType } from 'react'
 import { useTranslation } from 'react-i18next'

@@ -1,4 +1,4 @@
-import { Box, Group, Text } from '@mantine/core'
+import { Box, Group, Text } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 
 import { prettifyBytesUtil } from '@shared/utils/bytes'

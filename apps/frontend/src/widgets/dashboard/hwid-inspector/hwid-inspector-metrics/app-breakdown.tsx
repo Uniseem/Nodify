@@ -1,4 +1,4 @@
-import { Group, Text } from '@mantine/core'
+import { Group, Text } from '@shared/heroui-compat'
 
 import { IPlatformApp } from './hwid-inspector-metrics.types'
 import { formatCount } from './hwid-inspector-metrics.utils'

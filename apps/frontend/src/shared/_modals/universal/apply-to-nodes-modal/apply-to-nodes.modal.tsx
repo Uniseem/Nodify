@@ -1,5 +1,5 @@
-import { Stack, ThemeIconProps } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Stack, ThemeIconProps } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { t } from 'i18next'
 import { IconType } from 'react-icons'
 import { TbDeviceFloppy, TbRocket } from 'react-icons/tb'

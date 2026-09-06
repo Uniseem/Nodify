@@ -1,4 +1,4 @@
-import { AppShell, Group, GroupProps } from '@mantine/core'
+import { AppShell, Group, GroupProps } from '@shared/heroui-compat'
 import { Outlet, ScrollRestoration } from 'react-router'
 
 import { SidebarLogoShared, SidebarTitleShared } from '@shared/ui/sidebar'

@@ -1,4 +1,4 @@
-import { Button, Group, Stack, Switch } from '@mantine/core'
+import { Button, Group, Stack, Switch } from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
 import { UpdateSubscriptionSettingsCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'

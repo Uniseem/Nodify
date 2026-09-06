@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, Checkbox, Group, Text } from '@mantine/core'
+import { ActionIcon, Badge, Checkbox, Group, Text } from '@shared/heroui-compat'
 import { memo } from 'react'
 import { PiTag, PiUsers } from 'react-icons/pi'
 import { TbEdit } from 'react-icons/tb'

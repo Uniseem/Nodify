@@ -1,6 +1,6 @@
 import type { IProps } from './interfaces/props.interface'
 
-import { Avatar, ComboboxItem, Group, Select, Skeleton, Stack, Text } from '@mantine/core'
+import { Avatar, ComboboxItem, Group, Select, Skeleton, Stack, Text } from '@shared/heroui-compat'
 import { forwardRef } from 'react'
 import { useTranslation } from 'react-i18next'
 

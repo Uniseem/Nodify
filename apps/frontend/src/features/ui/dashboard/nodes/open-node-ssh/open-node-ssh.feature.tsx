@@ -1,4 +1,4 @@
-import { ActionIcon, Tooltip } from '@mantine/core'
+import { ActionIcon, Tooltip } from '@shared/heroui-compat'
 import { GetNodeCommand } from '@remnawave/backend-contract'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'

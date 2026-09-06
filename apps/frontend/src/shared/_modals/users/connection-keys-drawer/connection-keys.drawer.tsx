@@ -11,8 +11,8 @@ import {
     Text,
     Box,
     Button
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { githubDarkTheme } from 'json-edit-react'
 import { JsonEditor } from 'json-edit-react'
 import { useTranslation } from 'react-i18next'

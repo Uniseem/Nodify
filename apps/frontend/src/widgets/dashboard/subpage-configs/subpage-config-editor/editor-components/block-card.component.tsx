@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, Card, Group, Text } from '@mantine/core'
+import { ActionIcon, Badge, Card, Group, Text } from '@shared/heroui-compat'
 import {
     TSubscriptionPageBlockConfig,
     TSubscriptionPageLanguageCode

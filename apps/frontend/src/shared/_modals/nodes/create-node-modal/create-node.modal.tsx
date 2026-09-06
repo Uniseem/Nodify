@@ -1,5 +1,5 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Group, Modal, Progress, Stack, Transition } from '@mantine/core'
+import { Group, Modal, Progress, Stack, Transition } from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
 import { CreateNodeCommand } from '@remnawave/backend-contract'
 import { useEffect, useState } from 'react'

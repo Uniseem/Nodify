@@ -1,4 +1,4 @@
-import { Card, CardProps, Divider, MantineSpacing, Stack } from '@mantine/core'
+import { Card, CardProps, Divider, MantineSpacing, Stack } from '@shared/heroui-compat'
 import { Children, ReactNode, RefObject } from 'react'
 
 interface ISectionCardRootProps extends Omit<CardProps, 'children'> {

@@ -1,4 +1,4 @@
-import { Select, Stack } from '@mantine/core'
+import { Select, Stack } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import { BulkAllUpdateUsersCommand } from '@remnawave/backend-contract'
 import { ForwardRefComponent, HTMLMotionProps, Variants } from 'motion/react'

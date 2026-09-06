@@ -1,5 +1,5 @@
 import { DataTableColumn } from '@kastov/mantine-datatable'
-import { ActionIcon, Group, Text } from '@mantine/core'
+import { ActionIcon, Group, Text } from '@shared/heroui-compat'
 import { GetTopUsersByHwidDevicesCommand } from '@remnawave/backend-contract'
 import { TFunction } from 'i18next'
 import { PiUserCircle } from 'react-icons/pi'

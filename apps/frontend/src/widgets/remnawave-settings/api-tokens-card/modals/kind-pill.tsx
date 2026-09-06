@@ -1,4 +1,4 @@
-import { UnstyledButton } from '@mantine/core'
+import { UnstyledButton } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { MouseEvent } from 'react'
 import { TbCheck, TbMinus } from 'react-icons/tb'

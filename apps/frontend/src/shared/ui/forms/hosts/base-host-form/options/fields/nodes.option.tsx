@@ -1,4 +1,4 @@
-import { Badge, Checkbox, Group, MultiSelect } from '@mantine/core'
+import { Badge, Checkbox, Group, MultiSelect } from '@shared/heroui-compat'
 
 import { useSettingsRowControl } from '@shared/ui/settings-row'
 import { TagInputPill } from '@shared/ui/tag-input-pill'

@@ -1,4 +1,4 @@
-import { Badge, Group } from '@mantine/core'
+import { Badge, Group } from '@shared/heroui-compat'
 import { GetConfigProfilesCommand } from '@remnawave/backend-contract'
 import { PiCpu, PiTag } from 'react-icons/pi'
 import { generatePath, useNavigate } from 'react-router'

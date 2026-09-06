@@ -1,5 +1,5 @@
-import { Divider, Stack, Text } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Divider, Stack, Text } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { TSubscriptionPageRawConfig } from '@remnawave/subscription-page-types'
 import { useTranslation } from 'react-i18next'
 import { TbDevices, TbIcons, TbLanguage, TbReplace } from 'react-icons/tb'

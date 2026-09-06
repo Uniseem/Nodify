@@ -1,4 +1,4 @@
-import { ActionIcon, Anchor, Popover, Stack, Text } from '@mantine/core'
+import { ActionIcon, Anchor, Popover, Stack, Text } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { HiQuestionMarkCircle } from 'react-icons/hi'

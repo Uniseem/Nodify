@@ -1,4 +1,4 @@
-import { Button, Combobox, rem, Text, useCombobox } from '@mantine/core'
+import { Button, Combobox, rem, Text, useCombobox } from '@shared/heroui-compat'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbPlus } from 'react-icons/tb'

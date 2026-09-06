@@ -1,4 +1,4 @@
-import { Button, Card, Drawer, Stack, Text, TextInput } from '@mantine/core'
+import { Button, Card, Drawer, Stack, Text, TextInput } from '@shared/heroui-compat'
 import {
     TSubscriptionPageBlockConfig,
     TSubscriptionPageButtonConfig,

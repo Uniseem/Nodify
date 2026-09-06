@@ -1,4 +1,4 @@
-import { Button, Card, Group, Stack, Switch, TextInput } from '@mantine/core'
+import { Button, Card, Group, Stack, Switch, TextInput } from '@shared/heroui-compat'
 import { useDisclosure } from '@mantine/hooks'
 import {
     TSubscriptionPageAppConfig,

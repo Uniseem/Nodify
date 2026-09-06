@@ -1,4 +1,4 @@
-import { ActionIcon, Avatar, Group, Text } from '@mantine/core'
+import { ActionIcon, Avatar, Group, Text } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbCreditCard, TbTrash } from 'react-icons/tb'
 

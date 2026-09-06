@@ -1,4 +1,4 @@
-import { ActionIcon, Group } from '@mantine/core'
+import { ActionIcon, Group } from '@shared/heroui-compat'
 import { TbArrowsDiagonal, TbArrowsDiagonalMinimize2, TbMinus, TbPlus, TbX } from 'react-icons/tb'
 
 import classes from '../NodeSshTerminal.module.css'

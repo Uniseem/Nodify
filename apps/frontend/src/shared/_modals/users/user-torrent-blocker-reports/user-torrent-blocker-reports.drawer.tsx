@@ -10,7 +10,7 @@ import {
     ThemeIcon,
     Tooltip,
     Transition
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbFlame, TbRefresh } from 'react-icons/tb'
 import { Virtuoso } from 'react-virtuoso'

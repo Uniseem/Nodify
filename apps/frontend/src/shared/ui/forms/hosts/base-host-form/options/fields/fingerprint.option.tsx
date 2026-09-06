@@ -1,4 +1,4 @@
-import { Autocomplete } from '@mantine/core'
+import { Autocomplete } from '@shared/heroui-compat'
 import { FINGERPRINTS } from '@remnawave/backend-contract'
 import { PiCaretDown } from 'react-icons/pi'
 

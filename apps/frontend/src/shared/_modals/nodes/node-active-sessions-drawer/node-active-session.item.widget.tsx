@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, Box, Group, Stack, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Badge, Box, Group, Stack, Text, Tooltip } from '@shared/heroui-compat'
 import { ConnectionsByNodeResultCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { PiEmptyDuotone, PiUserCircle } from 'react-icons/pi'

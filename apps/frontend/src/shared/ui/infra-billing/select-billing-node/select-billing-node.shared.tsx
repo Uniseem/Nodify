@@ -1,6 +1,6 @@
 import type { IProps } from './interfaces/props.interface'
 
-import { ComboboxItem, Group, Select, Text } from '@mantine/core'
+import { ComboboxItem, Group, Select, Text } from '@shared/heroui-compat'
 import { forwardRef, useState } from 'react'
 import ReactCountryFlag from 'react-country-flag'
 import { useTranslation } from 'react-i18next'
@@ -74,7 +74,7 @@ export const SelectBillingNodeShared = (props: IProps) => {
 
     const currentSelectedUuid = selectedValue || selectedBillingNodeUuid
 
-    let selectedBillingNode = null
+    let selectedBillingNode: (typeof infraBillingNodes.availableBillingNodes)[number] | undefined
     if (currentSelectedUuid) {
         selectedBillingNode = infraBillingNodes.availableBillingNodes.find(
             (billingNode) => billingNode.uuid === currentSelectedUuid

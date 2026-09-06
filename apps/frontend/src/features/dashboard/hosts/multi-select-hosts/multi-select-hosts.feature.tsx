@@ -9,9 +9,9 @@ import {
     Stack,
     Tooltip,
     Transition
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiProhibitDuotone, PiPulseDuotone } from 'react-icons/pi'

@@ -8,7 +8,7 @@ import {
     MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
-import { ActionIcon, ActionIconGroup, Tooltip } from '@mantine/core'
+import { ActionIcon, ActionIconGroup, Tooltip } from '@shared/heroui-compat'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {

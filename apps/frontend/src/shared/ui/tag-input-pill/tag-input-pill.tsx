@@ -1,4 +1,4 @@
-import { Badge, CloseButton } from '@mantine/core'
+import { Badge, CloseButton } from '@shared/heroui-compat'
 
 interface IProps {
     onRemove?: () => void

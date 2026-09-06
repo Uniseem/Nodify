@@ -1,4 +1,4 @@
-import { ActionIcon, Box, CopyButton, Input, InputWrapperProps, MantineColor } from '@mantine/core'
+import { ActionIcon, Box, CopyButton, Input, InputWrapperProps, MantineColor } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { PiCheck, PiCopy } from 'react-icons/pi'
 

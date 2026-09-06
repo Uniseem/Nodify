@@ -1,5 +1,5 @@
 import { ShowConfigProfilesWithInboundsFeature } from '@features/ui/dashboard/nodes/show-config-profiles-with-inbounds'
-import { Skeleton, Stack } from '@mantine/core'
+import { Skeleton, Stack } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import { CreateNodeCommand, UpdateNodeCommand } from '@remnawave/backend-contract'
 import { ForwardRefComponent, HTMLMotionProps, motion, Variants } from 'motion/react'

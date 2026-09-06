@@ -1,4 +1,4 @@
-import { Container } from '@mantine/core'
+import { Container } from '@shared/heroui-compat'
 import { SubscriptionSettingsTabsWidget } from '@widgets/dashboard/subscription-settings/settings/subscription-tabs.widget'
 import { useTranslation } from 'react-i18next'
 import { TbHexagon } from 'react-icons/tb'

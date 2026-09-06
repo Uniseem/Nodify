@@ -1,5 +1,5 @@
-import { ActionIcon, Badge, SimpleGrid, Tooltip } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { ActionIcon, Badge, SimpleGrid, Tooltip } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { MobileNodesListWidget } from '@widgets/dashboard/infra-billing/mobile/mobile-nodes-list.widget'
 import { MobileProvidersListWidget } from '@widgets/dashboard/infra-billing/mobile/mobile-providers-list.widget'
 import { VirtualizedRecordsList } from '@widgets/dashboard/infra-billing/mobile/virtualized-records-list.widget'

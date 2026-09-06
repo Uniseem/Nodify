@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@mantine/core'
+import { SimpleGrid } from '@shared/heroui-compat'
 import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import { TbClockHour2, TbFileReport, TbServer, TbUsers } from 'react-icons/tb'

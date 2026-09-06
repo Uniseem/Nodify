@@ -1,5 +1,5 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { ActionIcon, Box, Group, Modal, Stack, Tooltip } from '@mantine/core'
+import { ActionIcon, Box, Group, Modal, Stack, Tooltip } from '@shared/heroui-compat'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbPlugConnected, TbPlus, TbRefresh } from 'react-icons/tb'

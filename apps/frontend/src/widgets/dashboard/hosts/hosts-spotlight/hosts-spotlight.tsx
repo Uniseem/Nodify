@@ -1,4 +1,4 @@
-import { Group, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Group, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { GetHostsCommand, GetConfigProfilesCommand } from '@remnawave/backend-contract'
 import { PiProhibit, PiPulse } from 'react-icons/pi'
 import { TbEyeOff } from 'react-icons/tb'

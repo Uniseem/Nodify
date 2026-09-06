@@ -1,4 +1,4 @@
-import { Badge, Card, Divider, Group, ScrollArea, SimpleGrid, Stack } from '@mantine/core'
+import { Badge, Card, Divider, Group, ScrollArea, SimpleGrid, Stack } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import {
     getLanguagesArray,

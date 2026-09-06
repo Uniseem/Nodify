@@ -1,4 +1,4 @@
-import type { InputBaseProps } from '@mantine/core'
+import type { InputBaseProps } from '@shared/heroui-compat'
 
 export interface IProps extends InputBaseProps {
     defaultValue?: null | string

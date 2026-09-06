@@ -1,7 +1,7 @@
 import type { ILauncherPosition, IQuickLauncherRoute, TQuickLink } from './quick-links.types'
 import type { SetFloatingWindowPosition } from '@mantine/hooks'
 
-import { ActionIcon, FloatingWindow } from '@mantine/core'
+import { ActionIcon, FloatingWindow } from '@shared/heroui-compat'
 import {
     CSSProperties,
     ComponentType,

@@ -1,4 +1,4 @@
-import { Popover, Text } from '@mantine/core'
+import { Popover, Text } from '@shared/heroui-compat'
 import { PiInfo } from 'react-icons/pi'
 
 import { IProps } from './interfaces/props.interface'

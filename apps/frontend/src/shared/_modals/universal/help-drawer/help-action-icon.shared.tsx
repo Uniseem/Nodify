@@ -1,4 +1,4 @@
-import { ActionIcon, ActionIconProps, Tooltip } from '@mantine/core'
+import { ActionIcon, ActionIconProps, Tooltip } from '@shared/heroui-compat'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IconBaseProps } from 'react-icons/lib'

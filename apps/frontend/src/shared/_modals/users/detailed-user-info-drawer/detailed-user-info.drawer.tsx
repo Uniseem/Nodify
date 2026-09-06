@@ -1,5 +1,5 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { DataList, Drawer, Group, Stack } from '@mantine/core'
+import { DataList, Drawer, Group, Stack } from '@shared/heroui-compat'
 import { UserStatusBadge } from '@widgets/dashboard/users/user-status-badge'
 import { useTranslation } from 'react-i18next'
 import {

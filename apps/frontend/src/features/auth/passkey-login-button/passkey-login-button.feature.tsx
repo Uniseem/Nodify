@@ -1,5 +1,5 @@
-import { Button } from '@mantine/core'
-import { notifications } from '@mantine/notifications'
+import { Button } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { GetStatusCommand } from '@remnawave/backend-contract'
 import {
     type PublicKeyCredentialRequestOptionsJSON,

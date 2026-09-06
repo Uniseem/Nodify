@@ -1,4 +1,4 @@
-import { Checkbox, Stack, Text, TextInput } from '@mantine/core'
+import { Checkbox, Stack, Text, TextInput } from '@shared/heroui-compat'
 import { GetInternalSquadsCommand } from '@remnawave/backend-contract'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { Key, memo, useRef } from 'react'

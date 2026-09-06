@@ -7,7 +7,7 @@ import {
     Text,
     ThemeIcon,
     UnstyledButton
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbServer } from 'react-icons/tb'
 

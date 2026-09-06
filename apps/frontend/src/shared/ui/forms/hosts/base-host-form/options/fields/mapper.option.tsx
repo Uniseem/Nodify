@@ -1,4 +1,4 @@
-import { Button } from '@mantine/core'
+import { Button } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbArrowsExchange, TbPencil } from 'react-icons/tb'
 

@@ -1,4 +1,4 @@
-import { BoxProps, Group } from '@mantine/core'
+import { BoxProps, Group } from '@shared/heroui-compat'
 
 import { GithubControl } from './GithubControl'
 import { LanguageControl } from './LanguageControl'

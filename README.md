@@ -11,7 +11,7 @@ Remnawave 全部公开组件的单体仓库。源码来自 [remnawave](https://g
 ```
 apps/                  可运行的主服务
   backend/             管理 API（NestJS + Prisma/SQLite + Redis）
-  frontend/            管理后台（React + Vite + Mantine）
+  frontend/            管理后台（React + Vite + HeroUI）
   node/                节点端，驱动 Xray-core
   subscription-page/   独立订阅页
 

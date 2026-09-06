@@ -1,4 +1,4 @@
-import { Button, Card, Select, Stack, Text } from '@mantine/core'
+import { Button, Card, Select, Stack, Text } from '@shared/heroui-compat'
 import { GetExternalSquadByUuidCommand } from '@remnawave/backend-contract'
 import { IconPalette } from '@tabler/icons-react'
 import { useState } from 'react'

@@ -1,5 +1,5 @@
 import { DataTableColumn } from '@kastov/mantine-datatable'
-import { ActionIcon, Avatar, Badge, Group, MultiSelect, Text, TextInput } from '@mantine/core'
+import { ActionIcon, Avatar, Badge, Group, MultiSelect, Text, TextInput } from '@shared/heroui-compat'
 import {
     GetNodesCommand,
     GetConfigProfilesCommand,

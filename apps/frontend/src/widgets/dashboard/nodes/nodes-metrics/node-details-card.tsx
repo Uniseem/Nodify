@@ -12,7 +12,7 @@ import {
     Text,
     ThemeIcon,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { GetNodesMetricsCommand } from '@remnawave/backend-contract'
 import { memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'

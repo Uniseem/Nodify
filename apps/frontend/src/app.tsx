@@ -10,10 +10,16 @@ import '@mantine/spotlight/styles.css'
 import '@kastov/mantine-react-table-open/styles.css'
 import '@kastov/mantine-datatable/styles.css'
 import './global.css'
-import { Center, DirectionProvider, MantineProvider, v8CssVariablesResolver } from '@mantine/core'
-import { ModalsProvider } from '@mantine/modals'
-import { Notifications } from '@mantine/notifications'
-import { NavigationProgress } from '@mantine/nprogress'
+import {
+    Center,
+    DirectionProvider,
+    MantineProvider,
+    ModalsProvider,
+    NavigationProgress,
+    Notifications,
+    NotificationsProvider,
+    v8CssVariablesResolver
+} from '@shared/heroui-compat'
 import { QueryClientProvider } from '@tanstack/react-query'
 // import { hideSplashScreen } from 'vite-plugin-splash-screen/runtime'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -70,20 +76,22 @@ export function App() {
                                 theme={theme}
                                 deduplicateInlineStyles
                             >
-                                <ModalsProvider>
-                                    <Notifications position="top-right" />
-                                    <ConnectionStatusOverlay />
-                                    <NavigationProgress />
-                                    <Suspense
-                                        fallback={
-                                            <Center h="100%">
-                                                <LoadingScreen height="60vh" />
-                                            </Center>
-                                        }
-                                    >
-                                        <Router />
-                                    </Suspense>
-                                </ModalsProvider>
+                                <NotificationsProvider>
+                                    <ModalsProvider>
+                                        <Notifications position="top-right" />
+                                        <ConnectionStatusOverlay />
+                                        <NavigationProgress />
+                                        <Suspense
+                                            fallback={
+                                                <Center h="100%">
+                                                    <LoadingScreen height="60vh" />
+                                                </Center>
+                                            }
+                                        >
+                                            <Router />
+                                        </Suspense>
+                                    </ModalsProvider>
+                                </NotificationsProvider>
                             </MantineProvider>
                         </DirectionProvider>
                     </IsMobileProvider>

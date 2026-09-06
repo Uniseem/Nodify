@@ -1,7 +1,7 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { DeleteAllUsersByStatusFeature } from '@features/ui/dashboard/users/delete-all-users-by-status'
-import { Button, Modal, NumberInput, Stack } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Button, Modal, NumberInput, Stack } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbBolt, TbCalendarUp, TbRefresh, TbTrash, TbUsersMinus } from 'react-icons/tb'
 

@@ -1,4 +1,4 @@
-import { Box, Group, Text, ThemeIcon } from '@mantine/core'
+import { Box, Group, Text, ThemeIcon } from '@shared/heroui-compat'
 import { ComponentType, ReactNode } from 'react'
 
 import classes from './runtime-info-modal.module.css'

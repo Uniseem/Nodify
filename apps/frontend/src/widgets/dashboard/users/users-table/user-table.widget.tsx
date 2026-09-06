@@ -9,8 +9,8 @@ import {
     MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
-import { ActionIcon, ActionIconGroup, Badge, Tooltip } from '@mantine/core'
-import { notifications } from '@mantine/notifications'
+import { ActionIcon, ActionIconGroup, Badge, Tooltip } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiUsersDuotone } from 'react-icons/pi'

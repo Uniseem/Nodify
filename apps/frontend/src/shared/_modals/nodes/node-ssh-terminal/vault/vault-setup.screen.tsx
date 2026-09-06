@@ -1,4 +1,4 @@
-import { Box, Button, CopyButton, Group, SimpleGrid, Stack, Text } from '@mantine/core'
+import { Box, Button, CopyButton, Group, SimpleGrid, Stack, Text } from '@shared/heroui-compat'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbArrowRight, TbCheck, TbCopy, TbLock, TbShieldLock } from 'react-icons/tb'

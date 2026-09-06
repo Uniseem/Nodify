@@ -10,7 +10,7 @@ import {
     Stack,
     Text,
     TextInput
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbKey, TbPlugConnected, TbRefresh, TbServer, TbTerminal2 } from 'react-icons/tb'

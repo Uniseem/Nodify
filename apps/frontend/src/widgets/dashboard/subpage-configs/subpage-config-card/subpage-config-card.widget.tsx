@@ -1,4 +1,4 @@
-import { CopyButton, Menu } from '@mantine/core'
+import { CopyButton, Menu } from '@shared/heroui-compat'
 import { GetSubpageConfigsCommand } from '@remnawave/backend-contract'
 import { SUBPAGE_DEFAULT_CONFIG_UUID } from '@remnawave/subscription-page-types'
 import { useTranslation } from 'react-i18next'

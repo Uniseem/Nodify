@@ -1,4 +1,4 @@
-import { Card, Divider, Stack, TextInput } from '@mantine/core'
+import { Card, Divider, Stack, TextInput } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import { TSubscriptionPageRawConfig } from '@remnawave/subscription-page-types'
 import { IconPalette } from '@tabler/icons-react'

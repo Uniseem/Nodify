@@ -1,5 +1,5 @@
-import { Box, Button, ColorPicker, Grid, Group, Stack } from '@mantine/core'
-import { notifications } from '@mantine/notifications'
+import { Box, Button, ColorPicker, Grid, Group, Stack } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbCopy, TbDownload } from 'react-icons/tb'

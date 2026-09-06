@@ -1,5 +1,5 @@
 import { DataTable, type DataTableSortStatus, useDataTableColumns } from '@kastov/mantine-datatable'
-import { Box, Button, Stack, Text } from '@mantine/core'
+import { Box, Button, Stack, Text } from '@shared/heroui-compat'
 import { useDebouncedValue } from '@mantine/hooks'
 import { GetNodesCommand } from '@remnawave/backend-contract'
 import { memo, useMemo, useState } from 'react'

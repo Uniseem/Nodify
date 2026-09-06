@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Divider, Group, Stack, Text, ThemeIcon } from '@mantine/core'
+import { ActionIcon, Box, Divider, Group, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { GetUserSubscriptionRequestHistoryCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { TbExternalLink, TbViewfinder } from 'react-icons/tb'

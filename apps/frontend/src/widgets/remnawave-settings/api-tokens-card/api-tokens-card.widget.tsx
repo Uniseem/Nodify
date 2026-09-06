@@ -8,8 +8,8 @@ import {
     Text,
     Tooltip,
     Transition
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetApiTokensCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { PiEmpty } from 'react-icons/pi'

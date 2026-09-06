@@ -1,5 +1,5 @@
-import { ActionIcon, Select, SimpleGrid, Stack } from '@mantine/core'
-import { DatePickerInput, DatesRangeValue } from '@mantine/dates'
+import { ActionIcon, Select, SimpleGrid, Stack } from '@shared/heroui-compat'
+import { DatePickerInput, DatesRangeValue } from '@shared/heroui-compat'
 import { NodesStatisticBarchartWidget } from '@widgets/dashboard/nodes-statistic/statistic-barchart'
 import { NodesStatisticSparklineCardWidget } from '@widgets/dashboard/nodes-statistic/statistic-sparkline-card'
 import dayjs from 'dayjs'

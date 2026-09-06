@@ -1,4 +1,4 @@
-import { modals } from '@mantine/modals'
+import { modals } from '@shared/heroui-compat'
 import { IconCrownFilled } from '@tabler/icons-react'
 
 import { PrimeModalContent } from '../prime-modal/prime-modal.shared'

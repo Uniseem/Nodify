@@ -1,4 +1,4 @@
-import { Center, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Center, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 
 import { SectionCard } from '@shared/ui/section-card'

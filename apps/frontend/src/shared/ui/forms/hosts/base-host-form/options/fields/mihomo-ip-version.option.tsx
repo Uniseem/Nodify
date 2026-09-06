@@ -1,4 +1,4 @@
-import { Select } from '@mantine/core'
+import { Select } from '@shared/heroui-compat'
 import { MIHOMO_IP_VERSION } from '@remnawave/backend-contract'
 
 import { useSettingsRowControl } from '@shared/ui/settings-row'

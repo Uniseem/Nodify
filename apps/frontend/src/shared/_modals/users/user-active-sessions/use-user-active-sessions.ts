@@ -1,4 +1,4 @@
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import { ConnectionsByUserResultCommand } from '@remnawave/backend-contract'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'

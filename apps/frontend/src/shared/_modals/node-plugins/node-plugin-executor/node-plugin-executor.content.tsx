@@ -10,7 +10,7 @@ import {
     Text,
     Textarea,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { GetNodesCommand } from '@remnawave/backend-contract'
 import { useCallback, useState } from 'react'
 import ReactCountryFlag from 'react-country-flag'

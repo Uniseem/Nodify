@@ -1,4 +1,4 @@
-import { Button, Container, Group, Text, Title } from '@mantine/core'
+import { Button, Container, Group, Text, Title } from '@shared/heroui-compat'
 import { useNavigate } from 'react-router'
 
 import { ROUTES } from '@shared/constants'

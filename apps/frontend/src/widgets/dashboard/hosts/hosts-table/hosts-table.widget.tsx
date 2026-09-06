@@ -7,7 +7,7 @@ import {
     DragOverlay,
     DragStartEvent
 } from '@dnd-kit/react'
-import { Box, Container, Stack } from '@mantine/core'
+import { Box, Container, Stack } from '@shared/heroui-compat'
 import { GetHostsCommand } from '@remnawave/backend-contract'
 import { useWindowVirtualizer } from '@tanstack/react-virtual'
 import { HostCardWidget } from '@widgets/dashboard/hosts/host-card'

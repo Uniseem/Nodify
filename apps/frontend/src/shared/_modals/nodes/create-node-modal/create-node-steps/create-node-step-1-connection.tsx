@@ -12,7 +12,7 @@ import {
     Text,
     TextInput,
     UnstyledButton
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import { CreateNodeCommand } from '@remnawave/backend-contract'
 import { useState } from 'react'

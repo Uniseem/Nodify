@@ -1,4 +1,4 @@
-import { Grid } from '@mantine/core'
+import { Grid } from '@shared/heroui-compat'
 import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
 import { FaServer } from 'react-icons/fa'

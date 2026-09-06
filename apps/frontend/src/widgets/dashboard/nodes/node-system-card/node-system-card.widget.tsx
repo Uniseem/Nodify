@@ -1,5 +1,5 @@
-import { ActionIcon, Badge, Group, Progress, Stack, Text, Tooltip } from '@mantine/core'
-import { notifications } from '@mantine/notifications'
+import { ActionIcon, Badge, Group, Progress, Stack, Text, Tooltip } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { GetNodeCommand } from '@remnawave/backend-contract'
 import { memo, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'

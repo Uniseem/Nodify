@@ -1,4 +1,4 @@
-import { modals } from '@mantine/modals'
+import { modals } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 
 import { useDeleteInfraBillingHistoryRecord } from '@shared/api/hooks'

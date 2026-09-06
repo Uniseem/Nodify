@@ -9,9 +9,9 @@ import {
     Stack,
     Text,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useForm } from '@mantine/form'
-import { modals } from '@mantine/modals'
+import { modals } from '@shared/heroui-compat'
 import { InternalSquadsListWidget } from '@widgets/dashboard/users/internal-squads-list'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'

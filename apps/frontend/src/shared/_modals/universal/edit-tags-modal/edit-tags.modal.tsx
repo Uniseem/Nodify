@@ -1,5 +1,5 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { ActionIcon, ModalProps, TagsInput } from '@mantine/core'
+import { ActionIcon, ModalProps, TagsInput } from '@shared/heroui-compat'
 import { TagsSchema } from '@remnawave/backend-contract'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useId, useState } from 'react'

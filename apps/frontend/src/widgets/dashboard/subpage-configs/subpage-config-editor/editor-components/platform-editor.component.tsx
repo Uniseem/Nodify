@@ -1,4 +1,4 @@
-import { Accordion, ActionIcon, Button, Center, Divider, Drawer, Group, Stack } from '@mantine/core'
+import { Accordion, ActionIcon, Button, Center, Divider, Drawer, Group, Stack } from '@shared/heroui-compat'
 import { useDisclosure } from '@mantine/hooks'
 import {
     TSubscriptionPageAppConfig,

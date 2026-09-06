@@ -1,4 +1,4 @@
-import { Group, Modal } from '@mantine/core'
+import { Group, Modal } from '@shared/heroui-compat'
 
 import styles from './ModalFooter.module.css'
 

@@ -1,4 +1,4 @@
-import { ActionIcon, Tooltip } from '@mantine/core'
+import { ActionIcon, Tooltip } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbRefresh } from 'react-icons/tb'
 

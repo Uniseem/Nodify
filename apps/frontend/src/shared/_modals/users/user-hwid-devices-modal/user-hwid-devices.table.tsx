@@ -1,5 +1,5 @@
 import { DataTable, type DataTableSortStatus, useDataTableColumns } from '@kastov/mantine-datatable'
-import { ActionIcon, Anchor, Group, Text, ThemeIcon } from '@mantine/core'
+import { ActionIcon, Anchor, Group, Text, ThemeIcon } from '@shared/heroui-compat'
 import { useDebouncedValue } from '@mantine/hooks'
 import { GetUserHwidDevicesCommand } from '@remnawave/backend-contract'
 import get from 'lodash/get'

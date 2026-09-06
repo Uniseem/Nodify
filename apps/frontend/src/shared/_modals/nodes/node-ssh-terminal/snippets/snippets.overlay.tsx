@@ -9,7 +9,7 @@ import {
     Textarea,
     TextInput,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbArrowLeft, TbBolt, TbDeviceFloppy, TbPlus, TbTrash } from 'react-icons/tb'

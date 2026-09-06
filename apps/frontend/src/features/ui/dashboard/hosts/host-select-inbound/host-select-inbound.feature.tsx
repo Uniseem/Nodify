@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Group, Stack, Text } from '@mantine/core'
+import { ActionIcon, Box, Group, Stack, Text } from '@shared/heroui-compat'
 import cx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { TbAlertTriangle, TbChevronRight } from 'react-icons/tb'

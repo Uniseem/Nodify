@@ -1,4 +1,4 @@
-import { Drawer, DrawerProps, Group, useProps } from '@mantine/core'
+import { Drawer, DrawerProps, Group, useProps } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 
 import classes from '@shared/constants/theme/overrides/drawer/drawer.module.css'

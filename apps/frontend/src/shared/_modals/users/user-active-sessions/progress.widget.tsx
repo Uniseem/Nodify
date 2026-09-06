@@ -1,4 +1,4 @@
-import { Box, Group, Progress, Stack, Text } from '@mantine/core'
+import { Box, Group, Progress, Stack, Text } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 
 import { LottieGlobeShared } from '@shared/ui/lotties/globe'

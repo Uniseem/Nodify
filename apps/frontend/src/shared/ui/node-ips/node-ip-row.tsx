@@ -8,7 +8,7 @@ import {
     Text,
     TextInput,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { TNodeIpStatus } from '@remnawave/backend-contract'
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'

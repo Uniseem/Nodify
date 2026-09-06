@@ -1,4 +1,4 @@
-import { Divider, Group, Text } from '@mantine/core'
+import { Divider, Group, Text } from '@shared/heroui-compat'
 
 import { formatCurrencyWithIntl } from '@shared/utils/misc'
 

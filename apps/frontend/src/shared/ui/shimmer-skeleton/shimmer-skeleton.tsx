@@ -1,4 +1,4 @@
-import { Box, BoxProps, MantineSize } from '@mantine/core'
+import { Box, BoxProps, MantineSize } from '@shared/heroui-compat'
 
 import classes from './shimmer-skeleton.module.css'
 

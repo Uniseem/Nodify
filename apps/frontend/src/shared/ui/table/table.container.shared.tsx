@@ -1,4 +1,4 @@
-import { Card, CardProps } from '@mantine/core'
+import { Card, CardProps } from '@shared/heroui-compat'
 
 type TableContainerSharedProps = CardProps
 

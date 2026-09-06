@@ -1,4 +1,4 @@
-import { Box, Collapse, Group, Stack, Text, ThemeIcon, UnstyledButton } from '@mantine/core'
+import { Box, Collapse, Group, Stack, Text, ThemeIcon, UnstyledButton } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { TbChevronRight } from 'react-icons/tb'
 

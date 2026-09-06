@@ -1,4 +1,4 @@
-import { Card, Group, Stack, Text, ThemeIcon, ThemeIconProps } from '@mantine/core'
+import { Card, Group, Stack, Text, ThemeIcon, ThemeIconProps } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 
 import { ShimmerSkeleton } from '@shared/ui/shimmer-skeleton'

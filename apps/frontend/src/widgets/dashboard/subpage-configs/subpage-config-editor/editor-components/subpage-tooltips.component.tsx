@@ -1,4 +1,4 @@
-import { ActionIcon, HoverCard, Stack, Text } from '@mantine/core'
+import { ActionIcon, HoverCard, Stack, Text } from '@shared/heroui-compat'
 import { HiQuestionMarkCircle } from 'react-icons/hi'
 
 interface IProps {

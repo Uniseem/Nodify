@@ -7,7 +7,7 @@ import {
     DragOverlay,
     DragStartEvent
 } from '@dnd-kit/react'
-import { Box } from '@mantine/core'
+import { Box } from '@shared/heroui-compat'
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 

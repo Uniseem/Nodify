@@ -1,4 +1,4 @@
-import { Code, Divider, Group, List, Stack, Text, ThemeIcon, Title } from '@mantine/core'
+import { Code, Divider, Group, List, Stack, Text, ThemeIcon, Title } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { TbAlertTriangle, TbServer, TbStack2 } from 'react-icons/tb'

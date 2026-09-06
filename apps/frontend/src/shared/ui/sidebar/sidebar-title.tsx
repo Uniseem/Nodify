@@ -1,4 +1,4 @@
-import { Text } from '@mantine/core'
+import { Text } from '@shared/heroui-compat'
 import { useMemo } from 'react'
 
 import { useGetAuthStatus } from '@shared/api/hooks/auth/auth.query.hooks'

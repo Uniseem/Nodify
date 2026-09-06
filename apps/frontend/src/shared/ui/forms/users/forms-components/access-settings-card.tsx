@@ -1,7 +1,7 @@
-import { Select, Stack } from '@mantine/core'
-import { DateTimePicker, getTimeRange } from '@mantine/dates'
+import { Select, Stack } from '@shared/heroui-compat'
+import { DateTimePicker, getTimeRange } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import {
     CreateUserCommand,
     GetExternalSquadsCommand,

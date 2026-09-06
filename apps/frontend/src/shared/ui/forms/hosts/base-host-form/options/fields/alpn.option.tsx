@@ -1,4 +1,4 @@
-import { Select } from '@mantine/core'
+import { Select } from '@shared/heroui-compat'
 import { ALPN } from '@remnawave/backend-contract'
 
 import { useSettingsRowControl } from '@shared/ui/settings-row'

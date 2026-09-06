@@ -1,4 +1,4 @@
-import { Image } from '@mantine/core'
+import { Image } from '@shared/heroui-compat'
 import { useNavigate } from 'react-router'
 
 import { useGetAuthStatus } from '@shared/api/hooks/auth/auth.query.hooks'

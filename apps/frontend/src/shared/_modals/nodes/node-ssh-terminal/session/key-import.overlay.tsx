@@ -1,4 +1,4 @@
-import { Button, Group, Stack, Textarea } from '@mantine/core'
+import { Button, Group, Stack, Textarea } from '@shared/heroui-compat'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbKey, TbUpload } from 'react-icons/tb'

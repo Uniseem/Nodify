@@ -1,5 +1,5 @@
-import { CodeHighlight } from '@mantine/code-highlight'
-import { Box, Button, Container, Group, Title } from '@mantine/core'
+import { CodeHighlight } from '@shared/heroui-compat'
+import { Box, Button, Container, Group, Title } from '@shared/heroui-compat'
 import { useNavigate } from 'react-router'
 
 import { ErrorBoundaryFallbackProps } from '@shared/hocs/error-boundary'

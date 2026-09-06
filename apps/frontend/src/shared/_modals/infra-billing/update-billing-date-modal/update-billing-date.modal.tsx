@@ -1,6 +1,6 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Button, Group, Modal, Stack, TextInput } from '@mantine/core'
-import { DatePicker } from '@mantine/dates'
+import { Button, Group, Modal, Stack, TextInput } from '@shared/heroui-compat'
+import { DatePicker } from '@shared/heroui-compat'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'

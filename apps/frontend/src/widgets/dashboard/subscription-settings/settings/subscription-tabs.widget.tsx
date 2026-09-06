@@ -1,4 +1,4 @@
-import { px, Tabs } from '@mantine/core'
+import { px, Tabs } from '@shared/heroui-compat'
 import { UpdateSubscriptionSettingsCommand } from '@remnawave/backend-contract'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'

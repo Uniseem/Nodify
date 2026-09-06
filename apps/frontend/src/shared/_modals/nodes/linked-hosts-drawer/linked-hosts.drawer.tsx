@@ -1,5 +1,5 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Center, Drawer, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Center, Drawer, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { HostCardWidget } from '@widgets/dashboard/hosts/host-card/host-card.widget'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'

@@ -10,8 +10,8 @@ import {
     SegmentedControl,
     Stack,
     Tooltip
-} from '@mantine/core'
-import { notifications } from '@mantine/notifications'
+} from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { githubDarkTheme, JsonEditor } from 'json-edit-react'
 import { useMemo, useRef, useState } from 'react'

@@ -1,4 +1,4 @@
-import { ActionIcon } from '@mantine/core'
+import { ActionIcon } from '@shared/heroui-compat'
 import { PiUserCircle } from 'react-icons/pi'
 
 import { showModal } from '@shared/_modals/show-modal'

@@ -1,4 +1,4 @@
-import { ComboboxItem, Group, Text } from '@mantine/core'
+import { ComboboxItem, Group, Text } from '@shared/heroui-compat'
 import { forwardRef } from 'react'
 import ReactCountryFlag from 'react-country-flag'
 

@@ -10,7 +10,7 @@ import {
     Paper,
     ThemeIconProps,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useMonaco } from '@monaco-editor/react'
 import clsx from 'clsx'
 import { ComponentType, useEffect, useRef, useState } from 'react'

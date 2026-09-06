@@ -1,4 +1,4 @@
-import { Group, Text } from '@mantine/core'
+import { Group, Text } from '@shared/heroui-compat'
 
 export const NodesDataTableColumnHeader = ({
     icon: Icon,

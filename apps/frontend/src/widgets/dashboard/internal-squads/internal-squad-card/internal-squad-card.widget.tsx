@@ -1,4 +1,4 @@
-import { Badge, CopyButton, Group, Menu, Tooltip } from '@mantine/core'
+import { Badge, CopyButton, Group, Menu, Tooltip } from '@shared/heroui-compat'
 import { GetInternalSquadsCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy, PiPencil, PiTag, PiTrashDuotone, PiUsers } from 'react-icons/pi'

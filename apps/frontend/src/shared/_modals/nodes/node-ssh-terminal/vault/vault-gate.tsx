@@ -1,4 +1,4 @@
-import { Box, Center, Loader } from '@mantine/core'
+import { Box, Center, Loader } from '@shared/heroui-compat'
 
 import type { TInstanceLock } from '@shared/hooks/use-single-instance-lock'
 

@@ -1,7 +1,7 @@
 import type { Ref } from 'react'
 import type { ReactZoomPanPinchRef } from 'react-zoom-pan-pinch'
 
-import { UnstyledButton } from '@mantine/core'
+import { UnstyledButton } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { useEffect, useRef } from 'react'
 import { TbRestore, TbZoomIn, TbZoomOut } from 'react-icons/tb'

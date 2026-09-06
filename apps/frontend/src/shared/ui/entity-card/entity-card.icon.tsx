@@ -1,4 +1,4 @@
-import { ActionIcon, ActionIconProps, PolymorphicComponentProps } from '@mantine/core'
+import { ActionIcon, ActionIconProps, PolymorphicComponentProps } from '@shared/heroui-compat'
 
 import classes from './entity-card.module.css'
 

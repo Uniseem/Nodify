@@ -9,8 +9,8 @@ import {
     Tooltip,
     Tree,
     TreeNodeData
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import {
     GetInboundsByProfileUuidCommand,
     GetInternalSquadsCommand

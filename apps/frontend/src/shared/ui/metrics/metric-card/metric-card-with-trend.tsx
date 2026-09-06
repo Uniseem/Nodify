@@ -1,4 +1,4 @@
-import { Box, Card, Group, px, Stack, Text, ThemeIcon, ThemeIconProps } from '@mantine/core'
+import { Box, Card, Group, px, Stack, Text, ThemeIcon, ThemeIconProps } from '@shared/heroui-compat'
 import { PiTrendDown, PiTrendUp } from 'react-icons/pi'
 
 import { ShimmerSkeleton } from '@shared/ui/shimmer-skeleton'

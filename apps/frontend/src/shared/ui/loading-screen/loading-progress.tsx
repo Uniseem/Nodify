@@ -1,4 +1,4 @@
-import { nprogress } from '@mantine/nprogress'
+import { nprogress } from '@shared/heroui-compat'
 import { useEffect } from 'react'
 
 export function LoadingProgress() {

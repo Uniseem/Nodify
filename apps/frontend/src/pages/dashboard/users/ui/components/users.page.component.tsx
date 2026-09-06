@@ -1,4 +1,4 @@
-import { Stack } from '@mantine/core'
+import { Stack } from '@shared/heroui-compat'
 import { useMediaQuery } from '@mantine/hooks'
 import { UsersMetrics } from '@widgets/dashboard/users/users-metrics'
 import { UserTableWidget } from '@widgets/dashboard/users/users-table'

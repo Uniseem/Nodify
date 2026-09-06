@@ -1,4 +1,4 @@
-import { Anchor, Button, Divider, List, Modal, Stack, Text, ThemeIcon, Title } from '@mantine/core'
+import { Anchor, Button, Divider, List, Modal, Stack, Text, ThemeIcon, Title } from '@shared/heroui-compat'
 import { Trans, useTranslation } from 'react-i18next'
 import { PiCheckCircle, PiGavel, PiShieldWarning } from 'react-icons/pi'
 

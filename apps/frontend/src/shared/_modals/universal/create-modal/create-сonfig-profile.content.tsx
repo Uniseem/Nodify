@@ -1,4 +1,4 @@
-import { Stack, TextInput, Group, Button, Text } from '@mantine/core'
+import { Stack, TextInput, Group, Button, Text } from '@shared/heroui-compat'
 import { useField } from '@mantine/form'
 import { CreateConfigProfileCommand } from '@remnawave/backend-contract'
 import { t } from 'i18next'

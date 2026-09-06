@@ -1,5 +1,5 @@
 import { useModal } from '@ebay/nice-modal-react'
-import { Center, Code, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Center, Code, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useNavigate, useParams } from 'react-router'

@@ -1,4 +1,4 @@
-import { rem } from '@mantine/core'
+import { rem } from '@shared/heroui-compat'
 import { PiSignOut } from 'react-icons/pi'
 import { useNavigate } from 'react-router'
 

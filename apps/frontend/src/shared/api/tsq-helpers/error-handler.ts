@@ -1,4 +1,4 @@
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import { AxiosError } from 'axios'
 
 const BYPASS_ERROR_STATUSES = [401, 403]

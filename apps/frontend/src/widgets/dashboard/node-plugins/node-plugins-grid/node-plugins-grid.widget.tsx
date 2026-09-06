@@ -1,5 +1,5 @@
-import { Badge, Center, Group, Stack, Text, ThemeIcon } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Badge, Center, Group, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetNodesCommand, GetNodePluginsCommand } from '@remnawave/backend-contract'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'

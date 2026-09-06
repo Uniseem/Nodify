@@ -6,8 +6,8 @@ import {
     MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
-import { ActionIcon, ActionIconGroup, Box, Tooltip } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { ActionIcon, ActionIconGroup, Box, Tooltip } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { githubDarkTheme, JsonEditor } from 'json-edit-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'

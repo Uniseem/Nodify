@@ -1,5 +1,5 @@
-import { ActionIcon, SimpleGrid, Stack, Text } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { ActionIcon, SimpleGrid, Stack, Text } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { TEMPLATE_KEYS, TemplateKeys } from '@remnawave/backend-contract'
 import { TSubscriptionPageTemplateKey } from '@remnawave/subscription-page-types'
 import { useTranslation } from 'react-i18next'

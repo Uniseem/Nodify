@@ -1,5 +1,5 @@
 import { DataTable, type DataTableSortStatus, useDataTableColumns } from '@kastov/mantine-datatable'
-import { Anchor, Text } from '@mantine/core'
+import { Anchor, Text } from '@shared/heroui-compat'
 import { useDebouncedValue } from '@mantine/hooks'
 import { GetUserSubscriptionRequestHistoryCommand } from '@remnawave/backend-contract'
 import get from 'lodash/get'

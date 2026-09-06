@@ -1,4 +1,4 @@
-import { Button, Group, Stack, Text, Title } from '@mantine/core'
+import { Button, Group, Stack, Text, Title } from '@shared/heroui-compat'
 import {
     IconCrownFilled,
     IconHeadset,

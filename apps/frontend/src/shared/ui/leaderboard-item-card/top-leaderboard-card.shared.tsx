@@ -1,4 +1,4 @@
-import { Card, Center, ScrollArea, Skeleton, Stack, Text } from '@mantine/core'
+import { Card, Center, ScrollArea, Skeleton, Stack, Text } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 import { PiEmpty } from 'react-icons/pi'
 import { Virtuoso } from 'react-virtuoso'

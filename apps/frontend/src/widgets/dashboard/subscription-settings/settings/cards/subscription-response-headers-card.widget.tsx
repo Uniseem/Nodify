@@ -1,4 +1,4 @@
-import { ActionIcon, Alert, Button, Card, Group, Stack, Textarea, TextInput } from '@mantine/core'
+import { ActionIcon, Alert, Button, Card, Group, Stack, Textarea, TextInput } from '@shared/heroui-compat'
 import { useForm, schemaResolver } from '@mantine/form'
 import { UpdateSubscriptionSettingsCommand } from '@remnawave/backend-contract'
 import { useCallback, useEffect, useRef, useState } from 'react'

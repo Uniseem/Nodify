@@ -2,7 +2,7 @@ import type { editor } from 'monaco-editor'
 
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { MonacoSetupHostMapperEditorFeature } from '@features/dashboard/config-profiles/monaco-setup'
-import { Box, Button, Group, Modal, Paper } from '@mantine/core'
+import { Box, Button, Group, Modal, Paper } from '@shared/heroui-compat'
 import { Monaco, useMonaco } from '@monaco-editor/react'
 import { HostMapperSchema } from '@remnawave/backend-contract'
 import clsx from 'clsx'

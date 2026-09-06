@@ -1,4 +1,4 @@
-import { CopyButton, Menu } from '@mantine/core'
+import { CopyButton, Menu } from '@shared/heroui-compat'
 import { GetSubscriptionTemplatesCommand } from '@remnawave/backend-contract'
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'

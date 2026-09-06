@@ -1,7 +1,7 @@
 import type { editor } from 'monaco-editor'
 
 import { TemplateEditorActionsFeature } from '@features/dashboard/subscription-templates/template-editor-actions'
-import { Box, Paper } from '@mantine/core'
+import { Box, Paper } from '@shared/heroui-compat'
 import { Monaco } from '@monaco-editor/react'
 import 'monaco-yaml/yaml.worker.js'
 import { GetHostsCommand, GetSubscriptionTemplateCommand } from '@remnawave/backend-contract'

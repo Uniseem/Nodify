@@ -5,7 +5,7 @@ import type {
     TStage
 } from '../ssh-terminal.types'
 
-import { Box, Button, Center, Loader } from '@mantine/core'
+import { Box, Button, Center, Loader } from '@shared/heroui-compat'
 import { GetNodeCommand } from '@remnawave/backend-contract'
 import { Terminal } from '@xterm/xterm'
 import { AnimatePresence, motion } from 'motion/react'

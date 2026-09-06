@@ -1,4 +1,4 @@
-import { OverflowList, OverflowListProps } from '@mantine/core'
+import { OverflowList, OverflowListProps } from '@shared/heroui-compat'
 
 interface IProps<T> extends Omit<OverflowListProps<T>, 'maxRows'> {
     rowHeight?: number

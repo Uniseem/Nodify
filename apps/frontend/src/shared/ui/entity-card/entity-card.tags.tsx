@@ -1,4 +1,4 @@
-import { Badge, Stack, Tooltip } from '@mantine/core'
+import { Badge, Stack, Tooltip } from '@shared/heroui-compat'
 import ColorHash from 'color-hash'
 import { TbTag } from 'react-icons/tb'
 

@@ -8,7 +8,7 @@ import {
     Stack,
     Text,
     TextInput
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import {
     CreateNodeCommand,

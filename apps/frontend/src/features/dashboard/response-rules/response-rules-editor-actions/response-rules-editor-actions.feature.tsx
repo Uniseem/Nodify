@@ -8,10 +8,10 @@ import {
     Stack,
     Text,
     Textarea
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useClipboard, useDisclosure } from '@mantine/hooks'
-import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
+import { modals } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import {
     REMNAWAVE_CLIENT_TYPE_BROWSER,
     REMNAWAVE_CLIENT_TYPE_HEADER,

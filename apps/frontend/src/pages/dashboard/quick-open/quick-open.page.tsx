@@ -8,7 +8,7 @@ import {
     Text,
     TextInput,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbArrowRight, TbLink } from 'react-icons/tb'

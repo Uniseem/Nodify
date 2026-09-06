@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@mantine/core'
+import { Box, BoxProps } from '@shared/heroui-compat'
 import { useWindowScroll } from '@mantine/hooks'
 import clsx from 'clsx'
 import { ReactNode } from 'react'

@@ -1,4 +1,4 @@
-import { Badge, Group, Stack, Text } from '@mantine/core'
+import { Badge, Group, Stack, Text } from '@shared/heroui-compat'
 
 import { FadeScrollArea } from './fade-scroll-area'
 

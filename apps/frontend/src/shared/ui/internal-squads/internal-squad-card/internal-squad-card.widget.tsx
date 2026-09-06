@@ -1,4 +1,4 @@
-import { Badge, Card, Group, Text } from '@mantine/core'
+import { Badge, Card, Group, Text } from '@shared/heroui-compat'
 import { memo } from 'react'
 import { PiTag, PiUsers } from 'react-icons/pi'
 import { TbCirclesRelation } from 'react-icons/tb'

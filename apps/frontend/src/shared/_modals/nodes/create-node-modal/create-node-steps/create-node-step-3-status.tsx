@@ -1,4 +1,4 @@
-import { Alert, Badge, Button, Code, Group, Paper, Stack, Text } from '@mantine/core'
+import { Alert, Badge, Button, Code, Group, Paper, Stack, Text } from '@shared/heroui-compat'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbAlertCircle, TbCheck, TbLink, TbX } from 'react-icons/tb'

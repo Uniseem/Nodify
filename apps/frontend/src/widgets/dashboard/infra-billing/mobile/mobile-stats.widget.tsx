@@ -1,4 +1,4 @@
-import { Card, Grid, Group, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Card, Grid, Group, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { useTranslation } from 'react-i18next'

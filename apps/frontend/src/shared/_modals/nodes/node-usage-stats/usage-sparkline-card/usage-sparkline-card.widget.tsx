@@ -1,5 +1,5 @@
-import { Sparkline } from '@mantine/charts'
-import { Box, Card, SimpleGrid, Skeleton, Stack, Text } from '@mantine/core'
+import { Sparkline } from '@shared/heroui-compat'
+import { Box, Card, SimpleGrid, Skeleton, Stack, Text } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 
 import { prettifyBytesUtil } from '@shared/utils/bytes'

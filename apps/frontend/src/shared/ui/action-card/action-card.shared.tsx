@@ -1,4 +1,4 @@
-import { Group, Paper, Stack, Text, ThemeIcon, ThemeIconProps, UnstyledButton } from '@mantine/core'
+import { Group, Paper, Stack, Text, ThemeIcon, ThemeIconProps, UnstyledButton } from '@shared/heroui-compat'
 import { useClickOutside } from '@mantine/hooks'
 import clsx from 'clsx'
 import { useState } from 'react'

@@ -7,8 +7,8 @@ import {
     Stack,
     Text,
     Tooltip
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { CreateApiTokenCommand, GetApiTokensCommand } from '@remnawave/backend-contract'
 import dayjs from 'dayjs'
 import { useMemo, useState } from 'react'

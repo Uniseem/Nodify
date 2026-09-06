@@ -1,4 +1,4 @@
-import { Button, Card, Select, Stack, Text } from '@mantine/core'
+import { Button, Card, Select, Stack, Text } from '@shared/heroui-compat'
 import {
     GetExternalSquadByUuidCommand,
     SUBSCRIPTION_TEMPLATE_TYPE,

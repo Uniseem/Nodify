@@ -1,4 +1,4 @@
-import { NumberInput, Stack, TextInput } from '@mantine/core'
+import { NumberInput, Stack, TextInput } from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import { CreateUserCommand, UpdateUserCommand } from '@remnawave/backend-contract'
 import { ForwardRefComponent, HTMLMotionProps, Variants } from 'motion/react'

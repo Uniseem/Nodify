@@ -1,5 +1,5 @@
-import { ActionIcon, ActionIconGroup, Tooltip } from '@mantine/core'
-import { spotlight } from '@mantine/spotlight'
+import { ActionIcon, ActionIconGroup, Tooltip } from '@shared/heroui-compat'
+import { spotlight } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbSearch } from 'react-icons/tb'
 

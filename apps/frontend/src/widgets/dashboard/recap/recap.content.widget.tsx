@@ -10,8 +10,8 @@ import {
     Stack,
     Switch,
     TextInput
-} from '@mantine/core'
-import { notifications } from '@mantine/notifications'
+} from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import dayjs from 'dayjs'
 import { motion } from 'motion/react'
 import { useRef, useState } from 'react'

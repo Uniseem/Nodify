@@ -1,4 +1,4 @@
-import { ActionIcon, Group } from '@mantine/core'
+import { ActionIcon, Group } from '@shared/heroui-compat'
 import { PiArrowsClockwise, PiSignOutDuotone } from 'react-icons/pi'
 import { useNavigate } from 'react-router'
 

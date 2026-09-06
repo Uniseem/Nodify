@@ -1,5 +1,5 @@
-import { Stack } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Stack } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbAlertCircle, TbRocket } from 'react-icons/tb'
 

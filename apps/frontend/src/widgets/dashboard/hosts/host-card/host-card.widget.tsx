@@ -11,8 +11,8 @@ import {
     Text,
     ThemeIcon,
     Tooltip
-} from '@mantine/core'
-import { modals } from '@mantine/modals'
+} from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import {
     GetHostsCommand,
     GetNodesCommand,

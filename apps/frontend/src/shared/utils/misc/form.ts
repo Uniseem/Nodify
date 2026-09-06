@@ -1,6 +1,6 @@
 import { UseFormReturnType } from '@mantine/form'
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 
 export function handleFormErrors(form: UseFormReturnType<any>, errors: unknown) {
     if (

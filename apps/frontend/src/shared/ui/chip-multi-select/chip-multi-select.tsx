@@ -1,6 +1,6 @@
 import type { IProps } from './interfaces'
 
-import { Checkbox, Group, Input, SimpleGrid, Text } from '@mantine/core'
+import { Checkbox, Group, Input, SimpleGrid, Text } from '@shared/heroui-compat'
 
 import classes from './ChipMultiSelect.module.css'
 

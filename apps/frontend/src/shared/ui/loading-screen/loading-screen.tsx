@@ -1,4 +1,4 @@
-import { Center, Progress, Stack, Text } from '@mantine/core'
+import { Center, Progress, Stack, Text } from '@shared/heroui-compat'
 
 export function LoadingScreen({
     height = '100dvh',

@@ -1,4 +1,4 @@
-import { Group, ScrollArea, Text, UnstyledButton } from '@mantine/core'
+import { Group, ScrollArea, Text, UnstyledButton } from '@shared/heroui-compat'
 import { AnimatePresence, motion, Variants } from 'motion/react'
 import { ReactNode } from 'react'
 import { TbChevronRight, TbFolder } from 'react-icons/tb'

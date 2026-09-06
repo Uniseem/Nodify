@@ -1,4 +1,4 @@
-import { Group, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Group, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { ComponentType, ReactNode } from 'react'
 
 interface IProps {

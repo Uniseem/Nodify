@@ -1,4 +1,4 @@
-import { ActionIcon, Group, Stack, Tabs, Transition } from '@mantine/core'
+import { ActionIcon, Group, Stack, Tabs, Transition } from '@shared/heroui-compat'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbCloud, TbCreditCard, TbPlus, TbRefresh, TbServer } from 'react-icons/tb'

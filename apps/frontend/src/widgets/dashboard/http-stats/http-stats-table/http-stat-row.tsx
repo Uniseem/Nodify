@@ -1,4 +1,4 @@
-import { Badge, Group, RollingNumber, Text } from '@mantine/core'
+import { Badge, Group, RollingNumber, Text } from '@shared/heroui-compat'
 import { GetHttpStatsCommand } from '@remnawave/backend-contract'
 import { memo } from 'react'
 

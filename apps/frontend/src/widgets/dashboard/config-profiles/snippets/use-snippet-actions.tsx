@@ -1,4 +1,4 @@
-import { modals } from '@mantine/modals'
+import { modals } from '@shared/heroui-compat'
 import { t } from 'i18next'
 import { useState } from 'react'
 import { TbCode } from 'react-icons/tb'

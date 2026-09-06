@@ -1,4 +1,4 @@
-import { Checkbox, Group, Stack, Text, ThemeIcon, ThemeIconProps } from '@mantine/core'
+import { Checkbox, Group, Stack, Text, ThemeIcon, ThemeIconProps } from '@shared/heroui-compat'
 import { TFunction } from 'i18next'
 import { ComponentType } from 'react'
 import { useTranslation } from 'react-i18next'

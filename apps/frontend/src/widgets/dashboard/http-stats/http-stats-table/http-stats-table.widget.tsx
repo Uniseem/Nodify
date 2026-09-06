@@ -1,5 +1,5 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { RollingNumber, SimpleGrid, Stack } from '@mantine/core'
+import { RollingNumber, SimpleGrid, Stack } from '@shared/heroui-compat'
 import { GetHttpStatsCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { TbDivide, TbFlame, TbRoute, TbTrendingUp } from 'react-icons/tb'

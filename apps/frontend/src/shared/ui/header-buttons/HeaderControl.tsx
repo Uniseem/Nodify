@@ -1,4 +1,4 @@
-import { BoxProps, createPolymorphicComponent, UnstyledButton } from '@mantine/core'
+import { BoxProps, createPolymorphicComponent, UnstyledButton } from '@shared/heroui-compat'
 import cx from 'clsx'
 
 import classes from './HeaderControl.module.css'

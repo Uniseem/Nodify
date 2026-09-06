@@ -1,4 +1,4 @@
-import { Divider } from '@mantine/core'
+import { Divider } from '@shared/heroui-compat'
 import { ReactNode } from 'react'
 
 interface SettingsCardBottomProps {

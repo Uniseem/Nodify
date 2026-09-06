@@ -1,4 +1,4 @@
-import { ActionIcon, Box, CopyButton, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Box, CopyButton, Text, Tooltip } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy } from 'react-icons/pi'
 

@@ -1,4 +1,4 @@
-import { modals } from '@mantine/modals'
+import { modals } from '@shared/heroui-compat'
 import { useMemo } from 'react'
 import { PiBracketsAngle } from 'react-icons/pi'
 

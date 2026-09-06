@@ -1,4 +1,4 @@
-import { Stack, Text } from '@mantine/core'
+import { Stack, Text } from '@shared/heroui-compat'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { memo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'

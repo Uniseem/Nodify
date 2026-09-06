@@ -1,4 +1,4 @@
-import { ActionIcon, Menu } from '@mantine/core'
+import { ActionIcon, Menu } from '@shared/heroui-compat'
 import { useDisclosure, useId } from '@mantine/hooks'
 import { TbDots } from 'react-icons/tb'
 

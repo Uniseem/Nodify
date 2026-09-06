@@ -1,6 +1,6 @@
 import type { TSshStage } from './ssh-connection'
 
-import { Box, Button, Group, Stack, Text } from '@mantine/core'
+import { Box, Button, Group, Stack, Text } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbAlertTriangle, TbPlugConnected, TbSettings } from 'react-icons/tb'
 

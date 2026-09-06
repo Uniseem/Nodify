@@ -9,7 +9,7 @@ import {
     Stack,
     Text,
     TextInput
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import {
     CreateHostCommand,
     UpdateHostCommand,

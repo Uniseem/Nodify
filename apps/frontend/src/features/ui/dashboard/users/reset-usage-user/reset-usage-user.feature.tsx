@@ -1,5 +1,5 @@
-import { Loader, Menu } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Loader, Menu } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { PiClockCounterClockwiseDuotone } from 'react-icons/pi'
 

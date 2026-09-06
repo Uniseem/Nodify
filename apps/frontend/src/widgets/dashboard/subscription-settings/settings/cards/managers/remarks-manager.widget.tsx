@@ -10,7 +10,7 @@ import {
     Text,
     TextInput,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useDebouncedValue } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'

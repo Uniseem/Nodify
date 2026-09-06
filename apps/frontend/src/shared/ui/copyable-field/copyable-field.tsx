@@ -1,4 +1,4 @@
-import { ActionIcon, CopyButton, Input } from '@mantine/core'
+import { ActionIcon, CopyButton, Input } from '@shared/heroui-compat'
 import { PiCheck, PiCopy } from 'react-icons/pi'
 
 import classes from './copyable-field.module.css'

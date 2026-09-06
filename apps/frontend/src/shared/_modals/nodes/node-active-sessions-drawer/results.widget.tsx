@@ -1,4 +1,4 @@
-import { Stack, Tabs } from '@mantine/core'
+import { Stack, Tabs } from '@shared/heroui-compat'
 import { useMemo, useState } from 'react'
 import { TbRadar, TbSortAscending, TbSortDescending } from 'react-icons/tb'
 

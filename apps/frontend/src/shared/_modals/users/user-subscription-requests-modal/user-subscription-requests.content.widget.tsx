@@ -9,7 +9,7 @@ import {
     Text,
     ThemeIcon,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbDevices, TbRefresh } from 'react-icons/tb'
 

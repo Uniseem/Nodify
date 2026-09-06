@@ -1,6 +1,6 @@
-import { Box, Card, CardProps, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core'
+import { Box, Card, CardProps, Group, Stack, Text, ThemeIcon, Title } from '@shared/heroui-compat'
 import { useClipboard } from '@mantine/hooks'
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import { motion } from 'motion/react'
 import { forwardRef, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'

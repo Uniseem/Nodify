@@ -10,7 +10,7 @@ import {
     Text,
     Textarea,
     Transition
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import {
     GetExternalSquadByUuidCommand,
     HwidSettingsSchema,

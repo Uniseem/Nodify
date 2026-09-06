@@ -12,7 +12,7 @@ import {
     Stack,
     Text,
     ThemeIcon
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { GetNodesMetricsCommand } from '@remnawave/backend-contract'
 import { VirtuosoMasonry } from '@virtuoso.dev/masonry'
 import { useCallback, useMemo } from 'react'

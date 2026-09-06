@@ -11,7 +11,7 @@ import {
     Stack,
     Text,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { GetMetadataCommand } from '@remnawave/backend-contract'
 import {
     TbBrandGithub,

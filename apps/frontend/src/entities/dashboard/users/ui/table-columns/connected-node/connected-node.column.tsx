@@ -1,4 +1,4 @@
-import { Group, Text } from '@mantine/core'
+import { Group, Text } from '@shared/heroui-compat'
 import ReactCountryFlag from 'react-country-flag'
 
 import { IProps } from './interface'

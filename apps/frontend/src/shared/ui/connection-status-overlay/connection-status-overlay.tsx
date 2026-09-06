@@ -1,4 +1,4 @@
-import { Box, Group, Loader, Paper, Stack, Text, ThemeIcon, Transition } from '@mantine/core'
+import { Box, Group, Loader, Paper, Stack, Text, ThemeIcon, Transition } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { PiWifiSlash } from 'react-icons/pi'
 

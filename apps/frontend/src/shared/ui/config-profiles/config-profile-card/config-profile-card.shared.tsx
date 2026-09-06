@@ -1,6 +1,6 @@
 import type { IProps } from './interfaces/props.interface'
 
-import { Accordion, Badge, Divider, Group, Text, Tooltip } from '@mantine/core'
+import { Accordion, Badge, Divider, Group, Text, Tooltip } from '@shared/heroui-compat'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiCheckBold, PiCpu } from 'react-icons/pi'

@@ -1,4 +1,4 @@
-import { ActionIcon, ActionIconProps } from '@mantine/core'
+import { ActionIcon, ActionIconProps } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { TbArrowsMaximize, TbArrowsMinimize } from 'react-icons/tb'
 

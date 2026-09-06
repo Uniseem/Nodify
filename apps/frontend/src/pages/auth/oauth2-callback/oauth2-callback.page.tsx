@@ -1,5 +1,5 @@
-import { Center, Loader, Stack, Text, Title, Transition } from '@mantine/core'
-import { notifications } from '@mantine/notifications'
+import { Center, Loader, Stack, Text, Title, Transition } from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { TOAuth2ProvidersKeys } from '@remnawave/backend-contract'
 import { IconCheck } from '@tabler/icons-react'
 import { CSSProperties, useEffect } from 'react'

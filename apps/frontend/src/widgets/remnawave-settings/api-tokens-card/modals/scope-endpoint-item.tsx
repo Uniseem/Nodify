@@ -1,4 +1,4 @@
-import { Badge, Box, Checkbox, Group, Stack, Text } from '@mantine/core'
+import { Badge, Box, Checkbox, Group, Stack, Text } from '@shared/heroui-compat'
 import { memo } from 'react'
 
 import classes from '../api-token-card.module.css'

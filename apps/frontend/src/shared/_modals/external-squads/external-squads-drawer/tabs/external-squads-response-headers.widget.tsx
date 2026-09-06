@@ -10,7 +10,7 @@ import {
     Text,
     Textarea,
     TextInput
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { GetExternalSquadByUuidCommand } from '@remnawave/backend-contract'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'

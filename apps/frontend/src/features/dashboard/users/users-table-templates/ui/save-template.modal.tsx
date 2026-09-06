@@ -1,5 +1,5 @@
-import { Button, CheckIcon, ColorSwatch, Group, Stack, Text, TextInput } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Button, CheckIcon, ColorSwatch, Group, Stack, Text, TextInput } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbDeviceFloppy } from 'react-icons/tb'

@@ -1,4 +1,4 @@
-import { Badge, Group, Text, UnstyledButton } from '@mantine/core'
+import { Badge, Group, Text, UnstyledButton } from '@shared/heroui-compat'
 import { getLanguageInfo, TSubscriptionPageLanguageCode } from '@remnawave/subscription-page-types'
 
 import styles from '../subpage-config-visual-editor.module.css'

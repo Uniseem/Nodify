@@ -1,4 +1,4 @@
-import { Loader, Menu } from '@mantine/core'
+import { Loader, Menu } from '@shared/heroui-compat'
 import { GetUserByIdCommand, USERS_STATUS } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { PiCellSignalFullDuotone, PiCellSignalSlashDuotone, PiTrashDuotone } from 'react-icons/pi'

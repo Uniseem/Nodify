@@ -1,4 +1,4 @@
-import { TextInput } from '@mantine/core'
+import { TextInput } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 
 import { useSettingsRowControl } from '@shared/ui/settings-row'

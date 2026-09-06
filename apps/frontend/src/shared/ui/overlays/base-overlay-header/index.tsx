@@ -1,4 +1,4 @@
-import { Group, Stack, Text, ThemeIcon, ThemeIconProps, Title, TitleProps } from '@mantine/core'
+import { Group, Stack, Text, ThemeIcon, ThemeIconProps, Title, TitleProps } from '@shared/heroui-compat'
 import { useClipboard } from '@mantine/hooks'
 import { ReactNode } from 'react'
 import ReactCountryFlag from 'react-country-flag'

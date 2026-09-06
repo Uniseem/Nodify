@@ -1,7 +1,7 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Box, Button, Group, Modal, Paper, TextInput } from '@mantine/core'
+import { Box, Button, Group, Modal, Paper, TextInput } from '@shared/heroui-compat'
 import { schemaResolver, useForm } from '@mantine/form'
-import { notifications } from '@mantine/notifications'
+import { notifications } from '@shared/heroui-compat'
 import {
     CreateNodeIntegrationCommand,
     UpdateNodeIntegrationCommand

@@ -1,6 +1,6 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { ActionIcon, Box, Group, Modal, Stack, Tooltip } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { ActionIcon, Box, Group, Modal, Stack, Tooltip } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { SnippetsGridWidget } from '@widgets/dashboard/config-profiles/snippets'
 import {
     CREATE_SNIPPET_MODAL_ID,

@@ -1,6 +1,6 @@
 import { OptimisticSortingPlugin } from '@dnd-kit/dom/sortable'
 import { useSortable } from '@dnd-kit/react/sortable'
-import { ActionIcon } from '@mantine/core'
+import { ActionIcon } from '@shared/heroui-compat'
 import { createContext, CSSProperties, forwardRef, useContext } from 'react'
 import { RiDraggable } from 'react-icons/ri'
 

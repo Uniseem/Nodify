@@ -13,7 +13,7 @@ import {
     Text,
     Tooltip,
     Transition
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy, PiIdentificationBadge, PiListChecks, PiUsers } from 'react-icons/pi'

@@ -9,8 +9,8 @@ import {
     Text,
     TextInput,
     Tooltip
-} from '@mantine/core'
-import { notifications } from '@mantine/notifications'
+} from '@shared/heroui-compat'
+import { notifications } from '@shared/heroui-compat'
 import { GetConfigProfilesCommand } from '@remnawave/backend-contract'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'

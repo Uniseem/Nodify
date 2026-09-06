@@ -1,4 +1,4 @@
-import { modals } from '@mantine/modals'
+import { modals } from '@shared/heroui-compat'
 import ColorHash from 'color-hash'
 import { useTranslation } from 'react-i18next'
 import { PiAppWindowDuotone } from 'react-icons/pi'

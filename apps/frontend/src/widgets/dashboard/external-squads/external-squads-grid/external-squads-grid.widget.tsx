@@ -1,5 +1,5 @@
-import { Center, Stack, Text, ThemeIcon } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { Center, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbWebhook } from 'react-icons/tb'

@@ -1,4 +1,4 @@
-import { ActionIcon, Menu, Text, useDirection } from '@mantine/core'
+import { ActionIcon, Menu, Text, useDirection } from '@shared/heroui-compat'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbLanguage } from 'react-icons/tb'

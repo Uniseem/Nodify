@@ -1,4 +1,4 @@
-import { Stack } from '@mantine/core'
+import { Stack } from '@shared/heroui-compat'
 import { SessionsExplorerWidget } from '@widgets/dashboard/sessions-explorer/sessions-explorer-widget'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'

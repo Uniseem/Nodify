@@ -12,7 +12,7 @@ import {
     Text,
     ThemeIcon,
     Tooltip
-} from '@mantine/core'
+} from '@shared/heroui-compat'
 import { UseFormReturnType } from '@mantine/form'
 import {
     CreateNodeCommand,

@@ -1,4 +1,4 @@
-import { ActionIcon, CopyButton, Tooltip } from '@mantine/core'
+import { ActionIcon, CopyButton, Tooltip } from '@shared/heroui-compat'
 import { GetSnippetsCommand } from '@remnawave/backend-contract'
 import cx from 'clsx'
 import { t } from 'i18next'

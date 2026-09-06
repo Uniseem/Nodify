@@ -1,4 +1,4 @@
-import { Button, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Button, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import { useTranslation } from 'react-i18next'
 import { TbAlertTriangle, TbRefresh } from 'react-icons/tb'
 

@@ -1,4 +1,4 @@
-import { ActionIcon, ActionIconProps, Tooltip } from '@mantine/core'
+import { ActionIcon, ActionIconProps, Tooltip } from '@shared/heroui-compat'
 import { useClipboard } from '@mantine/hooks'
 import { useTranslation } from 'react-i18next'
 import { TbCheck, TbLink } from 'react-icons/tb'

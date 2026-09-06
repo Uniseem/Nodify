@@ -1,5 +1,5 @@
-import { ActionIcon, Box, Group, Menu, Text } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { ActionIcon, Box, Group, Menu, Text } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetApiTokensCommand } from '@remnawave/backend-contract'
 import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'

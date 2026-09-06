@@ -1,6 +1,6 @@
 import type { AggregatedUserNode } from './use-sessions-explorer'
 
-import { ActionIcon, Box, Group, Stack, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Box, Group, Stack, Text, Tooltip } from '@shared/heroui-compat'
 import clsx from 'clsx'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'

@@ -1,4 +1,4 @@
-import { Drawer, Stack } from '@mantine/core'
+import { Drawer, Stack } from '@shared/heroui-compat'
 import {
     BASE_TRANSLATION_KEYS,
     BASE_TRANSLATION_LABELS,

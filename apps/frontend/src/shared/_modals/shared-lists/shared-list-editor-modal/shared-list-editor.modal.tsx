@@ -2,7 +2,7 @@ import type { editor } from 'monaco-editor'
 
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { MonacoSetupSharedListEditorFeature } from '@features/dashboard/config-profiles/monaco-setup'
-import { Box, Button, Group, Modal, Paper, Stack, Text, TextInput } from '@mantine/core'
+import { Box, Button, Group, Modal, Paper, Stack, Text, TextInput } from '@shared/heroui-compat'
 import { useMonaco } from '@monaco-editor/react'
 import { CreateSharedListCommand } from '@remnawave/backend-contract'
 import { SharedListConfigSchema } from '@remnawave/node-plugins'

@@ -1,4 +1,4 @@
-import { ThemeIcon } from '@mantine/core'
+import { ThemeIcon } from '@shared/heroui-compat'
 import { memo } from 'react'
 import {
     PiCloudArrowUpDuotone,

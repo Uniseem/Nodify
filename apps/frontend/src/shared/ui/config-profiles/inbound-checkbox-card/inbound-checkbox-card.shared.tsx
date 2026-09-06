@@ -1,7 +1,7 @@
 import type { IProps } from './interfaces/props.interface'
 
-import { ActionIcon, Badge, Checkbox, Group, Text } from '@mantine/core'
-import { modals } from '@mantine/modals'
+import { ActionIcon, Badge, Checkbox, Group, Text } from '@shared/heroui-compat'
+import { modals } from '@shared/heroui-compat'
 import { GetConfigProfilesCommand } from '@remnawave/backend-contract'
 import { githubDarkTheme, JsonEditor } from 'json-edit-react'
 import { useTranslation } from 'react-i18next'

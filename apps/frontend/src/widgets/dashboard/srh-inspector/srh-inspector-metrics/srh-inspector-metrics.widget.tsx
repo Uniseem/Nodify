@@ -1,5 +1,5 @@
 import { Chart } from '@highcharts/react'
-import { Box, Card, Center, Group, Loader, SimpleGrid, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Box, Card, Center, Group, Loader, SimpleGrid, Stack, Text, ThemeIcon } from '@shared/heroui-compat'
 import ColorHash from 'color-hash'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
