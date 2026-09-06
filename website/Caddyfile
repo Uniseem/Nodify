@@ -1,0 +1,85 @@
+# global options
+{
+	admin off
+	persist_config off
+	auto_https off
+	# log {
+	#	format json
+	# }
+	servers {
+		trusted_proxies static private_ranges 100.0.0.0/8
+	}
+}
+
+:{$PORT:8080} {
+	handle /health {
+		respond "OK" 200
+	}
+
+	@notMainDomain {
+		not header Host docs.rw
+	}
+	handle @notMainDomain {
+		redir https://docs.rw{uri} permanent
+	}
+
+	@oldDocs path_regexp olddocs ^/docs/(.+)$
+
+	@mainDomain {
+		header Host docs.rw
+	}
+
+	handle @mainDomain {
+		redir /prime* https://t.me/xrocket?start=sb_E6HxjZHitIM98el permanent
+		redir /apps /clients permanent
+		redir /docs/changelog* https://f.docs.rw/c/announces/14 permanent
+		redir /changelog* https://f.docs.rw/c/announces/14 permanent
+		redir /blog* https://f.docs.rw/c/announces/blog/19 permanent
+		redir /docs/ /overview/quick-start permanent
+		redir /docs /overview/quick-start permanent
+
+		redir @oldDocs /{re.olddocs.1} permanent
+
+		handle / {
+			root * /app/landing
+			encode gzip
+			file_server
+			try_files {path} /index.html
+
+			header {
+				X-Content-Type-Options "nosniff"
+				X-Frame-Options "DENY"
+				X-XSS-Protection "1; mode=block"
+				Strict-Transport-Security "max-age=63072000; includeSubDomains"
+			}
+		}
+
+		handle_path /landing-assets/* {
+			root * /app/landing/landing-assets
+			encode gzip
+			file_server
+			try_files {path} /index.html
+
+			header {
+				X-Content-Type-Options "nosniff"
+				X-Frame-Options "DENY"
+				X-XSS-Protection "1; mode=block"
+				Strict-Transport-Security "max-age=63072000; includeSubDomains"
+			}
+		}
+
+		handle {
+			root * /app/docs
+			encode gzip
+			file_server
+			try_files {path} {path}/ /404.html
+
+			header {
+				X-Content-Type-Options "nosniff"
+				X-Frame-Options "DENY"
+				X-XSS-Protection "1; mode=block"
+				Strict-Transport-Security "max-age=63072000; includeSubDomains"
+			}
+		}
+	}
+}

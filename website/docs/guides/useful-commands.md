@@ -1,0 +1,46 @@
+---
+sidebar_position: 1
+title: Useful commands
+---
+
+## Remnawave Panel
+
+### Rescue CLI
+
+Rescue CLI provides a few rescue commands like reset superadmin and other useful commands.
+
+```bash
+docker exec -it remnawave cli
+```
+
+### Restart Remnawave Panel
+
+```bash
+cd /opt/remnawave && docker compose down && docker compose up -d && docker compose logs -f -t
+```
+
+### Access PM2 monitor
+
+```bash
+docker exec -it remnawave pm2 monit
+```
+
+## Remnawave Node
+
+### Rescue CLI
+
+```bash
+docker exec -it remnanode cli
+```
+
+### Access Xray Core logs {#logs}
+
+```bash
+docker exec remnanode xlogs
+```
+
+### Restart Remnawave Node
+
+```bash
+cd /opt/remnanode && docker compose down && docker compose up -d && docker compose logs -f -t
+```

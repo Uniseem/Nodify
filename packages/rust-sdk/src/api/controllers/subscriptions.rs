@@ -1,0 +1,72 @@
+use crate::api::controllers::macros::*;
+use crate::api::types::subscriptions::*;
+use uuid::Uuid;
+
+api_controller!(SubscriptionsController);
+
+api_get_with_path!(SubscriptionsController, get_info_by_short_uuid, "/api/sub/{}/info", GetSubscriptionInfoResponseDto, short_uuid: String);
+
+impl SubscriptionsController {
+    #[doc = "GET /api/sub/{} - SubscriptionsController (raw text)"]
+    pub async fn get(&self, short_uuid: String) -> Result<String, crate::ApiError> {
+        let url = format!("{}/api/sub/{}", self.client.base_url(), short_uuid);
+        let response = api_request_common!(self, get, url.clone(), None::<()>)?;
+        self.handle_text_response(response, url).await
+    }
+
+    #[doc = "GET /api/sub/{}/{} - SubscriptionsController (raw text)"]
+    pub async fn get_by_client_type(&self, short_uuid: String, client_type: SubscriptionClientType) -> Result<String, crate::ApiError> {
+        let url = format!("{}/api/sub/{}/{}", self.client.base_url(), short_uuid, client_type);
+        let response = api_request_common!(self, get, url.clone(), None::<()>)?;
+        self.handle_text_response(response, url).await
+    }
+}
+
+impl SubscriptionsController {
+    #[doc = "GET /api/sub/outline/{}/{}/{} - SubscriptionsController"]
+    pub async fn get_with_type(&self, short_uuid: String, encoded_tag: String, subscription_type: Option<String>) -> Result<String, crate::ApiError> {
+        let subscription_type = subscription_type.unwrap_or_else(|| "ss".to_string());
+        let url = format!("{}/api/sub/outline/{}/{}/{}", self.client.base_url(), short_uuid, subscription_type, encoded_tag);
+        let response = api_request_common!(self, get, url.clone(), None::<()>)?;
+        self.handle_text_response(response, url).await
+    }
+
+    #[deprecated(note = "Use get_with_type")]
+    pub async fn get_subscription_with_type(&self, short_uuid: String, encoded_tag: String, subscription_type: Option<String>) -> Result<String, crate::ApiError> {
+        self.get_with_type(short_uuid, encoded_tag, subscription_type).await
+    }
+}
+
+api_get_with_query!(SubscriptionsController, get_all, "/api/subscriptions", GetAllSubscriptionsResponseDto, size: Option<usize>, start: Option<usize>);
+api_get_with_path!(SubscriptionsController, get_by_username, "/api/subscriptions/by-username/{}", GetSubscriptionByUsernameResponseDto, username: String);
+api_get_with_path!(SubscriptionsController, get_by_short_uuid, "/api/subscriptions/by-short-uuid/{}", GetSubscriptionByShortUuidResponseDto, short_uuid: String);
+api_get_with_path!(SubscriptionsController, get_by_uuid, "/api/subscriptions/by-uuid/{}", GetSubscriptionByUuidResponseDto, uuid: String);
+api_get_with_path_and_query!(SubscriptionsController, get_raw_by_short_uuid, "/api/subscriptions/by-short-uuid/{}/raw", GetRawSubscriptionByShortUuidResponseDto, path_params: [short_uuid: String], query_params: [with_disabled_hosts: Option<bool>]);
+
+api_get_with_path!(SubscriptionsController, get_subscription_info_by_short_uuid, "/api/sub/{}/info", GetSubscriptionInfoResponseDto, deprecate: "Use get_info_by_short_uuid", short_uuid: String);
+api_get_with_path!(SubscriptionsController, get_subscription, "/api/sub/{}", String, deprecate: "Use get", short_uuid: String);
+api_get_with_path!(SubscriptionsController, get_subscription_by_client_type, "/api/sub/{}/{}", String, deprecate: "Use get_by_client_type", short_uuid: String, client_type: SubscriptionClientType);
+api_get_with_query!(SubscriptionsController, get_all_subscriptions, "/api/subscriptions", GetAllSubscriptionsResponseDto, deprecate: "Use get_all", size: Option<usize>, start: Option<usize>);
+api_get_with_path!(SubscriptionsController, get_subscription_by_username, "/api/subscriptions/by-username/{}", GetSubscriptionByUsernameResponseDto, deprecate: "Use get_by_username", username: String);
+
+api_controller!(SubscriptionTemplateController);
+
+api_get!(SubscriptionTemplateController, get_all, "/api/subscription-templates", GetTemplatesResponseDto);
+api_post!(SubscriptionTemplateController, create, "/api/subscription-templates", CreateSubscriptionTemplateRequestDto, CreateSubscriptionTemplateResponseDto);
+api_get_with_path!(SubscriptionTemplateController, get, "/api/subscription-templates/{}", GetTemplateResponseDto, uuid: Uuid);
+api_patch!(SubscriptionTemplateController, update, "/api/subscription-templates", UpdateTemplateRequestDto, UpdateTemplateResponseDto);
+api_delete!(SubscriptionTemplateController, delete, "/api/subscription-templates/{}", DeleteSubscriptionTemplateResponseDto, uuid: Uuid);
+
+api_get!(SubscriptionTemplateController, get_templates, "/api/subscription-templates", GetTemplatesResponseDto, deprecate: "Use get_all");
+api_post!(SubscriptionTemplateController, create_template, "/api/subscription-templates", CreateSubscriptionTemplateRequestDto, CreateSubscriptionTemplateResponseDto, deprecate: "Use create");
+api_get_with_path!(SubscriptionTemplateController, get_template, "/api/subscription-templates/{}", GetTemplateResponseDto, deprecate: "Use get", uuid: Uuid);
+api_patch!(SubscriptionTemplateController, update_template, "/api/subscription-templates", UpdateTemplateRequestDto, UpdateTemplateResponseDto, deprecate: "Use update");
+api_delete!(SubscriptionTemplateController, delete_template, "/api/subscription-templates/{}", DeleteSubscriptionTemplateResponseDto, deprecate: "Use delete", uuid: Uuid);
+
+api_controller!(SubscriptionSettingsController);
+
+api_get!(SubscriptionSettingsController, get, "/api/subscription-settings", GetSubscriptionSettingsResponseDto);
+api_patch!(SubscriptionSettingsController, update, "/api/subscription-settings", UpdateSubscriptionSettingsRequestDto, UpdateSubscriptionSettingsResponseDto);
+
+api_get!(SubscriptionSettingsController, get_settings, "/api/subscription-settings", GetSubscriptionSettingsResponseDto, deprecate: "Use get");
+api_patch!(SubscriptionSettingsController, update_settings, "/api/subscription-settings", UpdateSubscriptionSettingsRequestDto, UpdateSubscriptionSettingsResponseDto, deprecate: "Use update");

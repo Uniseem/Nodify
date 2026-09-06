@@ -1,0 +1,16 @@
+### 🔥 Key Features
+- 💰 **Multi-channel payments** - Telegram Stars, Tribute, YooKassa (SBP + cards), CryptoBot, Heleket, MulenPay, PayPalych (SBP + cards), Platega (cards + SBP), WATA, Freekassa (NSPK SBP + cards), CloudPayments (cards + SBP)
+- 🎯 **99% automation** - from registration to subscription renewals
+- 📱 **MiniApp personal cabinet** - web interface for subscription purchase and management
+- 🆕 **Web Cabinet (Cabinet WebApp)** - new user personal account with JWT authentication, Telegram Login Widget, email login with verification, password reset, and full CORS support
+- 🎁 **Advanced promo system** - promo codes (balance/days/trial), promo groups, campaigns with automatic bonuses, personal offers
+- 📊 **Detailed analytics** - complete business overview with statistics and topic notifications
+- 🛡️ **Enterprise ready** - Python 3.13, AsyncIO, PostgreSQL, Redis, modular architecture
+- 🔒 **Security** - panel protection via cookie authentication, support for remnawave-reverse-proxy
+- 🗄️ **Backup system** - automatic backups with Telegram notifications and in-bot restore
+- 🌐 **Multi-language** - Russian and English with expansion capability
+- 🔧 **Flexible configuration** - tariff mode, traffic packages, device limits, smart server selection
+- 🌐 **Web API** - 50+ REST endpoints for external integrations and custom admin panels
+- 🔄 **Auto-sync** - background synchronization of subscriptions and servers with Remnawave
+- 🎮 **Contests & games** - daily games with prizes and referral contests
+- ✔️ **Channel subscription check** - verify channel subscription before access

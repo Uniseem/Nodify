@@ -1,0 +1,62 @@
+name: Build ASN Index
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build asn-prefixes.json
+        run: bash scripts/build.sh
+
+      - name: Build LMDB database
+        run: node scripts/build-lmdb.mjs
+
+      - name: Print stats
+        run: |
+          echo "=== ASN Index Stats ==="
+          ASN_COUNT=$(jq 'keys | length' ./dist/asn-prefixes.json)
+          echo "ASNs indexed: ${ASN_COUNT}"
+          echo ""
+          echo "Artifact sizes:"
+          ls -lh ./dist/asn-prefixes.json ./dist/asn-prefixes-lmdb.tar.gz ./dist/asn-prefixes.lmdb.zst
+
+      - name: Force-update latest tag
+        run: |
+          git tag -f latest
+          git push origin latest --force
+
+      - name: Create or update release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest ASN Index
+          body: |
+            Auto-generated ASN prefix index, updated daily from [ipverse/as-ip-blocks](https://github.com/ipverse/as-ip-blocks).
+
+            **Last updated:** ${{ github.run_id }} — see workflow run for details.
+          files: |
+            ./dist/asn-prefixes.json
+            ./dist/asn-prefixes-lmdb.tar.gz
+            ./dist/asn-prefixes.lmdb.zst
+          make_latest: true
+          prerelease: false
