@@ -1,12 +1,11 @@
 import { TransactionHost } from '@nestjs-cls/transactional';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
-import { sql } from 'kysely';
-import { jsonArrayFrom } from 'kysely/helpers/postgres';
+import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 
 import { Injectable } from '@nestjs/common';
 
 import { TxKyselyService } from '@common/database';
-import { getKyselyUuid } from '@common/helpers';
+import { findDistinctJsonTags, getKyselyUuid } from '@common/helpers';
 import { values } from '@common/helpers/kysely/values';
 import { ICrud } from '@common/types/crud-port';
 import { wrapDbNull } from '@common/utils';
@@ -213,17 +212,20 @@ export class ExternalSquadRepository implements ICrud<ExternalSquadEntity> {
     ): Promise<{
         affectedCount: number;
     }> {
-        const result = await this.prisma.tx.externalSquadsTemplates.createMany({
-            data: templates.map((template) => ({
-                externalSquadUuid,
-                templateType: template.templateType,
-                templateUuid: template.templateUuid,
-            })),
-            skipDuplicates: true,
-        });
+        const result = await this.qb.kysely
+            .insertInto('externalSquadsTemplates')
+            .values(
+                templates.map((template) => ({
+                    externalSquadUuid,
+                    templateType: template.templateType,
+                    templateUuid: template.templateUuid,
+                })),
+            )
+            .onConflict((oc) => oc.doNothing())
+            .executeTakeFirst();
 
         return {
-            affectedCount: result.count,
+            affectedCount: Number(result.numInsertedOrUpdatedRows ?? 0),
         };
     }
 
@@ -339,8 +341,8 @@ export class ExternalSquadRepository implements ICrud<ExternalSquadEntity> {
 
         const v = values(
             dto.map(({ uuid, viewPosition }) => ({
-                uuid: sql<string>`${uuid}::uuid`,
-                viewPosition: sql<number>`${viewPosition}::int`,
+                uuid,
+                viewPosition,
             })),
             'v',
         );
@@ -352,22 +354,11 @@ export class ExternalSquadRepository implements ICrud<ExternalSquadEntity> {
             .whereRef('externalSquads.uuid', '=', 'v.uuid')
             .execute();
 
-        await this.prisma.tx
-            .$executeRaw`SELECT setval('external_squads_view_position_seq', (SELECT MAX(view_position) FROM external_squads) + 1)`;
-
         return true;
     }
 
     public async findAllTags(): Promise<string[]> {
-        const result = await this.qb.kysely
-            .selectFrom('externalSquads')
-            .select(sql<string>`unnest(tags)`.as('tag'))
-            .distinct()
-            .where('tags', 'is not', null)
-            .orderBy('tag')
-            .execute();
-
-        return result.map((value) => value.tag);
+        return findDistinctJsonTags(this.prisma.tx, 'external_squads');
     }
 
     public async setTags(uuid: string, tags: string[]): Promise<string[]> {

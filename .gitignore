@@ -15,3 +15,8 @@ Thumbs.db
 .idea/
 .vscode/
 *.tsbuildinfo
+*.db
+*.db-wal
+*.db-shm
+apps/backend/data/
+apps/backend/prisma/data/

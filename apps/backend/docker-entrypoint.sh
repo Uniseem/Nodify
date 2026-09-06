@@ -2,6 +2,8 @@
 
 echo "Starting entrypoint script..."
 
+mkdir -p /opt/app/data
+
 PRISMA="/opt/app/node_modules/.bin/prisma"
 
 echo "Migrating database..."

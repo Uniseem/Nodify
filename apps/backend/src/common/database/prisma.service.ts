@@ -1,20 +1,20 @@
 import { PrismaClient } from '@prisma/client';
 
-// import { PrismaPg } from '@prisma/adapter-pg';
 import { Injectable, OnModuleInit } from '@nestjs/common';
+
+import { applySqlitePragmas, ensureSqliteFile, resolveDatabaseUrl } from './sqlite';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
     constructor() {
-        // const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
-        super({
-            // log: ['query'],
-            // adapter,
-        });
-        // init with config
+        process.env.DATABASE_URL = resolveDatabaseUrl();
+        ensureSqliteFile();
+        super();
     }
+
     async onModuleInit() {
         await this.$connect();
+        await applySqlitePragmas(this);
     }
 
     /**

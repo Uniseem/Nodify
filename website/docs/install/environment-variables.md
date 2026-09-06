@@ -91,38 +91,19 @@ REDIS_PORT=6379
 
 ## Database
 
-Variables below are not used by Remnawave, but by the database container.
-
-| Variable            | Description                         | Default    | Required |
-| ------------------- | ----------------------------------- | ---------- | -------- |
-| `POSTGRES_USER`     | The username of the Postgres server | `postgres` | No       |
-| `POSTGRES_PASSWORD` | The password of the Postgres server | `postgres` | No       |
-| `POSTGRES_DB`       | The database of the Postgres server | `postgres` | No       |
-
-Remnawave uses PostgreSQL URL to connect to the database.
-
-```
-
-postgresql://{user}:{password}@{host}:{port}/{database}
-
-```
+Nodify defaults to SQLite. `DATABASE_URL` is a SQLite file URL.
 
 ```bash title="DATABASE_URL example"
-DATABASE_URL="postgresql://postgres:postgres@remnawave-db:5432/postgres"
+DATABASE_URL="file:/opt/app/data/nodify.db"
 ```
 
-<details>
-<summary>Example</summary>
+Local development can use a path relative to the backend working directory:
 
 ```bash title=".env file"
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=postgres
-
-DATABASE_URL="postgresql://postgres:postgres@remnawave-db:5432/postgres"
+DATABASE_URL="file:./data/nodify.db"
 ```
 
-</details>
+The Docker Compose files mount `remnawave-data` at `/opt/app/data` and no longer start a Postgres container.
 
 ## Secret keys
 

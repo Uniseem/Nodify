@@ -15,6 +15,7 @@ import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import Redis from 'ioredis';
 
+import { applySqlitePragmas, ensureSqliteFile, resolveDatabaseUrl } from '@common/database/sqlite';
 import { getRedisConnectionOptions } from '@common/utils';
 import { generateNodeCert } from '@common/utils/certs';
 import { encodeCertPayload } from '@common/utils/certs/encode-node-payload';
@@ -27,6 +28,9 @@ dayjs.extend(relativeTime);
 dayjs.extend(timezone);
 dayjs.extend(customParseFormat);
 
+process.env.DATABASE_URL = resolveDatabaseUrl();
+ensureSqliteFile();
+
 const prisma = new PrismaClient({
     datasources: {
         db: {
@@ -34,6 +38,8 @@ const prisma = new PrismaClient({
         },
     },
 });
+
+void applySqlitePragmas(prisma);
 
 const redisOptions = getRedisConnectionOptions(
     process.env.REDIS_SOCKET,
@@ -248,7 +254,7 @@ async function truncateHwidUserDevices() {
     }
 
     try {
-        await prisma.$executeRaw`TRUNCATE hwid_user_devices;`;
+        await prisma.$executeRaw`DELETE FROM hwid_user_devices`;
         consola.success('✅ HWID Devices cleaned up successfully.');
         process.exit(0);
     } catch (error) {
@@ -271,7 +277,8 @@ async function truncateSrhTable() {
     }
 
     try {
-        await prisma.$executeRaw`TRUNCATE user_subscription_request_history RESTART IDENTITY;`;
+        await prisma.$executeRaw`DELETE FROM user_subscription_request_history`;
+        await prisma.$executeRaw`DELETE FROM sqlite_sequence WHERE name = 'user_subscription_request_history'`;
         consola.success('✅ SRH Table cleaned up successfully.');
         process.exit(0);
     } catch (error) {
@@ -294,9 +301,8 @@ async function truncateUsersUsageTable() {
     }
 
     try {
-        await prisma.$executeRaw`TRUNCATE nodes_user_usage_history RESTART IDENTITY;`;
-        await prisma.$executeRaw`VACUUM nodes_user_usage_history;`;
-        await prisma.$executeRaw`REINDEX TABLE nodes_user_usage_history;`;
+        await prisma.$executeRaw`DELETE FROM nodes_user_usage_history`;
+        await prisma.$executeRaw`PRAGMA wal_checkpoint(TRUNCATE)`;
         consola.success('✅ Users Usage Table cleaned up successfully.');
         process.exit(0);
     } catch (error) {
@@ -375,11 +381,11 @@ async function runBatchedDelete(
         const batchStart = Date.now();
         const deleted = await prisma.$executeRaw`
             DELETE FROM nodes_user_usage_history
-            WHERE ctid IN (
-                SELECT ctid
+            WHERE rowid IN (
+                SELECT rowid
                 FROM nodes_user_usage_history
-                WHERE created_at >= ${startStr}::date
-                  AND created_at <= ${endStr}::date
+                WHERE date(created_at) >= ${startStr}
+                  AND date(created_at) <= ${endStr}
                 LIMIT ${batchSize}
             )
         `;
@@ -424,8 +430,8 @@ async function runSingleDelete(startStr: string, endStr: string): Promise<number
 
     const deleted = await prisma.$executeRaw`
         DELETE FROM nodes_user_usage_history
-        WHERE created_at >= ${startStr}::date
-          AND created_at <= ${endStr}::date
+        WHERE date(created_at) >= ${startStr}
+          AND date(created_at) <= ${endStr}
     `;
 
     consola.success(`✅ Deleted ${deleted.toLocaleString('en-US')} record(s).`);
@@ -488,10 +494,10 @@ async function deleteUsersUsageByDateRange() {
     let rowsToDelete = 0n;
     try {
         const countResult = await prisma.$queryRaw<{ count: bigint }[]>`
-            SELECT COUNT(*)::bigint AS count
+            SELECT COUNT(*) AS count
             FROM nodes_user_usage_history
-            WHERE created_at >= ${startStr}::date
-              AND created_at <= ${endStr}::date
+            WHERE date(created_at) >= ${startStr}
+              AND date(created_at) <= ${endStr}
         `;
         rowsToDelete = countResult[0]?.count ?? 0n;
     } catch (error) {
@@ -558,7 +564,7 @@ async function deleteUsersUsageByDateRange() {
 
     consola.start('🧹 Reclaiming space (VACUUM)... (do NOT close this window)');
     try {
-        await prisma.$executeRaw`VACUUM nodes_user_usage_history;`;
+        await prisma.$executeRaw`VACUUM`;
     } catch (error) {
         consola.warn('⚠️ Final VACUUM failed (table left as-is):', error);
     }

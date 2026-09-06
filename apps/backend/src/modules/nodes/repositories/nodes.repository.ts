@@ -7,7 +7,8 @@ import { Injectable } from '@nestjs/common';
 
 import { INodeConnectionOpts } from '@common/axios';
 import { TxKyselyService } from '@common/database';
-import { getKyselyUuid } from '@common/helpers/kysely/get-kysely-uuid';
+import { findDistinctJsonTags, getKyselyUuid } from '@common/helpers/kysely';
+import { jsonArrayContains, jsonArrayRemove } from '@common/helpers/kysely/sqlite';
 import { values } from '@common/helpers/kysely/values';
 import { ICrud } from '@common/types/crud-port';
 
@@ -241,8 +242,8 @@ export class NodesRepository implements ICrud<NodesEntity> {
 
         const v = values(
             dto.map(({ uuid, viewPosition }) => ({
-                uuid: sql<string>`${uuid}::uuid`,
-                viewPosition: sql<number>`${viewPosition}::int`,
+                uuid,
+                viewPosition,
             })),
             'v',
         );
@@ -253,9 +254,6 @@ export class NodesRepository implements ICrud<NodesEntity> {
             .set((eb) => ({ viewPosition: eb.ref('v.viewPosition') }))
             .whereRef('n.uuid', '=', 'v.uuid')
             .execute();
-
-        await this.prisma.tx
-            .$executeRaw`SELECT setval('nodes_view_position_seq', (SELECT MAX(view_position) FROM nodes) + 1)`;
 
         return true;
     }
@@ -338,15 +336,7 @@ export class NodesRepository implements ICrud<NodesEntity> {
     }
 
     public async findAllTags(): Promise<string[]> {
-        const result = await this.qb.kysely
-            .selectFrom('nodes')
-            .select(sql<string>`unnest(tags)`.as('tag'))
-            .distinct()
-            .where('tags', 'is not', null)
-            .orderBy('tag')
-            .execute();
-
-        return result.map((value) => value.tag);
+        return findDistinctJsonTags(this.prisma.tx, 'nodes');
     }
 
     public async getEnabledNodesByPluginUuid(pluginUuid: string): Promise<string[]> {
@@ -367,9 +357,7 @@ export class NodesRepository implements ICrud<NodesEntity> {
             .selectFrom('nodes')
             .select('activeConfigProfileUuid')
             .distinct()
-            .where(
-                sql<boolean>`${sql.ref('nodes.integration_uuids')} @> ARRAY[${getKyselyUuid(integrationUuid)}]`,
-            )
+            .where(jsonArrayContains(sql.ref('nodes.integration_uuids'), integrationUuid))
             .where('isDisabled', '=', false)
             .where('activeConfigProfileUuid', 'is not', null)
             .execute();
@@ -406,11 +394,12 @@ export class NodesRepository implements ICrud<NodesEntity> {
         const result = await this.qb.kysely
             .updateTable('nodes')
             .set({
-                integrationUuids: sql<string[]>`array_remove(${sql.ref('nodes.integration_uuids')}, ${getKyselyUuid(integrationUuid)})`,
+                integrationUuids: jsonArrayRemove(
+                    sql.ref('nodes.integration_uuids'),
+                    integrationUuid,
+                ) as never,
             })
-            .where(
-                sql<boolean>`${sql.ref('nodes.integration_uuids')} @> ARRAY[${getKyselyUuid(integrationUuid)}]`,
-            )
+            .where(jsonArrayContains(sql.ref('nodes.integration_uuids'), integrationUuid))
             .execute();
 
         return !!result;

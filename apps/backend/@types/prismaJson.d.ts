@@ -15,6 +15,7 @@ declare global {
         type PasswordAuthSettings = z.infer<typeof PasswordAuthSettingsSchema>;
         type BrandingSettings = z.infer<typeof BrandingSettingsSchema>;
         type NodeIps = z.infer<typeof NodeIpsSchema>;
+        type StringArray = string[];
     }
 }
 

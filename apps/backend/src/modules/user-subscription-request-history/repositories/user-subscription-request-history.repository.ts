@@ -5,7 +5,7 @@ import { sql } from 'kysely';
 import { Injectable } from '@nestjs/common';
 
 import { TxKyselyService } from '@common/database';
-import { paginateQuery } from '@common/helpers';
+import { ilike, paginateQuery } from '@common/helpers';
 import { ICrudWithId } from '@common/types/crud-port';
 import { GetSubscriptionRequestHistoryCommand } from '@libs/contracts/commands';
 
@@ -169,13 +169,13 @@ export class UserSubscriptionRequestHistoryRepository implements ICrudWithId<Use
                     qb = qb.where(column, '=', filter.value);
                     break;
                 case 'startsWith':
-                    qb = qb.where(column, 'ilike', `${filter.value}%`);
+                    qb = qb.where(ilike(column, `${filter.value}%`));
                     break;
                 case 'endsWith':
-                    qb = qb.where(column, 'ilike', `%${filter.value}`);
+                    qb = qb.where(ilike(column, `%${filter.value}`));
                     break;
                 default:
-                    qb = qb.where(column, 'ilike', `%${filter.value}%`);
+                    qb = qb.where(ilike(column, `%${filter.value}%`));
             }
         }
 
@@ -186,11 +186,13 @@ export class UserSubscriptionRequestHistoryRepository implements ICrudWithId<Use
         byParsedApp: { app: string; count: number }[];
     }> {
         const appExtraction = sql<string>`
-        CASE 
-            WHEN POSITION('/' IN user_agent) > 0 THEN 
-                SPLIT_PART(user_agent, '/', 1)
-            ELSE 
-                SPLIT_PART(user_agent, ' ', 1)
+        CASE
+            WHEN instr(user_agent, '/') > 0 THEN
+                substr(user_agent, 1, instr(user_agent, '/') - 1)
+            WHEN instr(user_agent, ' ') > 0 THEN
+                substr(user_agent, 1, instr(user_agent, ' ') - 1)
+            ELSE
+                user_agent
         END
     `;
 
@@ -231,11 +233,11 @@ export class UserSubscriptionRequestHistoryRepository implements ICrudWithId<Use
         const result = await this.qb.kysely
             .selectFrom('userSubscriptionRequestHistory')
             .select([
-                sql<Date>`date_trunc('hour', request_at)`.as('hour'),
+                sql<Date>`strftime('%Y-%m-%d %H:00:00', request_at)`.as('hour'),
                 (eb) => eb.fn.count('id').as('requestCount'),
             ])
-            .where('requestAt', '>=', sql<Date>`NOW() - INTERVAL '48 hours'`)
-            .groupBy(sql`date_trunc('hour', request_at)`)
+            .where('requestAt', '>=', sql<Date>`datetime('now', '-48 hours')`)
+            .groupBy(sql`strftime('%Y-%m-%d %H:00:00', request_at)`)
             .orderBy('hour')
             .execute();
 

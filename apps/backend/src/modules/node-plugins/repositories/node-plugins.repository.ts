@@ -5,13 +5,12 @@ import { sql } from 'kysely';
 import { Injectable } from '@nestjs/common';
 
 import { TxKyselyService } from '@common/database';
+import { findDistinctJsonTags, jsonTreeContains } from '@common/helpers/kysely';
 import { values } from '@common/helpers/kysely/values';
 import { ICrud } from '@common/types/crud-port';
 
 import { NodePluginEntity } from '../entities/node-plugin.entity';
 import { NodePluginConverter } from '../node-plugins.converter';
-
-const SHARED_LIST_USAGE_JSONPATH = `$.** ? (@ == $name)`;
 
 @Injectable()
 export class NodePluginRepository implements ICrud<NodePluginEntity> {
@@ -122,13 +121,7 @@ export class NodePluginRepository implements ICrud<NodePluginEntity> {
         const result = await this.qb.kysely
             .selectFrom('nodePlugin')
             .select('uuid')
-            .where(
-                sql<boolean>`jsonb_path_exists(
-                    ${sql.ref('node_plugin.plugin_config')},
-                    ${SHARED_LIST_USAGE_JSONPATH}::jsonpath,
-                    jsonb_build_object('name', ${`ext:${name}`}::text)
-                )`,
-            )
+            .where(jsonTreeContains(sql.ref('node_plugin.plugin_config'), `ext:${name}`))
             .execute();
 
         return result.map((row) => row.uuid);
@@ -144,8 +137,8 @@ export class NodePluginRepository implements ICrud<NodePluginEntity> {
 
         const v = values(
             dto.map(({ uuid, viewPosition }) => ({
-                uuid: sql<string>`${uuid}::uuid`,
-                viewPosition: sql<number>`${viewPosition}::int`,
+                uuid,
+                viewPosition,
             })),
             'v',
         );
@@ -157,22 +150,11 @@ export class NodePluginRepository implements ICrud<NodePluginEntity> {
             .whereRef('nodePlugin.uuid', '=', 'v.uuid')
             .execute();
 
-        await this.prisma.tx
-            .$executeRaw`SELECT setval('node_plugin_view_position_seq', (SELECT MAX(view_position) FROM node_plugin) + 1)`;
-
         return true;
     }
 
     public async findAllTags(): Promise<string[]> {
-        const result = await this.qb.kysely
-            .selectFrom('nodePlugin')
-            .select(sql<string>`unnest(tags)`.as('tag'))
-            .distinct()
-            .where('tags', 'is not', null)
-            .orderBy('tag')
-            .execute();
-
-        return result.map((value) => value.tag);
+        return findDistinctJsonTags(this.prisma.tx, 'node_plugin');
     }
 
     public async setTags(uuid: string, tags: string[]): Promise<string[]> {

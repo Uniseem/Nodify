@@ -1,7 +1,7 @@
 import { TransactionHost } from '@nestjs-cls/transactional';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
 import { sql } from 'kysely';
-import { jsonArrayFrom, jsonBuildObject } from 'kysely/helpers/postgres';
+import { jsonArrayFrom, jsonBuildObject } from 'kysely/helpers/sqlite';
 
 import { Injectable } from '@nestjs/common';
 
@@ -96,7 +96,7 @@ export class InfraProviderRepository implements ICrud<InfraProviderEntity> {
 
                 (eb) =>
                     jsonBuildObject({
-                        totalAmount: sql<number>`coalesce(round(sum(ibh.amount)::numeric, 2), 0)`,
+                        totalAmount: sql<number>`coalesce(round(sum(ibh.amount), 2), 0)`,
                         totalBills: eb.fn.coalesce(eb.fn.count('ibh.uuid'), eb.lit(0)),
                     }).as('billingHistory'),
 
@@ -144,7 +144,7 @@ export class InfraProviderRepository implements ICrud<InfraProviderEntity> {
 
                 (eb) =>
                     jsonBuildObject({
-                        totalAmount: sql<number>`coalesce(round(sum(ibh.amount)::numeric, 2), 0)`,
+                        totalAmount: sql<number>`coalesce(round(sum(ibh.amount), 2), 0)`,
                         totalBills: eb.fn.coalesce(eb.fn.count('ibh.uuid'), eb.lit(0)),
                     }).as('billingHistory'),
 

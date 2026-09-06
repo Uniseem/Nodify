@@ -25,7 +25,7 @@ export const configSchema = z
         __RW_METADATA_BUILD_TIME: z.string().default('2011-11-11T11:11:11Z'),
         __RW_METADATA_BUILD_NUMBER: z.string().default('0'),
 
-        DATABASE_URL: z.string(),
+        DATABASE_URL: z.string().default('file:./data/nodify.db'),
         APP_PORT: z
             .string()
             .default('3000')

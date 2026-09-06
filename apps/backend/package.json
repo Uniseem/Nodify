@@ -39,7 +39,6 @@
     "@bull-board/api": "9.5.0",
     "@bull-board/express": "9.5.0",
     "@bull-board/nestjs": "9.5.0",
-    "@kastov/nestjs-prisma-kysely": "0.1.2",
     "@kastov/request-ip": "^0.0.5",
     "@kastov/uuid-color": "^0.1.0",
     "@nestjs-cls/transactional": "3.1.1",

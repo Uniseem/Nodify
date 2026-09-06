@@ -1,13 +1,12 @@
 import { TransactionHost } from '@nestjs-cls/transactional';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
 import { Prisma } from '@prisma/client';
-import { sql } from 'kysely';
 import { IReorderHost } from 'src/modules/hosts/interfaces/reorder-host.interface';
 
 import { Injectable } from '@nestjs/common';
 
 import { TxKyselyService } from '@common/database';
-import { getKyselyUuid } from '@common/helpers';
+import { findDistinctJsonTags, getKyselyUuid } from '@common/helpers';
 import { values } from '@common/helpers/kysely/values';
 import { ICrud } from '@common/types/crud-port';
 import { INTERNAL_SQUADS_MODE } from '@libs/contracts/constants';
@@ -260,8 +259,8 @@ export class HostsRepository implements ICrud<HostsEntity> {
 
         const v = values(
             dto.map(({ uuid, viewPosition }) => ({
-                uuid: sql<string>`${uuid}::uuid`,
-                viewPosition: sql<number>`${viewPosition}::int`,
+                uuid,
+                viewPosition,
             })),
             'v',
         );
@@ -273,22 +272,11 @@ export class HostsRepository implements ICrud<HostsEntity> {
             .whereRef('h.uuid', '=', 'v.uuid')
             .execute();
 
-        await this.prisma.tx
-            .$executeRaw`SELECT setval('hosts_view_position_seq', (SELECT MAX(view_position) FROM hosts) + 1)`;
-
         return true;
     }
 
     public async findAllTags(): Promise<string[]> {
-        const result = await this.qb.kysely
-            .selectFrom('hosts')
-            .select(sql<string>`unnest(tags)`.as('tag'))
-            .distinct()
-            .where('tags', 'is not', null)
-            .orderBy('tag')
-            .execute();
-
-        return result.map((value) => value.tag);
+        return findDistinctJsonTags(this.prisma.tx, 'hosts');
     }
 
     public async addNodesToHost(hostUuid: string, nodes: string[]): Promise<boolean> {
@@ -296,24 +284,28 @@ export class HostsRepository implements ICrud<HostsEntity> {
             return true;
         }
 
-        const result = await this.prisma.tx.hostsToNodes.createMany({
-            data: nodes.map((node) => ({ hostUuid, nodeUuid: node })),
-            skipDuplicates: true,
-        });
-        return !!result;
+        const result = await this.qb.kysely
+            .insertInto('hostsToNodes')
+            .values(nodes.map((nodeUuid) => ({ hostUuid, nodeUuid })))
+            .onConflict((oc) => oc.doNothing())
+            .executeTakeFirst();
+        return Number(result.numInsertedOrUpdatedRows ?? 0) >= 0;
     }
 
     public async addNodesToHosts(hostUuids: string[], nodes: string[]): Promise<boolean> {
         if (hostUuids.length === 0 || nodes.length === 0) {
             return true;
         }
-        const result = await this.prisma.tx.hostsToNodes.createMany({
-            data: hostUuids.flatMap((hostUuid) =>
-                nodes.map((node) => ({ hostUuid, nodeUuid: node })),
-            ),
-            skipDuplicates: true,
-        });
-        return !!result.count;
+        const result = await this.qb.kysely
+            .insertInto('hostsToNodes')
+            .values(
+                hostUuids.flatMap((hostUuid) =>
+                    nodes.map((nodeUuid) => ({ hostUuid, nodeUuid })),
+                ),
+            )
+            .onConflict((oc) => oc.doNothing())
+            .executeTakeFirst();
+        return Number(result.numInsertedOrUpdatedRows ?? 0) >= 0;
     }
 
     public async clearNodesFromHost(hostUuid: string): Promise<boolean> {
@@ -335,11 +327,12 @@ export class HostsRepository implements ICrud<HostsEntity> {
             return true;
         }
 
-        const result = await this.prisma.tx.internalSquadHostLinks.createMany({
-            data: squadUuids.map((squad) => ({ hostUuid, squadUuid: squad })),
-            skipDuplicates: true,
-        });
-        return !!result;
+        const result = await this.qb.kysely
+            .insertInto('internalSquadHostLinks')
+            .values(squadUuids.map((squadUuid) => ({ hostUuid, squadUuid })))
+            .onConflict((oc) => oc.doNothing())
+            .executeTakeFirst();
+        return Number(result.numInsertedOrUpdatedRows ?? 0) >= 0;
     }
 
     public async addInternalSquadsToHosts(
@@ -350,13 +343,16 @@ export class HostsRepository implements ICrud<HostsEntity> {
             return true;
         }
 
-        const result = await this.prisma.tx.internalSquadHostLinks.createMany({
-            data: hostUuids.flatMap((hostUuid) =>
-                squadUuids.map((squad) => ({ hostUuid, squadUuid: squad })),
-            ),
-            skipDuplicates: true,
-        });
-        return !!result;
+        const result = await this.qb.kysely
+            .insertInto('internalSquadHostLinks')
+            .values(
+                hostUuids.flatMap((hostUuid) =>
+                    squadUuids.map((squadUuid) => ({ hostUuid, squadUuid })),
+                ),
+            )
+            .onConflict((oc) => oc.doNothing())
+            .executeTakeFirst();
+        return Number(result.numInsertedOrUpdatedRows ?? 0) >= 0;
     }
 
     public async clearInternalSquadsFromHost(hostUuid: string): Promise<boolean> {

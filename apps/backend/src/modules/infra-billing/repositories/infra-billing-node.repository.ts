@@ -162,14 +162,14 @@ export class InfraBillingNodeRepository implements ICrud<InfraBillingNodeEntity>
 
             this.qb.kysely
                 .selectFrom('infraBillingHistory')
-                .select(() => sql<number>`coalesce(round(sum(amount)::numeric, 2), 0)`.as('amount'))
+                .select(() => sql<number>`coalesce(round(sum(amount), 2), 0)`.as('amount'))
                 .where('billedAt', '>=', startOfMonth)
                 .where('billedAt', '<', startOfNextMonth)
                 .executeTakeFirst(),
 
             this.qb.kysely
                 .selectFrom('infraBillingHistory')
-                .select(() => sql<number>`coalesce(round(sum(amount)::numeric, 2), 0)`.as('amount'))
+                .select(() => sql<number>`coalesce(round(sum(amount), 2), 0)`.as('amount'))
                 .executeTakeFirst(),
         ]);
 

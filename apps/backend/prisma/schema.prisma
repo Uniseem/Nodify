@@ -9,11 +9,15 @@ generator client {
 }
 
 generator kysely {
-  provider           = "prisma-kysely"
-  camelCase          = true
-  bigIntTypeOverride = "bigint"
-  jsonTypeOverride   = "object"
-  enumFileName       = "kyselyEnums.ts"
+  provider             = "prisma-kysely"
+  output               = "./generated"
+  fileName             = "types.ts"
+  camelCase            = true
+  booleanTypeOverride  = "boolean"
+  dateTimeTypeOverride = "Timestamp"
+  bigIntTypeOverride   = "bigint"
+  jsonTypeOverride     = "object"
+  enumFileName         = "kyselyEnums.ts"
 }
 
 generator json {
@@ -23,9 +27,8 @@ generator json {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model RemnawaveSettings {
@@ -48,7 +51,7 @@ model Users {
   shortUuid              String    @unique @map("short_uuid")
   username               String    @unique @map("username")
   /// @kyselyType('ACTIVE' | 'DISABLED' | 'LIMITED' | 'EXPIRED')
-  status                 String    @default("ACTIVE") @map("status") @db.VarChar(10)
+  status                 String    @default("ACTIVE") @map("status")
   trafficLimitBytes      BigInt    @default(0) @map("traffic_limit_bytes")
   /// @kyselyType('NO_RESET' | 'DAY' | 'WEEK' | 'MONTH' | 'MONTH_ROLLING')
   trafficLimitStrategy   String    @default("NO_RESET") @map("traffic_limit_strategy")
@@ -56,14 +59,14 @@ model Users {
   lastTrafficResetAt     DateTime? @map("last_traffic_reset_at")
   subRevokedAt           DateTime? @map("sub_revoked_at")
   trojanPassword         String    @map("trojan_password")
-  vlessUuid              String    @map("vless_uuid") @db.Uuid
+  vlessUuid              String    @map("vless_uuid")
   ssPassword             String    @map("ss_password")
   description            String?   @map("description")
   tag                    String?   @map("tag")
   telegramId             BigInt?   @map("telegram_id")
   email                  String?   @map("email")
   hwidDeviceLimit        Int?      @map("hwid_device_limit")
-  externalSquadUuid      String?   @map("external_squad_uuid") @db.Uuid
+  externalSquadUuid      String?   @map("external_squad_uuid")
   lastTriggeredThreshold Int       @default(0) @map("last_triggered_threshold")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -90,7 +93,7 @@ model UserTraffic {
   lifetimeUsedTrafficBytes BigInt @default(0) @map("lifetime_used_traffic_bytes")
 
   onlineAt              DateTime? @map("online_at")
-  lastConnectedNodeUuid String?   @map("last_connected_node_uuid") @db.Uuid
+  lastConnectedNodeUuid String?   @map("last_connected_node_uuid")
 
   firstConnectedAt DateTime? @map("first_connected_at")
 
@@ -101,10 +104,12 @@ model UserTraffic {
 }
 
 model ApiTokens {
-  uuid     String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uuid     String   @id @default(uuid())
   name     String   @map("name")
   expireAt DateTime @map("expire_at")
-  scopes   String[] @default(["*"]) @map("scopes")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  scopes Json @default("[\"*\"]") @map("scopes")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
@@ -113,7 +118,7 @@ model ApiTokens {
 }
 
 model Admin {
-  uuid         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uuid         String @id @default(uuid())
   username     String @unique @map("username")
   passwordHash String @map("password_hash")
   role         String @map("role")
@@ -128,7 +133,7 @@ model Admin {
 
 model Passkeys {
   id              String  @id @map("id") // Base64URL encoded credential ID
-  adminUuid       String  @map("admin_uuid") @db.Uuid
+  adminUuid       String  @map("admin_uuid")
   publicKey       Bytes   @map("public_key") // Raw bytes of the public key
   counter         BigInt  @map("counter") // Signature counter
   deviceType      String  @map("device_type") // 'singleDevice' | 'multiDevice'
@@ -147,7 +152,7 @@ model Passkeys {
 }
 
 model Keygen {
-  uuid       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uuid       String  @id @default(uuid())
   privKey    String  @map("priv_key")
   pubKey     String  @map("pub_key")
   caCert     String? @map("ca_cert")
@@ -162,15 +167,15 @@ model Keygen {
 }
 
 model Nodes {
-  id       BigInt  @unique @default(autoincrement()) @map("id")
-  uuid     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id       BigInt  @id @default(autoincrement()) @map("id")
+  uuid     String  @unique @default(uuid())
   name     String  @unique @map("name")
   address  String  @unique @map("address")
   port     Int?    @map("port")
   proxyUrl String? @map("proxy_url")
 
-  activeConfigProfileUuid String? @map("active_config_profile_uuid") @db.Uuid
-  activePluginUuid        String? @map("active_plugin_uuid") @db.Uuid
+  activeConfigProfileUuid String? @map("active_config_profile_uuid")
+  activePluginUuid        String? @map("active_plugin_uuid")
 
   isConnected  Boolean @default(false) @map("is_connected")
   isConnecting Boolean @default(false) @map("is_connecting")
@@ -178,7 +183,7 @@ model Nodes {
 
   lastStatusChange  DateTime? @map("last_status_change")
   lastStatusMessage String?   @map("last_status_message")
-  note              String?   @map("note") @db.VarChar(255)
+  note              String?   @map("note")
 
   consumptionMultiplier     BigInt @default(1000000000) @map("consumption_multiplier")
   nodeConsumptionMultiplier BigInt @default(1000000000) @map("node_consumption_multiplier")
@@ -191,13 +196,17 @@ model Nodes {
   /// [NodeIps]
   ips                     Json    @default("[]") @map("ips")
 
-  providerUuid String? @map("provider_uuid") @db.Uuid
+  providerUuid String? @map("provider_uuid")
 
-  viewPosition Int      @default(autoincrement()) @map("view_position")
+  viewPosition Int      @default(0) @map("view_position")
   countryCode  String   @default("XX") @map("country_code")
-  tags         String[] @default([]) @map("tags")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  tags Json @default("[]") @map("tags")
 
-  integrationUuids String[] @default([]) @map("integration_uuids") @db.Uuid
+  /// [StringArray]
+  /// @kyselyType(string[])
+  integrationUuids Json @default("[]") @map("integration_uuids")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
@@ -215,14 +224,13 @@ model Nodes {
   provider            InfraProviders? @relation(fields: [providerUuid], references: [uuid], onDelete: SetNull)
   activePlugin        NodePlugin?     @relation(fields: [activePluginUuid], references: [uuid], onDelete: SetNull)
 
-  @@index([id])
   @@map("nodes")
 }
 
 model Integrations {
-  uuid        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name        String  @unique @map("name") @db.VarChar(30)
-  description String? @map("description") @db.VarChar(255)
+  uuid        String  @id @default(uuid())
+  name        String  @unique @map("name")
+  description String? @map("description")
   config      Json    @map("config")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -237,7 +245,7 @@ model NodesUserUsageHistory {
 
   totalBytes BigInt @map("total_bytes")
 
-  createdAt DateTime @default(dbgenerated("CURRENT_DATE")) @map("created_at") @db.Date
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   node Nodes @relation(fields: [nodeId], references: [id], onDelete: Cascade)
@@ -249,12 +257,12 @@ model NodesUserUsageHistory {
 }
 
 model NodesUsageHistory {
-  nodeUuid      String @map("node_uuid") @db.Uuid
+  nodeUuid      String @map("node_uuid")
   downloadBytes BigInt @map("download_bytes")
   uploadBytes   BigInt @map("upload_bytes")
   totalBytes    BigInt @map("total_bytes")
 
-  createdAt DateTime @default(dbgenerated("date_trunc('hour'::text, now())")) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   node Nodes @relation(fields: [nodeUuid], references: [uuid], onDelete: Cascade)
@@ -265,9 +273,9 @@ model NodesUsageHistory {
 }
 
 model Hosts {
-  uuid                         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  viewPosition                 Int      @default(autoincrement()) @map("view_position")
-  remark                       String   @map("remark") @db.VarChar(100)
+  uuid                         String   @id @default(uuid())
+  viewPosition                 Int      @default(0) @map("view_position")
+  remark                       String   @map("remark")
   address                      String   @map("address")
   port                         Int      @map("port")
   path                         String?  @map("path")
@@ -281,27 +289,31 @@ model Hosts {
   sockoptParams                Json?    @map("sockopt_params")
   finalMask                    Json?    @map("final_mask")
   isDisabled                   Boolean  @default(false) @map("is_disabled")
-  serverDescription            String?  @map("server_description") @db.VarChar(30)
+  serverDescription            String?  @map("server_description")
   vlessRouteId                 Int?     @map("vless_route_id")
   pinnedPeerCertSha256         String?  @map("pinned_peer_cert_sha256")
   verifyPeerCertByName         String?  @map("verify_peer_cert_by_name")
   shuffleHost                  Boolean  @default(false) @map("shuffle_host")
   mihomoX25519                 Boolean  @default(false) @map("mihomo_x25519")
   mihomoIpVersion              String?  @map("mihomo_ip_version") // ENUM: dual, ipv4, ipv6, ipv4-prefer, ipv6-prefer
-  xrayJsonTemplateUuid         String?  @map("xray_json_template_uuid") @db.Uuid
+  xrayJsonTemplateUuid         String?  @map("xray_json_template_uuid")
   keepSniBlank                 Boolean  @default(false) @map("keep_sni_blank")
-  excludeFromSubscriptionTypes String[] @default([]) @map("exclude_from_subscription_types")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  excludeFromSubscriptionTypes Json @default("[]") @map("exclude_from_subscription_types")
   mapper                       Json     @default("{}") @map("mapper")
 
   internalSquadsMode String @default("EXCLUDE") @map("internal_squads_mode") // ENUM: EXCLUDE, ALLOW_ONLY
 
-  tags     String[] @default([]) @map("tags")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  tags Json @default("[]") @map("tags")
   isHidden Boolean  @default(false) @map("is_hidden")
 
   overrideSniFromAddress Boolean @default(false) @map("override_sni_from_address")
 
-  configProfileUuid        String? @map("config_profile_uuid") @db.Uuid
-  configProfileInboundUuid String? @map("config_profile_inbound_uuid") @db.Uuid
+  configProfileUuid        String? @map("config_profile_uuid")
+  configProfileInboundUuid String? @map("config_profile_inbound_uuid")
 
   configProfileInbounds ConfigProfileInbounds? @relation(fields: [configProfileInboundUuid], references: [uuid], onDelete: SetNull)
   configProfiles        ConfigProfiles?        @relation(fields: [configProfileUuid], references: [uuid], onDelete: SetNull)
@@ -314,8 +326,8 @@ model Hosts {
 }
 
 model InternalSquadHostLinks {
-  hostUuid  String @map("host_uuid") @db.Uuid
-  squadUuid String @map("squad_uuid") @db.Uuid
+  hostUuid  String @map("host_uuid")
+  squadUuid String @map("squad_uuid")
 
   host  Hosts          @relation(fields: [hostUuid], references: [uuid], onDelete: Cascade)
   squad InternalSquads @relation(fields: [squadUuid], references: [uuid], onDelete: Cascade)
@@ -325,10 +337,12 @@ model InternalSquadHostLinks {
 }
 
 model SubscriptionTemplate {
-  uuid         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  viewPosition Int      @default(autoincrement()) @map("view_position")
-  name         String   @default("Default") @map("name") @db.VarChar(255)
-  tags         String[] @default([]) @map("tags")
+  uuid         String   @id @default(uuid())
+  viewPosition Int      @default(0) @map("view_position")
+  name         String   @default("Default") @map("name")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  tags Json @default("[]") @map("tags")
   templateType String   @map("template_type")
   templateYaml String?  @map("template_yaml")
   templateJson Json?    @map("template_json")
@@ -344,7 +358,7 @@ model SubscriptionTemplate {
 }
 
 model SubscriptionSettings {
-  uuid                        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uuid                        String  @id @default(uuid())
   serveJsonAtBaseSubscription Boolean @default(false) @map("serve_json_at_base_subscription")
   isShowCustomRemarks         Boolean @default(true) @map("is_show_custom_remarks")
   customRemarks               Json    @map("custom_remarks")
@@ -360,7 +374,7 @@ model SubscriptionSettings {
 }
 
 model HwidUserDevices {
-  hwid        String  @map("hwid") @db.VarChar(64)
+  hwid        String  @map("hwid")
   userId      BigInt  @map("user_id")
   platform    String? @map("platform")
   osVersion   String? @map("os_version")
@@ -379,10 +393,12 @@ model HwidUserDevices {
 }
 
 model InternalSquads {
-  uuid         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  viewPosition Int      @default(autoincrement()) @map("view_position")
+  uuid         String   @id @default(uuid())
+  viewPosition Int      @default(0) @map("view_position")
   name         String   @unique @map("name")
-  tags         String[] @default([]) @map("tags")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  tags Json @default("[]") @map("tags")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
@@ -395,7 +411,7 @@ model InternalSquads {
 }
 
 model InternalSquadMembers {
-  internalSquadUuid String @map("internal_squad_uuid") @db.Uuid
+  internalSquadUuid String @map("internal_squad_uuid")
   userId            BigInt @map("user_id")
 
   internalSquad InternalSquads @relation(fields: [internalSquadUuid], references: [uuid], onDelete: Cascade)
@@ -408,8 +424,8 @@ model InternalSquadMembers {
 }
 
 model InternalSquadInbounds {
-  internalSquadUuid String @map("internal_squad_uuid") @db.Uuid
-  inboundUuid       String @map("inbound_uuid") @db.Uuid
+  internalSquadUuid String @map("internal_squad_uuid")
+  inboundUuid       String @map("inbound_uuid")
 
   internalSquad InternalSquads        @relation(fields: [internalSquadUuid], references: [uuid], onDelete: Cascade)
   inbound       ConfigProfileInbounds @relation(fields: [inboundUuid], references: [uuid], onDelete: Cascade)
@@ -419,10 +435,12 @@ model InternalSquadInbounds {
 }
 
 model ConfigProfiles {
-  uuid         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  viewPosition Int      @default(autoincrement()) @map("view_position")
+  uuid         String   @id @default(uuid())
+  viewPosition Int      @default(0) @map("view_position")
   name         String   @unique @map("name")
-  tags         String[] @default([]) @map("tags")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  tags Json @default("[]") @map("tags")
   config       Json     @map("config")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -436,8 +454,8 @@ model ConfigProfiles {
 }
 
 model ConfigProfileInbounds {
-  uuid        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  profileUuid String @map("profile_uuid") @db.Uuid
+  uuid        String @id @default(uuid())
+  profileUuid String @map("profile_uuid")
 
   tag      String  @map("tag")
   type     String  @map("type")
@@ -459,8 +477,8 @@ model ConfigProfileInbounds {
 }
 
 model ConfigProfileInboundsToNodes {
-  configProfileInboundUuid String @map("config_profile_inbound_uuid") @db.Uuid
-  nodeUuid                 String @map("node_uuid") @db.Uuid
+  configProfileInboundUuid String @map("config_profile_inbound_uuid")
+  nodeUuid                 String @map("node_uuid")
 
   configProfileInbounds ConfigProfileInbounds @relation(fields: [configProfileInboundUuid], references: [uuid], onDelete: Cascade)
   node                  Nodes                 @relation(fields: [nodeUuid], references: [uuid], onDelete: Cascade)
@@ -470,7 +488,7 @@ model ConfigProfileInboundsToNodes {
 }
 
 model InfraProviders {
-  uuid        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uuid        String  @id @default(uuid())
   name        String  @unique @map("name")
   faviconLink String? @map("favicon_link")
   loginUrl    String? @map("login_url")
@@ -486,11 +504,11 @@ model InfraProviders {
 }
 
 model InfraBillingNodes {
-  uuid     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  nodeUuid String? @map("node_uuid") @db.Uuid
+  uuid     String  @id @default(uuid())
+  nodeUuid String? @map("node_uuid")
   name     String? @map("name")
 
-  providerUuid String @map("provider_uuid") @db.Uuid
+  providerUuid String @map("provider_uuid")
 
   nextBillingAt DateTime @map("next_billing_at")
 
@@ -506,8 +524,8 @@ model InfraBillingNodes {
 }
 
 model InfraBillingHistory {
-  uuid         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  providerUuid String @map("provider_uuid") @db.Uuid
+  uuid         String @id @default(uuid())
+  providerUuid String @map("provider_uuid")
 
   amount   Float    @map("amount")
   billedAt DateTime @map("billed_at")
@@ -535,8 +553,8 @@ model UserSubscriptionRequestHistory {
 }
 
 model HostsToNodes {
-  hostUuid String @map("host_uuid") @db.Uuid
-  nodeUuid String @map("node_uuid") @db.Uuid
+  hostUuid String @map("host_uuid")
+  nodeUuid String @map("node_uuid")
 
   host Hosts @relation(fields: [hostUuid], references: [uuid], onDelete: Cascade)
   node Nodes @relation(fields: [nodeUuid], references: [uuid], onDelete: Cascade)
@@ -546,7 +564,7 @@ model HostsToNodes {
 }
 
 model ConfigProfileSnippets {
-  name    String @id @map("name") @db.VarChar(255)
+  name    String @id @map("name")
   snippet Json   @map("snippet")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -555,19 +573,23 @@ model ConfigProfileSnippets {
 }
 
 model ExternalSquads {
-  uuid                  String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  viewPosition          Int      @default(autoincrement()) @map("view_position")
-  name                  String   @unique @map("name") @db.VarChar(30)
-  tags                  String[] @default([]) @map("tags")
+  uuid                  String   @id @default(uuid())
+  viewPosition          Int      @default(0) @map("view_position")
+  name                  String   @unique @map("name")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  tags Json @default("[]") @map("tags")
   subscriptionSettings  Json?    @map("subscription_settings")
   hostOverrides         Json?    @map("host_overrides")
   responseHeadersAdd    Json     @default("{}") @map("response_headers_add")
-  responseHeadersRemove String[] @default([]) @map("response_headers_remove")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  responseHeadersRemove Json @default("[]") @map("response_headers_remove")
 
   hwidSettings  Json? @map("hwid_settings")
   customRemarks Json? @map("custom_remarks")
 
-  subpageConfigUuid String? @map("subpage_config_uuid") @db.Uuid
+  subpageConfigUuid String? @map("subpage_config_uuid")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
@@ -580,8 +602,8 @@ model ExternalSquads {
 }
 
 model ExternalSquadsTemplates {
-  externalSquadUuid String @map("external_squad_uuid") @db.Uuid
-  templateUuid      String @map("template_uuid") @db.Uuid
+  externalSquadUuid String @map("external_squad_uuid")
+  templateUuid      String @map("template_uuid")
   templateType      String @map("template_type") // ENUM: XRAY_JSON, MIHOMO, STASH, CLASH, SINGBOX
 
   externalSquad ExternalSquads       @relation(fields: [externalSquadUuid], references: [uuid], onDelete: Cascade)
@@ -592,10 +614,12 @@ model ExternalSquadsTemplates {
 }
 
 model SubscriptionPageConfig {
-  uuid         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  viewPosition Int      @default(autoincrement()) @map("view_position")
-  name         String   @unique @map("name") @db.VarChar(30)
-  tags         String[] @default([]) @map("tags")
+  uuid         String   @id @default(uuid())
+  viewPosition Int      @default(0) @map("view_position")
+  name         String   @unique @map("name")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  tags Json @default("[]") @map("tags")
   config       Json     @map("config")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -607,7 +631,7 @@ model SubscriptionPageConfig {
 }
 
 model SharedLists {
-  name   String @id @map("name") @db.VarChar(255)
+  name   String @id @map("name")
   config Json   @map("config")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -617,10 +641,12 @@ model SharedLists {
 }
 
 model NodePlugin {
-  uuid         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  viewPosition Int      @default(autoincrement()) @map("view_position")
-  name         String   @map("name") @db.VarChar(255)
-  tags         String[] @default([]) @map("tags")
+  uuid         String   @id @default(uuid())
+  viewPosition Int      @default(0) @map("view_position")
+  name         String   @map("name")
+  /// [StringArray]
+  /// @kyselyType(string[])
+  tags Json @default("[]") @map("tags")
   pluginConfig Json     @map("plugin_config")
 
   createdAt DateTime @default(now()) @map("created_at")

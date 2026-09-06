@@ -27,9 +27,9 @@ services:
     hostname: remnawave-rest-api
     entrypoint: []
     command: 'pm2-runtime start ecosystem.config.js --env production --only remnawave-api' # Overrides CMD from Dockerfile
+    volumes:
+      - remnawave-data:/opt/app/data
     depends_on:
-      remnawave-db:
-        condition: service_healthy
       remnawave-redis:
         condition: service_healthy
       remnawave-scheduler:
@@ -43,9 +43,9 @@ services:
     hostname: remnawave-scheduler
     entrypoint: ['/bin/sh', 'docker-entrypoint.sh'] # Migrations, seeding, etc. IMPORTANT: Entrypoint needs to be in one of services. Its applies migrations and seeding database!
     command: 'pm2-runtime start ecosystem.config.js --env production --only remnawave-scheduler' # Overrides CMD from Dockerfile
+    volumes:
+      - remnawave-data:/opt/app/data
     depends_on:
-      remnawave-db:
-        condition: service_healthy
       remnawave-redis:
         condition: service_healthy
     ports:
@@ -63,35 +63,13 @@ services:
     hostname: remnawave-processor
     entrypoint: []
     command: 'pm2-runtime start ecosystem.config.js --env production --only remnawave-jobs' # Overrides CMD from Dockerfile
+    volumes:
+      - remnawave-data:/opt/app/data
     depends_on:
-      remnawave-db:
-        condition: service_healthy
       remnawave-redis:
         condition: service_healthy
       remnawave-scheduler:
         condition: service_healthy
-
-  remnawave-db:
-    image: postgres:18.4
-    container_name: 'remnawave-db'
-    hostname: remnawave-db
-    shm_size: 512mb
-    <<: [*common, *logging, *env]
-
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - TZ=UTC
-    ports:
-      - '127.0.0.1:6767:5432'
-    volumes:
-      - remnawave-db-data:/var/lib/postgresql
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
-      interval: 3s
-      timeout: 10s
-      retries: 3
 
   remnawave-redis:
     image: valkey/valkey:9-alpine
@@ -117,7 +95,7 @@ networks:
     external: false
 
 volumes:
-  remnawave-db-data:
-    name: remnawave-db-data
+  remnawave-data:
+    name: remnawave-data
     driver: local
     external: false

@@ -5,9 +5,11 @@ export const JSON_COLUMNS = [
     'config',
     'custom_remarks',
     'custom_response_headers',
+    'exclude_from_subscription_types',
     'final_mask',
     'host_overrides',
     'hwid_settings',
+    'integration_uuids',
     'ips',
     'mapper',
     'metadata',
@@ -19,10 +21,13 @@ export const JSON_COLUMNS = [
     'raw_inbound',
     'report',
     'response_headers_add',
+    'response_headers_remove',
     'response_rules',
+    'scopes',
     'snippet',
     'sockopt_params',
     'subscription_settings',
+    'tags',
     'template_json',
     'xhttp_extra_params',
 ];
@@ -41,9 +46,10 @@ export class CustomCamelCasePlugin extends CamelCasePlugin {
 
     protected override mapRow(row: UnknownRow): UnknownRow {
         return Object.keys(row).reduce<UnknownRow>((obj, key) => {
+            const value = parseJsonContainer(row[key]);
             obj[this.camelCase(key)] = this.excludedColumns.has(key)
-                ? row[key]
-                : this.mapValue(row[key]);
+                ? value
+                : this.mapValue(value);
 
             return obj;
         }, {});
@@ -69,5 +75,22 @@ export class CustomCamelCasePlugin extends CamelCasePlugin {
         const proto = Object.getPrototypeOf(value);
 
         return proto === null || proto === Object.prototype;
+    }
+}
+
+function parseJsonContainer(value: unknown): unknown {
+    if (typeof value !== 'string') {
+        return value;
+    }
+
+    const trimmed = value.trimStart();
+    if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
+        return value;
+    }
+
+    try {
+        return JSON.parse(value);
+    } catch {
+        return value;
     }
 }

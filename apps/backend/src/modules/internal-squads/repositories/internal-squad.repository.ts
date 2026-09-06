@@ -1,12 +1,12 @@
 import { TransactionHost } from '@nestjs-cls/transactional';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
 import { sql } from 'kysely';
-import { jsonArrayFrom } from 'kysely/helpers/postgres';
+import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 
 import { Injectable } from '@nestjs/common';
 
 import { TxKyselyService } from '@common/database';
-import { getKyselyUuid } from '@common/helpers';
+import { findDistinctJsonTags, getKyselyUuid } from '@common/helpers';
 import { values } from '@common/helpers/kysely/values';
 import { ICrud } from '@common/types/crud-port';
 
@@ -429,7 +429,7 @@ export class InternalSquadRepository implements ICrud<InternalSquadEntity> {
             .where('h.createdAt', '<=', end)
             .where('h.nodeId', 'in', nodeIds)
             .select((eb) => [
-                sql<string>`to_char(${eb.ref('h.createdAt')}, 'YYYY-MM-DD')`.as('date'),
+                sql<string>`strftime('%Y-%m-%d', ${eb.ref('h.createdAt')})`.as('date'),
                 'h.nodeId as nodeId',
                 'h.totalBytes as totalBytes',
             ])
@@ -532,8 +532,8 @@ export class InternalSquadRepository implements ICrud<InternalSquadEntity> {
 
         const v = values(
             dto.map(({ uuid, viewPosition }) => ({
-                uuid: sql<string>`${uuid}::uuid`,
-                viewPosition: sql<number>`${viewPosition}::int`,
+                uuid,
+                viewPosition,
             })),
             'v',
         );
@@ -544,9 +544,6 @@ export class InternalSquadRepository implements ICrud<InternalSquadEntity> {
             .set((eb) => ({ viewPosition: eb.ref('v.viewPosition') }))
             .whereRef('internalSquads.uuid', '=', 'v.uuid')
             .execute();
-
-        await this.prisma.tx
-            .$executeRaw`SELECT setval('internal_squads_view_position_seq', (SELECT MAX(view_position) FROM internal_squads) + 1)`;
 
         return true;
     }
@@ -584,15 +581,7 @@ export class InternalSquadRepository implements ICrud<InternalSquadEntity> {
     }
 
     public async findAllTags(): Promise<string[]> {
-        const result = await this.qb.kysely
-            .selectFrom('internalSquads')
-            .select(sql<string>`unnest(tags)`.as('tag'))
-            .distinct()
-            .where('tags', 'is not', null)
-            .orderBy('tag')
-            .execute();
-
-        return result.map((value) => value.tag);
+        return findDistinctJsonTags(this.prisma.tx, 'internal_squads');
     }
 
     public async setTags(uuid: string, tags: string[]): Promise<string[]> {

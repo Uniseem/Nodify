@@ -131,7 +131,7 @@ export default defineConfig({
             ? [
                   new rspack.BannerPlugin({
                       banner: [
-                          "process.env.DATABASE_URL ??= 'postgresql://openapi:openapi@openapi:5432/openapi';",
+                          "process.env.DATABASE_URL ??= 'file:./data/openapi.db';",
                           "process.env.APP_SECRET ??= 'openapi';",
                           "process.env.FRONT_END_DOMAIN ??= 'openapi';",
                           "process.env.SUB_PUBLIC_DOMAIN ??= 'openapi';",

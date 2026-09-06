@@ -6,7 +6,7 @@ import { sql } from 'kysely';
 import { Injectable } from '@nestjs/common';
 
 import { TxKyselyService } from '@common/database/tx-kysely.service';
-import { getKyselyUuid } from '@common/helpers';
+import { getKyselyUuid, parseSqlJsonArray, sqliteDateSeries } from '@common/helpers';
 import { ICrudHistoricalRecords } from '@common/types/crud-port';
 
 import { IGetNodesUsageByRange } from '@modules/nodes-usage-history/interfaces';
@@ -57,31 +57,18 @@ export class NodesUserUsageHistoryRepository implements ICrudHistoricalRecords<N
     public async cleanOldUsageRecords(): Promise<number> {
         const query = Prisma.sql`
             DELETE FROM nodes_user_usage_history
-            WHERE created_at < NOW() - INTERVAL '14 days'
+            WHERE created_at < datetime('now', '-14 days')
         `;
 
         return await this.prisma.tx.$executeRaw<number>(query);
     }
 
     public async vacuumTable(): Promise<void> {
-        const query = Prisma.sql`
-            VACUUM nodes_user_usage_history;
-        `;
-
-        const queryReindex = Prisma.sql`
-            REINDEX TABLE nodes_user_usage_history;
-        `;
-
-        await this.prisma.tx.$executeRaw<void>(query);
-        await this.prisma.tx.$executeRaw<void>(queryReindex);
+        await this.prisma.tx.$executeRaw`PRAGMA wal_checkpoint(TRUNCATE)`;
     }
 
     public async truncateTable(): Promise<void> {
-        const query = Prisma.sql`
-            TRUNCATE nodes_user_usage_history;
-        `;
-
-        await this.prisma.tx.$executeRaw<void>(query);
+        await this.prisma.tx.$executeRaw`DELETE FROM nodes_user_usage_history`;
     }
 
     public async getUserNodesUsageByRange(
@@ -96,15 +83,15 @@ export class NodesUserUsageHistoryRepository implements ICrudHistoricalRecords<N
                     n.uuid,
                     n.name,
                     n.country_code,
-                    nuh.created_at::date AS date,
+                    date(nuh.created_at) AS date,
                     SUM(nuh.total_bytes) AS bytes
                 FROM nodes n
                 INNER JOIN nodes_user_usage_history nuh ON nuh.node_id = n.id
                 WHERE
                     nuh.user_id = ${userId}
-                    AND nuh.created_at >= ${start}::date
-                    AND nuh.created_at <= ${end}::date
-                GROUP BY n.uuid, n.name, n.country_code, nuh.created_at
+                    AND date(nuh.created_at) >= date(${start})
+                    AND date(nuh.created_at) <= date(${end})
+                GROUP BY n.uuid, n.name, n.country_code, date(nuh.created_at)
             ),
             nodes_with_totals AS (
                 SELECT
@@ -114,26 +101,32 @@ export class NodesUserUsageHistoryRepository implements ICrudHistoricalRecords<N
                     SUM(bytes) AS total_bytes
                 FROM daily_usage
                 GROUP BY uuid, name, country_code
+            ),
+            date_series AS (
+                SELECT date, ord FROM ${sqliteDateSeries(dates)}
             )
             SELECT
                 nt.uuid as "uuid",
                 nt.name as "name",
                 nt.country_code as "countryCode",
                 nt.total_bytes as "total",
-                ARRAY_AGG(
-                    COALESCE(du.bytes, 0)
+                (
+                    SELECT json_group_array(COALESCE(du.bytes, 0))
+                    FROM date_series d
+                    LEFT JOIN daily_usage du
+                        ON du.uuid = nt.uuid
+                        AND du.date = d.date
                     ORDER BY d.ord
                 ) AS "data"
             FROM nodes_with_totals nt
-            CROSS JOIN unnest(${dates}::date[]) WITH ORDINALITY AS d(date, ord)
-            LEFT JOIN daily_usage du
-                ON du.uuid = nt.uuid
-                AND du.date = d.date::date
-            GROUP BY nt.uuid, nt.name, nt.country_code, nt.total_bytes
             ORDER BY nt.total_bytes DESC;
         `;
 
-        return await this.prisma.tx.$queryRaw<IGetUniversalSeries[]>(query);
+        const rows = await this.prisma.tx.$queryRaw<IGetUniversalSeries[]>(query);
+        return rows.map((row) => ({
+            ...row,
+            data: parseSqlJsonArray(row.data),
+        }));
     }
 
     public async getTopUserNodesByTraffic(
@@ -168,20 +161,23 @@ export class NodesUserUsageHistoryRepository implements ICrudHistoricalRecords<N
     ): Promise<number[]> {
         const query = Prisma.sql`
             WITH daily_traffic AS (
-                SELECT 
-                    created_at::date AS date,
+                SELECT
+                    date(created_at) AS date,
                     SUM(total_bytes) AS bytes
                 FROM nodes_user_usage_history
-                WHERE 
+                WHERE
                     user_id = ${userId}
-                    AND created_at >= ${start}::date
-                    AND created_at <= ${end}::date
-                GROUP BY created_at
+                    AND date(created_at) >= date(${start})
+                    AND date(created_at) <= date(${end})
+                GROUP BY date(created_at)
+            ),
+            date_series AS (
+                SELECT date, ord FROM ${sqliteDateSeries(dates)}
             )
-            SELECT 
+            SELECT
                 COALESCE(dt.bytes, 0) AS value
-            FROM unnest(${dates}::date[]) WITH ORDINALITY AS d(date, ord)
-            LEFT JOIN daily_traffic dt ON dt.date = d.date::date
+            FROM date_series d
+            LEFT JOIN daily_traffic dt ON dt.date = d.date
             ORDER BY d.ord;
         `;
 
@@ -238,20 +234,23 @@ export class NodesUserUsageHistoryRepository implements ICrudHistoricalRecords<N
     ): Promise<number[]> {
         const query = Prisma.sql`
         WITH daily_traffic AS (
-            SELECT 
-                created_at::date AS date,
+            SELECT
+                date(created_at) AS date,
                 SUM(total_bytes) AS bytes
             FROM nodes_user_usage_history
-            WHERE 
+            WHERE
                 node_id = ${nodeId}
-                AND created_at >= ${start}::date
-                AND created_at <= ${end}::date
-            GROUP BY created_at
+                AND date(created_at) >= date(${start})
+                AND date(created_at) <= date(${end})
+            GROUP BY date(created_at)
+        ),
+        date_series AS (
+            SELECT date, ord FROM ${sqliteDateSeries(dates)}
         )
-        SELECT 
+        SELECT
             COALESCE(dt.bytes, 0) AS value
-        FROM unnest(${dates}::date[]) WITH ORDINALITY AS d(date, ord)
-        LEFT JOIN daily_traffic dt ON dt.date = d.date::date
+        FROM date_series d
+        LEFT JOIN daily_traffic dt ON dt.date = d.date
         ORDER BY d.ord;
     `;
 
@@ -267,20 +266,23 @@ export class NodesUserUsageHistoryRepository implements ICrudHistoricalRecords<N
     ): Promise<number[]> {
         const query = Prisma.sql`
         WITH daily_traffic AS (
-            SELECT 
-                created_at::date AS date,
+            SELECT
+                date(created_at) AS date,
                 SUM(total_bytes) AS bytes
             FROM nodes_user_usage_history
-            WHERE 
+            WHERE
                 node_id IN (${Prisma.join(nodeIds)})
-                AND created_at >= ${start}::date
-                AND created_at <= ${end}::date
-            GROUP BY created_at
+                AND date(created_at) >= date(${start})
+                AND date(created_at) <= date(${end})
+            GROUP BY date(created_at)
+        ),
+        date_series AS (
+            SELECT date, ord FROM ${sqliteDateSeries(dates)}
         )
-        SELECT 
+        SELECT
             COALESCE(dt.bytes, 0) AS value
-        FROM unnest(${dates}::date[]) WITH ORDINALITY AS d(date, ord)
-        LEFT JOIN daily_traffic dt ON dt.date = d.date::date
+        FROM date_series d
+        LEFT JOIN daily_traffic dt ON dt.date = d.date
         ORDER BY d.ord;
     `;
 

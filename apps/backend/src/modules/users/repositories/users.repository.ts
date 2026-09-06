@@ -11,13 +11,13 @@ import { Transactional, TransactionHost } from '@nestjs-cls/transactional';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
 import dayjs from 'dayjs';
 import { SelectExpression, sql, ExpressionBuilder } from 'kysely';
-import { jsonArrayFrom } from 'kysely/helpers/postgres';
+import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 import { DB } from 'prisma/generated/types';
 
 import { Injectable, Logger } from '@nestjs/common';
 
 import { TxKyselyService } from '@common/database/tx-kysely.service';
-import { getKyselyUuid, paginateQuery } from '@common/helpers/kysely';
+import { getKyselyUuid, ilike, monthRollingAnniversarySql, paginateQuery } from '@common/helpers/kysely';
 import { formatExecutionTime, getTime } from '@common/utils/get-elapsed-time';
 
 import { ConfigProfileInboundEntity } from '@modules/config-profiles/entities';
@@ -111,9 +111,13 @@ export class UsersRepository {
         userUsageList: { u: string; b: string; n: string }[],
     ): Promise<{ id: bigint }[]> {
         const { query } = new BulkUpdateUserUsedTrafficBuilder(userUsageList);
-        const result = await this.prisma.tx.$queryRaw<{ id: bigint }[]>(query);
+        const result = await this.prisma.tx.$queryRaw<{ id: bigint; isFirstConnection: number }[]>(
+            query,
+        );
 
-        return result;
+        return result
+            .filter((row) => Boolean(row.isFirstConnection))
+            .map((row) => ({ id: row.id }));
     }
 
     public async triggerThresholdNotifications(percentages: number[]): Promise<{ id: bigint }[]> {
@@ -345,7 +349,7 @@ export class UsersRepository {
             }
 
             if (filter.id === 'vlessUuid') {
-                qb = qb.where(sql`"vless_uuid"::text`, 'ilike', `%${filter.value}%`);
+                qb = qb.where(ilike('vless_uuid', `%${filter.value}%`));
                 continue;
             }
 
@@ -418,7 +422,7 @@ export class UsersRepository {
                     break;
                 }
                 default:
-                    qb = qb.where(col, 'ilike', `%${value}%`);
+                    qb = qb.where(ilike(String(col), `%${value}%`));
             }
         }
 
@@ -609,16 +613,10 @@ export class UsersRepository {
             .orderBy('id');
 
         if (strategy === 'MONTH_ROLLING') {
+            const anniversary = monthRollingAnniversarySql();
             targetIdsQuery = targetIdsQuery
-                .where(sql`("created_at" + interval '1 month')::date`, '<=', sql`CURRENT_DATE`)
-                .where(
-                    sql`LEAST(
-                                EXTRACT(DAY FROM "created_at"),
-                                EXTRACT(DAY FROM date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')
-                            )`,
-                    '=',
-                    sql`EXTRACT(DAY FROM CURRENT_DATE)`,
-                );
+                .where(anniversary.matured)
+                .where(anniversary.dayMatches);
         }
 
         const targetIds = await targetIdsQuery.execute();
@@ -638,31 +636,21 @@ export class UsersRepository {
 
             const batchStartTime = getTime();
 
+            const ids = batchIds.map((row) => row.id);
+
             await this.qb.kysely
-                .with('lockedUsers', (db) =>
-                    db
-                        .selectFrom('users')
-                        .select('id')
-                        .where(
-                            sql<boolean>`"users"."id" = ANY(string_to_array(${batchIds.map((r) => r.id).join(',')}, ',')::bigint[])`,
-                        )
-                        .forUpdate(),
-                )
-                .with('updateUsers', (db) =>
-                    db
-                        .updateTable('users')
-                        .from('lockedUsers')
-                        .whereRef('users.id', '=', 'lockedUsers.id')
-                        .set({
-                            lastTrafficResetAt: now,
-                            lastTriggeredThreshold: 0,
-                        })
-                        .returning('users.id'),
-                )
+                .updateTable('users')
+                .set({
+                    lastTrafficResetAt: now,
+                    lastTriggeredThreshold: 0,
+                })
+                .where('id', 'in', ids)
+                .execute();
+
+            await this.qb.kysely
                 .updateTable('userTraffic')
-                .from('updateUsers')
-                .whereRef('userTraffic.id', '=', 'updateUsers.id')
                 .set({ usedTrafficBytes: 0n })
+                .where('id', 'in', ids)
                 .execute();
 
             this.logger.log(
@@ -681,41 +669,41 @@ export class UsersRepository {
             .select('id')
             .where('trafficLimitStrategy', '=', strategy)
             .where('status', '=', USERS_STATUS.LIMITED)
-            .orderBy('id')
-            .forUpdate();
+            .orderBy('id');
 
         if (strategy === 'MONTH_ROLLING') {
+            const anniversary = monthRollingAnniversarySql();
             targetIdsQuery = targetIdsQuery
-                .where(sql`("created_at" + interval '1 month')::date`, '<=', sql`CURRENT_DATE`)
-                .where(
-                    sql`LEAST(
-                            EXTRACT(DAY FROM "created_at"),
-                            EXTRACT(DAY FROM date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')
-                        )`,
-                    '=',
-                    sql`EXTRACT(DAY FROM CURRENT_DATE)`,
-                );
+                .where(anniversary.matured)
+                .where(anniversary.dayMatches);
         }
 
+        const targetIds = await targetIdsQuery.execute();
+        if (targetIds.length === 0) {
+            return [];
+        }
+
+        const ids = targetIds.map((row) => row.id);
+
         const result = await this.qb.kysely
-            .with('targetUsers', () => targetIdsQuery)
-            .with('updateUsers', (db) =>
-                db
-                    .updateTable('users')
-                    .from('targetUsers')
-                    .whereRef('users.id', '=', 'targetUsers.id')
-                    .set({
-                        lastTrafficResetAt: new Date(),
-                        lastTriggeredThreshold: 0,
-                        status: USERS_STATUS.ACTIVE,
-                    })
-                    .returning('users.id'),
-            )
+            .updateTable('users')
+            .set({
+                lastTrafficResetAt: new Date(),
+                lastTriggeredThreshold: 0,
+                status: USERS_STATUS.ACTIVE,
+            })
+            .where('id', 'in', ids)
+            .returning('id')
+            .execute();
+
+        await this.qb.kysely
             .updateTable('userTraffic')
-            .from('updateUsers')
-            .whereRef('userTraffic.id', '=', 'updateUsers.id')
             .set({ usedTrafficBytes: 0n })
-            .returning('userTraffic.id')
+            .where(
+                'id',
+                'in',
+                result.map((row) => row.id),
+            )
             .execute();
 
         return result;
@@ -831,7 +819,7 @@ export class UsersRepository {
             const result = await this.qb.kysely
                 .updateTable('users')
                 .set({
-                    expireAt: sql`expire_at + (${extendDays}::int || ' days')::interval`,
+                    expireAt: sql`datetime(expire_at, '+' || ${extendDays} || ' days')`,
                 })
                 .where('id', '>=', batch.min)
                 .where('id', '<=', batch.max)
@@ -850,7 +838,7 @@ export class UsersRepository {
         const result = await this.qb.kysely
             .updateTable('users')
             .set({
-                expireAt: sql`expire_at + (${extendDays}::int || ' days')::interval`,
+                expireAt: sql`datetime(expire_at, '+' || ${extendDays} || ' days')`,
             })
             .where(
                 'id',
@@ -1359,10 +1347,10 @@ export class UsersRepository {
         const result = await this.qb.kysely
             .selectFrom('users')
             .select([
-                sql<number>`count(*) filter (where created_at >= ${start} and created_at < ${endExclusive})::int`.as(
+                sql<number>`count(*) filter (where created_at >= ${start} and created_at < ${endExclusive})`.as(
                     'createdCount',
                 ),
-                sql<number>`count(*) filter (where expire_at >= ${start} and expire_at < ${endExclusive})::int`.as(
+                sql<number>`count(*) filter (where expire_at >= ${start} and expire_at < ${endExclusive})`.as(
                     'expiredCount',
                 ),
             ])
@@ -1380,8 +1368,8 @@ export class UsersRepository {
         const result = await this.qb.kysely
             .selectFrom('users')
             .select([
-                sql<bigint>`count(*)::int`.as('total'),
-                sql<bigint>`count(*) filter (where created_at >= ${startOfMonth})::int`.as(
+                sql<bigint>`count(*)`.as('total'),
+                sql<bigint>`count(*) filter (where created_at >= ${startOfMonth})`.as(
                     'newUsersThisMonth',
                 ),
             ])

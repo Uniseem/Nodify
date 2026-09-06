@@ -7,6 +7,7 @@ import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import { Redis } from 'ioredis';
 
+import { applySqlitePragmas, ensureSqliteFile, resolveDatabaseUrl } from '@common/database/sqlite';
 import { getRedisConnectionOptions } from '@common/utils';
 
 import {
@@ -32,6 +33,9 @@ dayjs.extend(timezone);
 
 const logger = consola;
 
+process.env.DATABASE_URL = resolveDatabaseUrl();
+ensureSqliteFile();
+
 const prisma = new PrismaClient({
     datasources: {
         db: {
@@ -39,6 +43,8 @@ const prisma = new PrismaClient({
         },
     },
 });
+
+void applySqlitePragmas(prisma);
 
 const SEED_STEPS = [
     { name: 'Fix Old Migrations', fn: fixOldMigrations },

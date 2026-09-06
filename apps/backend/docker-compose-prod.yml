@@ -25,6 +25,7 @@ services:
     <<: [*common, *logging, *env]
     volumes:
       - valkey-socket:/var/run/valkey
+      - remnawave-data:/opt/app/data
     ports:
       - 127.0.0.1:3000:${APP_PORT:-3000}
       - 127.0.0.1:3001:${METRICS_PORT:-3001}
@@ -35,31 +36,8 @@ services:
       retries: 3
       start_period: 30s
     depends_on:
-      remnawave-db:
-        condition: service_healthy
       remnawave-redis:
         condition: service_healthy
-
-  remnawave-db:
-    image: postgres:18.4
-    container_name: remnawave-db
-    hostname: remnawave-db
-    shm_size: 512mb
-    <<: [*common, *logging, *env]
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - TZ=UTC # DO NOT CHANGE DATABASE TIMEZONE. IT MUST BE UTC.
-    ports:
-      - 127.0.0.1:6767:5432
-    volumes:
-      - remnawave-db-data:/var/lib/postgresql
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
-      interval: 3s
-      timeout: 10s
-      retries: 3
 
   remnawave-redis:
     image: valkey/valkey:9-alpine
@@ -90,8 +68,8 @@ networks:
     external: false
 
 volumes:
-  remnawave-db-data:
-    name: remnawave-db-data
+  remnawave-data:
+    name: remnawave-data
     driver: local
     external: false
   valkey-socket:

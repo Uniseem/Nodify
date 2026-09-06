@@ -230,10 +230,10 @@ remnawave:
   // highlight-next-line-green
   volumes:
       // highlight-next-line-green
+      - remnawave-data:/opt/app/data
+      // highlight-next-line-green
       - '/opt/remnawave/nginx:/var/lib/remnawave/configs/xray/ssl'
   depends_on:
-    remnawave-db:
-      condition: service_healthy
     remnawave-redis:
       condition: service_healthy
 ```

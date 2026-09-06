@@ -81,10 +81,10 @@ export class SharedListsRepository implements ICrudWithName<SharedListEntity> {
             .selectFrom('sharedLists')
             .select([
                 'name',
-                sql<string>`${config} ->> 'type'`.as('type'),
+                sql<string>`json_extract(${config}, '$.type')`.as('type'),
                 sql<number>`case
-                    when jsonb_typeof(${config} -> 'items') = 'array'
-                        then jsonb_array_length(${config} -> 'items')
+                    when json_type(json_extract(${config}, '$.items')) = 'array'
+                        then json_array_length(json_extract(${config}, '$.items'))
                     else 0
                 end`.as('itemsCount'),
             ])

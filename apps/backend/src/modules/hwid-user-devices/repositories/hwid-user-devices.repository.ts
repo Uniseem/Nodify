@@ -5,7 +5,7 @@ import { sql } from 'kysely';
 import { Injectable } from '@nestjs/common';
 
 import { TxKyselyService } from '@common/database';
-import { paginateQuery } from '@common/helpers';
+import { ilike, paginateQuery } from '@common/helpers';
 import { ICrudWithStringId } from '@common/types/crud-port';
 
 import { GetHwidDevicesQueryDto } from '../dtos';
@@ -186,13 +186,13 @@ export class HwidUserDevicesRepository implements Omit<
                     qb = qb.where(column, '=', filter.value);
                     break;
                 case 'startsWith':
-                    qb = qb.where(column, 'ilike', `${filter.value}%`);
+                    qb = qb.where(ilike(column, `${filter.value}%`));
                     break;
                 case 'endsWith':
-                    qb = qb.where(column, 'ilike', `%${filter.value}`);
+                    qb = qb.where(ilike(column, `%${filter.value}`));
                     break;
                 default:
-                    qb = qb.where(column, 'ilike', `%${filter.value}%`);
+                    qb = qb.where(ilike(column, `%${filter.value}%`));
             }
         }
 
@@ -215,12 +215,21 @@ export class HwidUserDevicesRepository implements Omit<
             .selectFrom('hwidUserDevices')
             .select([
                 'platform',
-                sql<string>`SPLIT_PART("user_agent", '/', 1)`.as('app'),
+                sql<string>`CASE
+                    WHEN instr(user_agent, '/') > 0 THEN substr(user_agent, 1, instr(user_agent, '/') - 1)
+                    ELSE user_agent
+                END`.as('app'),
                 (eb) => eb.fn.count('hwid').as('count'),
             ])
             .where('platform', 'is not', null)
             .where('userAgent', 'is not', null)
-            .groupBy(['platform', sql`SPLIT_PART("user_agent", '/', 1)`])
+            .groupBy([
+                'platform',
+                sql`CASE
+                    WHEN instr(user_agent, '/') > 0 THEN substr(user_agent, 1, instr(user_agent, '/') - 1)
+                    ELSE user_agent
+                END`,
+            ])
             .execute();
 
         const totalStats = await this.qb.kysely

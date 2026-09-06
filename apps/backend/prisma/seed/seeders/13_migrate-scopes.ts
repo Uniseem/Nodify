@@ -38,9 +38,9 @@ export async function migrateScopes(prisma: PrismaClient) {
     const migrationMap = new Map(SCOPE_MIGRATION_MAP);
     const legacyScopes = SCOPE_MIGRATION_MAP.map(([oldScope]) => oldScope);
 
-    const tokens = await prisma.apiTokens.findMany({
-        where: { scopes: { hasSome: legacyScopes } },
-    });
+    const tokens = (await prisma.apiTokens.findMany()).filter((token) =>
+        token.scopes.some((scope) => legacyScopes.includes(scope)),
+    );
 
     if (tokens.length === 0) {
         return;

@@ -5,7 +5,7 @@ import { sql } from 'kysely';
 import { Injectable } from '@nestjs/common';
 
 import { TxKyselyService } from '@common/database';
-import { paginateQuery } from '@common/helpers';
+import { ilike, paginateQuery } from '@common/helpers';
 import { GetTorrentBlockerReportsCommand } from '@libs/contracts/commands/node-plugins/torrent-blocker';
 
 import { BaseTorrentBlockerReportEntity, ExtendedTorrentBlockerReportEntity } from '../entities';
@@ -24,10 +24,10 @@ const FILTER_COLUMN_MAP = {
     'user.username': sql.ref('users.username'),
     'node.uuid': sql.ref('nodes.uuid'),
     'node.name': sql.ref('nodes.name'),
-    'report.actionReport.ip': sql`report->'actionReport'->>'ip'`,
-    'report.xrayReport.inboundTag': sql`report->'xrayReport'->>'inboundTag'`,
-    'report.xrayReport.outboundTag': sql`report->'xrayReport'->>'outboundTag'`,
-    'report.xrayReport.protocol': sql`report->'xrayReport'->>'protocol'`,
+    'report.actionReport.ip': sql`json_extract(report, '$.actionReport.ip')`,
+    'report.xrayReport.inboundTag': sql`json_extract(report, '$.xrayReport.inboundTag')`,
+    'report.xrayReport.outboundTag': sql`json_extract(report, '$.xrayReport.outboundTag')`,
+    'report.xrayReport.protocol': sql`json_extract(report, '$.xrayReport.protocol')`,
 } as const;
 
 const SORT_COLUMN_MAP: Record<string, string> = {
@@ -167,7 +167,7 @@ export class TorrentBlockerReportsRepository {
 
             if (filter.id === 'node.uuid') {
                 const ref = FILTER_COLUMN_MAP[filter.id as AllowedFilterId];
-                qb = qb.where(sql`${ref}::text`, 'ilike', `%${filter.value}%`);
+                qb = qb.where(ilike(ref, `%${filter.value}%`));
                 continue;
             }
 
@@ -181,9 +181,10 @@ export class TorrentBlockerReportsRepository {
                     break;
                 default:
                     qb = qb.where(
-                        FILTER_COLUMN_MAP[filter.id as AllowedFilterId],
-                        'ilike',
-                        `%${filter.value}%`,
+                        ilike(
+                            FILTER_COLUMN_MAP[filter.id as AllowedFilterId],
+                            `%${filter.value}%`,
+                        ),
                     );
             }
         }
@@ -192,7 +193,9 @@ export class TorrentBlockerReportsRepository {
     }
 
     public async truncateReports(): Promise<void> {
-        await this.prisma.tx.$executeRaw`TRUNCATE torrent_blocker_reports RESTART IDENTITY;`;
+        await this.prisma.tx.$executeRaw`DELETE FROM torrent_blocker_reports`;
+        await this.prisma.tx
+            .$executeRaw`DELETE FROM sqlite_sequence WHERE name = 'torrent_blocker_reports'`;
         return;
     }
 
@@ -203,7 +206,7 @@ export class TorrentBlockerReportsRepository {
                 sql<bigint>`COUNT(*)`.as('totalReports'),
                 sql<bigint>`COUNT(DISTINCT user_id)`.as('distinctUsers'),
                 sql<bigint>`COUNT(DISTINCT node_id)`.as('distinctNodes'),
-                sql<bigint>`COUNT(*) FILTER (WHERE created_at > now() - interval '24 hours')`.as(
+                sql<bigint>`COUNT(*) FILTER (WHERE created_at > datetime('now', '-24 hours'))`.as(
                     'reportsLast24Hours',
                 ),
             ])

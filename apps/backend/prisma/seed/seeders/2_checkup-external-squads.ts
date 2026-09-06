@@ -15,8 +15,8 @@ export async function checkupExternalSquads(prisma: PrismaClient) {
 
     for (const { name, strictObjectCheck } of fields) {
         const whereClause = strictObjectCheck
-            ? `"${name}" IS NOT NULL AND (jsonb_typeof("${name}") != 'object' OR "${name}" = '{}'::jsonb)`
-            : `"${name}" IN ('null'::jsonb, '[]'::jsonb)`;
+            ? `"${name}" IS NOT NULL AND (json_type("${name}") != 'object' OR "${name}" = '{}')`
+            : `"${name}" IN ('null', '[]')`;
 
         const result = await prisma.$executeRawUnsafe(`
             UPDATE external_squads

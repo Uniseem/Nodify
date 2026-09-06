@@ -17,7 +17,7 @@ export class BulkUpsertHistoryEntryBuilder {
         const values = Prisma.join(
             sorted.map(
                 (h) =>
-                    Prisma.sql`(${h.nodeId}, ${h.userId}, ${h.totalBytes}, (NOW() AT TIME ZONE 'UTC')::date, NOW())`,
+                    Prisma.sql`(${h.nodeId}, ${h.userId}, ${h.totalBytes}, date('now'), datetime('now'))`,
             ),
         );
 
@@ -29,7 +29,7 @@ export class BulkUpsertHistoryEntryBuilder {
                 created_at,
                 updated_at
             )
-            SELECT 
+            SELECT
                 v.node_id,
                 v.user_id,
                 v.total_bytes,
@@ -40,7 +40,7 @@ export class BulkUpsertHistoryEntryBuilder {
             ) AS v(node_id, user_id, total_bytes, created_at, updated_at)
             WHERE EXISTS (SELECT 1 FROM nodes WHERE id = v.node_id)
             AND EXISTS (SELECT 1 FROM users WHERE id = v.user_id)
-            ON CONFLICT ON CONSTRAINT nodes_user_usage_history_pkey
+            ON CONFLICT(node_id, created_at, user_id)
             DO UPDATE SET
                 total_bytes = nodes_user_usage_history.total_bytes + EXCLUDED.total_bytes,
                 updated_at  = EXCLUDED.updated_at

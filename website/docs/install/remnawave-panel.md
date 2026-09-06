@@ -33,11 +33,7 @@ Generate secure keys by running the following commands:
 sed -i "s/^APP_SECRET=.*/APP_SECRET=$(openssl rand -hex 64)/" .env && sed -i "s/^METRICS_PASS=.*/METRICS_PASS=$(openssl rand -hex 64)/" .env && sed -i "s/^WEBHOOK_SECRET_HEADER=.*/WEBHOOK_SECRET_HEADER=$(openssl rand -hex 64)/" .env
 ```
 
-It is strongly recommended to change the default Postgres password.
-
-```bash title="Change Postgres password"
-pw=$(openssl rand -hex 24) && sed -i "s/^POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=$pw/" .env && sed -i "s|^\(DATABASE_URL=\"postgresql://postgres:\)[^\@]*\(@.*\)|\1$pw\2|" .env
-```
+The panel stores data in SQLite. Docker Compose mounts it at `/opt/app/data/nodify.db`.
 
 Now, open the `.env` file and update the following variables:
 

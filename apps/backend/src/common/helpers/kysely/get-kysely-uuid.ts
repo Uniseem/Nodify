@@ -1,7 +1,7 @@
 import { RawBuilder, sql, type SelectQueryBuilder } from 'kysely';
 
 export function getKyselyUuid(uuid: string): RawBuilder<string> {
-    return sql`${uuid}::uuid`;
+    return sql`${uuid}`;
 }
 
 export async function paginateQuery<DB, TB extends keyof DB, O>(

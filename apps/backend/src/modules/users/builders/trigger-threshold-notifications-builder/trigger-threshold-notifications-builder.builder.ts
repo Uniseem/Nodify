@@ -32,7 +32,7 @@ export class TriggerThresholdNotificationsBuilder {
       )
       UPDATE "users" AS u
       SET "last_triggered_threshold" = c.new_threshold,
-          "updated_at"               = NOW()
+          "updated_at"               = datetime('now')
       FROM candidates c
       WHERE u."id" = c."id"
       RETURNING u."id" AS "id";
