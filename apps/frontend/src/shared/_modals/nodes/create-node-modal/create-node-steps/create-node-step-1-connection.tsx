@@ -1,7 +1,5 @@
 import {
-    Anchor,
     Button,
-    Code,
     Divider,
     Group,
     NumberInput,
@@ -19,7 +17,6 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiArrowRight, PiTagDuotone } from 'react-icons/pi'
 import {
-    TbCertificate,
     TbChevronDown,
     TbId,
     TbMapPin,
@@ -29,22 +26,20 @@ import {
 } from 'react-icons/tb'
 
 import { useGetNodePlugins, useGetNodesTags } from '@shared/api/hooks'
-import { CopyableFieldShared } from '@shared/ui/copyable-field/copyable-field'
 import { COUNTRIES } from '@shared/ui/forms/nodes/base-node-form/constants'
 import { SelectInfraProviderShared } from '@shared/ui/infra-billing/select-infra-provider/select-infra-provider.shared'
 import { TagInputPill } from '@shared/ui/tag-input-pill'
 
-import { CopyDockerComposeWidget } from './copy-docker-compose.widget'
+import { AgentInstallLinkWidget } from './agent-install-link.widget'
 
 interface IProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     form: UseFormReturnType<CreateNodeCommand.RequestBody, any>
     onNext: () => void
     port: number
-    secretKey: string | undefined
 }
 
-export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IProps) => {
+export const CreateNodeStep1Connection = ({ form, onNext, port }: IProps) => {
     const { t } = useTranslation()
 
     const { data: nodePlugins } = useGetNodePlugins()
@@ -79,32 +74,11 @@ export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IPr
         >
             <Stack gap="xs" mih={400}>
                 <Text c="dimmed" size="sm">
-                    {t('create-node-step-1-connection.copy-the')}{' '}
-                    <Code c="white" color="gray.8">
-                        docker-compose.yml
-                    </Code>{' '}
-                    {t('create-node-step-1-connection.content-for-the-remnawave-node-below')}{' '}
-                    <Anchor
-                        fw="700"
-                        href="https://docs.rw/docs/install/remnawave-node"
-                        inherit
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        underline="hover"
-                    >
-                        {t('create-node-step-1-connection.learn-more')}
-                    </Anchor>
+                    {t('create-node-step-1-connection.agent-intro')}
                 </Text>
 
                 <Divider />
                 <Stack gap="xs">
-                    <CopyableFieldShared
-                        label="Secret Key (SECRET_KEY)"
-                        leftSection={<TbCertificate size={16} />}
-                        size="sm"
-                        value={secretKey ?? ''}
-                    />
-
                     <TextInput
                         key={form.key('name')}
                         label={t('base-node-form.internal-name')}
@@ -138,8 +112,8 @@ export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IPr
                             label={t('create-node-step-1-connection.domain-or-ip')}
                             {...form.getInputProps('address')}
                             leftSection={<TbWorld size={16} />}
+                            description={t('create-node-step-1-connection.address-hint')}
                             placeholder="192.168.1.1"
-                            required
                             size="sm"
                             styles={{
                                 label: { fontWeight: 500 }
@@ -272,7 +246,19 @@ export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IPr
                 </Stack>
 
                 <Stack gap="xs" mt="auto">
-                    <CopyDockerComposeWidget port={port} />
+                    <AgentInstallLinkWidget
+                        getValues={() => {
+                            const values = form.getValues()
+                            return {
+                                name: values.name,
+                                countryCode: values.countryCode,
+                                port: values.port ?? port
+                            }
+                        }}
+                        onAddressReported={(address) => {
+                            form.setFieldValue('address', address)
+                        }}
+                    />
 
                     <Group justify="flex-end" mt="auto">
                         <Button

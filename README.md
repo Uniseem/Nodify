@@ -1,6 +1,10 @@
 # Nodify
 
-Remnawave 全部公开组件的单体仓库。源码来自 [remnawave](https://github.com/remnawave)，按应用、SDK、工具和文档站点重新组织。
+面向自用和小圈子共享的多服务器管理面板，使用 NestJS、React、HeroUI、SQLite 和 Redis/Valkey。源码基于 [Remnawave](https://github.com/remnawave) 各公开组件整理，并在本仓库实现 Nodify 主控、主动连接 Agent、套餐权益和私有订阅页。
+
+**接手入口：[开发交接](HANDOFF.md)。新部署入口：[部署与操作说明](deploy/README.md)。功能与验收进度：[功能对照](FEATURE-PARITY.md)。** 当前源码是未冻结的 `0.3.0`；最新 Linux 构建及 99 项测试通过，但整体功能对齐尚未完成。历史 `0.2.0` 的 Docker/systemd 生命周期与最新候选的验证范围见 [VPS 验收记录](deploy/VPS-ACCEPTANCE.md)，不能混用。旧高级编辑器 WASM、最新发行生命周期、目标 GUI 客户端及其他 Linux 系统/架构仍有缺口。
+
+在根目录运行 `npm run setup`、`npm run typecheck`、`npm test`、`npm run build`。主控前端、Agent 和共享契约均从本仓库构建。此次数据库变更以全新实例为目标，请勿直接对旧数据库运行新迁移。
 
 当前对齐的上游版本是 **3.4.3** 附近的各仓库最新提交。每个目录的原始仓库和 commit 见 [SOURCES.md](SOURCES.md)。
 
@@ -12,10 +16,11 @@ Remnawave 全部公开组件的单体仓库。源码来自 [remnawave](https://g
 apps/                  可运行的主服务
   backend/             管理 API（NestJS + Prisma/SQLite + Redis）
   frontend/            管理后台（React + Vite + HeroUI）
-  node/                节点端，驱动 Xray-core
+  node/                Nodify Agent（agent/）和保留的高级 HTTP 节点代码
   subscription-page/   独立订阅页
 
 packages/              库和 SDK
+  nodify-contract/      主控、Agent 和前端共享的数据校验与能力表
   xtls-sdk/
   xtls-sdk-nestjs/
   utils/
@@ -33,6 +38,8 @@ tools/                 迁移、脚本、周边工具
 
 website/               原 remnawave/panel，文档站点
 templates/             客户端订阅模板
+deploy/                Docker、systemd、版本包与离线恢复工具
+tests/                 SQLite、通信与真实协议连接测试
 ```
 
 ## 本地上游备份

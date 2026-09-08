@@ -1,11 +1,5 @@
-import { LanguagePicker } from '@shared/ui/language-picker/language-picker.shared'
-
-import { HeaderControl } from './HeaderControl'
+import { LanguagePicker } from "@shared/ui/language-picker/language-picker.shared";
 
 export function LanguageControl() {
-    return (
-        <HeaderControl component="div">
-            <LanguagePicker />
-        </HeaderControl>
-    )
+  return <LanguagePicker />;
 }

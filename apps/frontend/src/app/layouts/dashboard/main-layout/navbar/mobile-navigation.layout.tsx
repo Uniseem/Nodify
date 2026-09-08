@@ -1,81 +1,59 @@
-import { Box, Divider, NavLink, Stack, Title } from '@shared/heroui-compat'
-import { PiArrowRight } from 'react-icons/pi'
-import { NavLink as RouterLink, useLocation } from 'react-router'
+import { NavLink } from "react-router";
+import { useMobileMenuSections } from "../menu-sections/mobile-menu-sections";
 
-import { useMobileMenuSections } from '../menu-sections/mobile-menu-sections'
-import classes from './mobile-navigation.module.css'
-
-interface IProps {
-    onClose?: () => void
-}
-
-export const MobileNavigation = (props: IProps) => {
-    const { onClose } = props
-    const { pathname } = useLocation()
-
-    const menu = useMobileMenuSections()
-
-    return (
-        <Stack gap="md" pb="md" pt="md">
-            {menu.map((item, index) => (
-                <Box key={item.id}>
-                    {index > 0 && <Divider color="cyan.4" mb="lg" opacity={0.3} variant="dashed" />}
-                    <Title className={classes.sectionTitle} order={6}>
-                        {item.header}
-                    </Title>
-
-                    <Stack gap={1}>
-                        {item.section.map((subItem) =>
-                            subItem.dropdownItems ? (
-                                <NavLink
-                                    active={false}
-                                    childrenOffset={0}
-                                    className={classes.sectionLink}
-                                    key={subItem.id}
-                                    label={subItem.name}
-                                    leftSection={subItem.icon && <subItem.icon />}
-                                    variant="light"
-                                >
-                                    {subItem.dropdownItems?.map((dropdownItem) => (
-                                        <NavLink
-                                            active={pathname.includes(dropdownItem.href)}
-                                            className={classes.sectionDropdownItemLink}
-                                            component={RouterLink}
-                                            key={dropdownItem.id}
-                                            label={dropdownItem.name}
-                                            leftSection={
-                                                dropdownItem.icon ? (
-                                                    <dropdownItem.icon />
-                                                ) : (
-                                                    <PiArrowRight />
-                                                )
-                                            }
-                                            onClick={onClose}
-                                            to={dropdownItem.href}
-                                            variant="subtle"
-                                        />
-                                    ))}
-                                </NavLink>
-                            ) : (
-                                <NavLink
-                                    active={pathname === subItem.href}
-                                    className={classes.sectionLink}
-                                    component={RouterLink}
-                                    key={subItem.id}
-                                    label={subItem.name}
-                                    leftSection={subItem.icon && <subItem.icon />}
-                                    onClick={onClose}
-                                    to={subItem.href}
-                                    variant="subtle"
-                                    {...(subItem.newTab
-                                        ? { target: '_blank', rel: 'noopener noreferrer' }
-                                        : {})}
-                                />
-                            )
-                        )}
-                    </Stack>
-                </Box>
+export const MobileNavigation = ({ onClose }: { onClose?: () => void }) => {
+  const menu = useMobileMenuSections();
+  return (
+    <nav aria-label="功能入口" className="flex flex-col gap-4 py-2">
+      {menu.map((group) => (
+        <section key={group.id}>
+          <h3 className="mb-2 text-sm font-semibold text-muted">
+            {group.header}
+          </h3>
+          <ul className="flex flex-col gap-1">
+            {group.section.map((item) => (
+              <li key={item.id}>
+                {item.dropdownItems ? (
+                  <details>
+                    <summary className="cursor-pointer rounded-lg px-3 py-2">
+                      {item.name}
+                    </summary>
+                    <ul className="ml-3 flex flex-col gap-1">
+                      {item.dropdownItems.map((child) => (
+                        <li key={child.id}>
+                          <NavLink
+                            className={({ isActive }) =>
+                              `block rounded-lg px-3 py-2 ${isActive ? "bg-default font-semibold" : ""}`
+                            }
+                            onClick={onClose}
+                            to={child.href}
+                          >
+                            {child.name}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                ) : (
+                  <NavLink
+                    className={({ isActive }) =>
+                      `block rounded-lg px-3 py-2 ${isActive ? "bg-default font-semibold" : ""}`
+                    }
+                    end
+                    onClick={onClose}
+                    to={item.href}
+                    {...(item.newTab
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  >
+                    {item.name}
+                  </NavLink>
+                )}
+              </li>
             ))}
-        </Stack>
-    )
-}
+          </ul>
+        </section>
+      ))}
+    </nav>
+  );
+};

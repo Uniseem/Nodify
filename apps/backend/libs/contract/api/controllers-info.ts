@@ -147,4 +147,9 @@ export const CONTROLLERS_INFO = {
             "Manage API tokens to use in your code. This controller can't be used with API token, only with Admin JWT token",
         resource: 'api-tokens',
     },
+    AGENT_ENROLLMENTS: {
+        tag: 'Agent Enrollments Controller',
+        description: 'Generate unique install links for server agents.',
+        resource: 'agent-enrollments',
+    },
 } as const;

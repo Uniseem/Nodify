@@ -126,7 +126,16 @@ export class InternalSquadRepository implements ICrud<InternalSquadEntity> {
                 jsonArrayFrom(
                     eb
                         .selectFrom('configProfileInbounds')
-                        .selectAll()
+                        .select([
+                            'configProfileInbounds.uuid',
+                            'configProfileInbounds.profileUuid',
+                            'configProfileInbounds.tag',
+                            'configProfileInbounds.type',
+                            'configProfileInbounds.network',
+                            'configProfileInbounds.security',
+                            'configProfileInbounds.port',
+                            'configProfileInbounds.rawInbound',
+                        ])
                         .where(
                             'configProfileInbounds.uuid',
                             'in',
@@ -141,21 +150,6 @@ export class InternalSquadRepository implements ICrud<InternalSquadEntity> {
                         ),
                 ).as('inbounds'),
 
-                // jsonArrayFrom(
-                //     eb
-                //         .selectFrom('internalSquadInbounds')
-                //         .leftJoin(
-                //             'configProfileInbounds',
-                //             'configProfileInbounds.uuid',
-                //             'internalSquadInbounds.inboundUuid',
-                //         )
-                //         .selectAll('configProfileInbounds')
-                //         .whereRef(
-                //             'internalSquadInbounds.internalSquadUuid',
-                //             '=',
-                //             'internalSquads.uuid',
-                //         ),
-                // ).as('inbounds'),
             ])
 
             .groupBy([
@@ -200,7 +194,16 @@ export class InternalSquadRepository implements ICrud<InternalSquadEntity> {
                 jsonArrayFrom(
                     eb
                         .selectFrom('configProfileInbounds')
-                        .selectAll()
+                        .select([
+                            'configProfileInbounds.uuid',
+                            'configProfileInbounds.profileUuid',
+                            'configProfileInbounds.tag',
+                            'configProfileInbounds.type',
+                            'configProfileInbounds.network',
+                            'configProfileInbounds.security',
+                            'configProfileInbounds.port',
+                            'configProfileInbounds.rawInbound',
+                        ])
                         .where(
                             'configProfileInbounds.uuid',
                             'in',

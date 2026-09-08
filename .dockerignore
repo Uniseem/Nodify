@@ -1,0 +1,12 @@
+.git
+**/node_modules
+**/dist
+**/build
+**/.env
+**/*.db
+**/*.db-wal
+**/*.db-shm
+**/data
+.local-tmp
+releases
+coverage

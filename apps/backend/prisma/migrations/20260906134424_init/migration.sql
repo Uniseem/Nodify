@@ -1,15 +1,16 @@
+-- SQLite/Prisma: nullable JSON columns use TEXT to preserve SQL NULL on reads.
 -- CreateTable
 CREATE TABLE "remnawave_settings" (
     "id" INTEGER NOT NULL PRIMARY KEY DEFAULT 1,
-    "passkey_settings" JSON,
-    "oauth2_settings" JSON,
-    "password_settings" JSON,
+    "passkey_settings" TEXT,
+    "oauth2_settings" TEXT,
+    "password_settings" TEXT,
     "branding_settings" JSON
 );
 
 -- CreateTable
 CREATE TABLE "users" (
-    "id" BIGINT NOT NULL PRIMARY KEY,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "short_uuid" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "status" TEXT NOT NULL DEFAULT 'ACTIVE',
@@ -95,7 +96,7 @@ CREATE TABLE "keygen" (
 
 -- CreateTable
 CREATE TABLE "nodes" (
-    "id" BIGINT NOT NULL PRIMARY KEY,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "uuid" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
@@ -178,10 +179,10 @@ CREATE TABLE "hosts" (
     "alpn" TEXT,
     "fingerprint" TEXT,
     "security_layer" TEXT NOT NULL DEFAULT 'DEFAULT',
-    "xhttp_extra_params" JSON,
-    "mux_params" JSON,
-    "sockopt_params" JSON,
-    "final_mask" JSON,
+    "xhttp_extra_params" TEXT,
+    "mux_params" TEXT,
+    "sockopt_params" TEXT,
+    "final_mask" TEXT,
     "is_disabled" BOOLEAN NOT NULL DEFAULT false,
     "server_description" TEXT,
     "vless_route_id" INTEGER,
@@ -223,7 +224,7 @@ CREATE TABLE "subscription_templates" (
     "tags" JSON NOT NULL DEFAULT '[]',
     "template_type" TEXT NOT NULL,
     "template_yaml" TEXT,
-    "template_json" JSON,
+    "template_json" TEXT,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -234,10 +235,10 @@ CREATE TABLE "subscription_settings" (
     "serve_json_at_base_subscription" BOOLEAN NOT NULL DEFAULT false,
     "is_show_custom_remarks" BOOLEAN NOT NULL DEFAULT true,
     "custom_remarks" JSON NOT NULL,
-    "custom_response_headers" JSON,
+    "custom_response_headers" TEXT,
     "randomize_hosts" BOOLEAN NOT NULL DEFAULT false,
-    "response_rules" JSON,
-    "hwid_settings" JSON,
+    "response_rules" TEXT,
+    "hwid_settings" TEXT,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -308,7 +309,7 @@ CREATE TABLE "config_profile_inbounds" (
     "network" TEXT,
     "security" TEXT,
     "port" INTEGER,
-    "raw_inbound" JSON,
+    "raw_inbound" TEXT,
     CONSTRAINT "config_profile_inbounds_profile_uuid_fkey" FOREIGN KEY ("profile_uuid") REFERENCES "config_profiles" ("uuid") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -356,7 +357,7 @@ CREATE TABLE "infra_billing_history" (
 
 -- CreateTable
 CREATE TABLE "user_subscription_request_history" (
-    "id" BIGINT NOT NULL PRIMARY KEY,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "user_id" BIGINT NOT NULL,
     "request_ip" TEXT,
     "user_agent" TEXT,
@@ -389,12 +390,12 @@ CREATE TABLE "external_squads" (
     "view_position" INTEGER NOT NULL DEFAULT 0,
     "name" TEXT NOT NULL,
     "tags" JSON NOT NULL DEFAULT '[]',
-    "subscription_settings" JSON,
-    "host_overrides" JSON,
+    "subscription_settings" TEXT,
+    "host_overrides" TEXT,
     "response_headers_add" JSON NOT NULL DEFAULT '{}',
     "response_headers_remove" JSON NOT NULL DEFAULT '[]',
-    "hwid_settings" JSON,
-    "custom_remarks" JSON,
+    "hwid_settings" TEXT,
+    "custom_remarks" TEXT,
     "subpage_config_uuid" TEXT,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -458,7 +459,7 @@ CREATE TABLE "node_meta" (
 
 -- CreateTable
 CREATE TABLE "torrent_blocker_reports" (
-    "id" BIGINT NOT NULL PRIMARY KEY,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "user_id" BIGINT NOT NULL,
     "node_id" BIGINT NOT NULL,
     "report" JSON NOT NULL,

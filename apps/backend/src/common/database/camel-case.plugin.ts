@@ -41,7 +41,11 @@ export class CustomCamelCasePlugin extends CamelCasePlugin {
 
     constructor({ excludeColumns = [], ...opt }: CustomCamelCasePluginOptions = {}) {
         super(opt);
-        this.excludedColumns = new Set(excludeColumns);
+        // SQLite JSON helpers use the selected (camelCase) names as object keys,
+        // while ordinary result columns still use their snake_case SQL names.
+        this.excludedColumns = new Set(
+            excludeColumns.flatMap((column) => [column, this.camelCase(column)]),
+        );
     }
 
     protected override mapRow(row: UnknownRow): UnknownRow {

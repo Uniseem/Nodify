@@ -32,6 +32,8 @@ import { customLogFilter } from '@common/utils/filter-logs';
 import { getDocs, isDevelopment, isDevOrDebugLogsEnabled } from '@common/utils/startup-app';
 
 import { AppModule } from './app.module';
+import { NodifyService } from './modules/nodify/nodify.service';
+import { publicationGuard } from './modules/nodify/publication';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -76,6 +78,7 @@ async function bootstrap(): Promise<void> {
     });
 
     app.disable('x-powered-by');
+    app.use(publicationGuard(app.get(NodifyService)));
 
     app.use(json({ limit: '100mb' }));
 
@@ -113,6 +116,7 @@ async function bootstrap(): Promise<void> {
         app.use(
             morgan(
                 ':remote-addr - ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"',
+                { skip: (req) => /^\/api\/(sub\/|agent\/)/.test(req.url || '') },
                 // {
                 //     skip: (req) => req.url === ROOT + METRICS_ROOT,
                 //     stream: {
@@ -141,7 +145,9 @@ async function bootstrap(): Promise<void> {
 
     app.enableShutdownHooks();
 
-    await app.listen(Number(config.getOrThrow('APP_PORT')));
+    const listenHost = process.env.NODIFY_LISTEN_HOST || '0.0.0.0';
+    if (!['127.0.0.1', '::1', '0.0.0.0', '::'].includes(listenHost)) throw new Error('Invalid NODIFY_LISTEN_HOST');
+    await app.listen(Number(config.getOrThrow('APP_PORT')), listenHost);
 
     if (import.meta.webpackHot) {
         import.meta.webpackHot.accept();

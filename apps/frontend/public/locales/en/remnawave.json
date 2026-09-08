@@ -1084,7 +1084,23 @@
     "content-for-the-remnawave-node-below": "content for the Remnawave Node below.",
     "learn-more": "Learn more.",
     "domain-or-ip": "Domain or IP",
-    "additional-options": "Additional options"
+    "additional-options": "Additional options",
+    "agent-intro": "Generate a unique install link, run it on the server, then continue after the agent reports its address. You can still type the address yourself if the agent is already running.",
+    "address-hint": "Filled automatically after the agent installs, or enter it manually."
+  },
+  "agent-install-link": {
+    "widget": {
+      "generate": "Generate unique install link",
+      "run-on-server": "Run this command on the server as root. The link can be used only for this agent.",
+      "copy-command": "Copy install command",
+      "copied": "Copied",
+      "waiting-title": "Waiting for the agent",
+      "waiting-body": "The panel will pick up the server address after the install script finishes.",
+      "ready-title": "Agent installed",
+      "ready-body": "Reported address:",
+      "expired": "This install link has expired.",
+      "generate-again": "Close this dialog and create a new node to generate another link."
+    }
   },
   "create-node-step-3-status": {
     "establishing-mtls-connection": "Establishing mTLS connection...",

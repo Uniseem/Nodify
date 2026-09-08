@@ -14,6 +14,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
+      "@nodify/contract": ["../../packages/nodify-contract/index.ts"],
       "@common/*": ["./src/common/*"],
       "@integration-modules/*": ["./src/integration-modules/*"],
       "@modules/*": ["./src/modules/*"],

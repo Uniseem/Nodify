@@ -1,54 +1,55 @@
-import { Group } from '@shared/heroui-compat'
-import { useClickOutside, useDisclosure } from '@mantine/hooks'
+import { Button, Modal } from "@heroui/react";
+import { useState } from "react";
+import { AppShell, Container, Group } from "@shared/heroui-compat";
 
-import { HeaderControls } from '@shared/ui'
+import { LayoutMain } from "../layout-shared";
+import classes from "../layout.module.css";
+import { MobileNavigation } from "../navbar/mobile-navigation.layout";
 
-import { IRemnawaveInfo } from '@entities/dashboard/updates-store'
-
-import { DASHBOARD_LINKS } from '../layout-shared'
-import { SidebarShellLayout } from './sidebar-shell.layout'
-
-interface IProps {
-    headerControls: React.ReactNode
-    isLoadingUpdates: boolean
-    isSocialButtons: boolean
-    remnawaveInfo: IRemnawaveInfo
-}
-
-export const MobileLayout = (props: IProps) => {
-    const { headerControls, isLoadingUpdates, isSocialButtons, remnawaveInfo } = props
-
-    const [opened, { toggle }] = useDisclosure()
-
-    const ref = useClickOutside(() => {
-        if (opened) {
-            toggle()
-        }
-    })
-
-    return (
-        <SidebarShellLayout
-            closedSide="mobile"
-            footer={
-                isSocialButtons && (
-                    <Group justify="center" mt="md" style={{ flexShrink: 0 }}>
-                        <HeaderControls
-                            {...DASHBOARD_LINKS}
-                            isGithubLoading={isLoadingUpdates}
-                            stars={remnawaveInfo.starsCount || undefined}
-                            withLanguage={false}
-                            withLogout={false}
-                            withVersion={false}
-                        />
-                    </Group>
-                )
-            }
-            headerControls={headerControls}
-            navbarRef={ref}
-            onNavClose={toggle}
-            opened={opened}
-            padding="md"
-            toggle={toggle}
-        />
-    )
-}
+export const MobileLayout = ({
+  headerControls,
+}: {
+  headerControls: React.ReactNode;
+}) => {
+  const [opened, setOpened] = useState(false);
+  return (
+    <AppShell header={{ height: 64 }} padding="md">
+      <AppShell.Header className={classes.header}>
+        <Container fluid px="lg" py="xs">
+          <Group justify="space-between" wrap="nowrap">
+            <Button
+              aria-label="打开导航"
+              isIconOnly
+              onPress={() => setOpened(true)}
+              variant="secondary"
+            >
+              ☰
+            </Button>
+            <Group gap="xs" wrap="nowrap">
+              {headerControls}
+            </Group>
+          </Group>
+        </Container>
+      </AppShell.Header>
+      <Modal>
+        <Modal.Backdrop isOpen={opened} onOpenChange={setOpened}>
+          <Modal.Container placement="top" scroll="inside" size="sm">
+            <Modal.Dialog>
+              <Modal.CloseTrigger />
+              <Modal.Header>
+                <Modal.Heading>Nodify 导航</Modal.Heading>
+              </Modal.Header>
+              <Modal.Body>
+                <MobileNavigation onClose={() => setOpened(false)} />
+              </Modal.Body>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal.Backdrop>
+      </Modal>
+      <LayoutMain
+        pb="var(--mantine-spacing-md)"
+        pt="calc(var(--app-shell-header-height) + 10px)"
+      />
+    </AppShell>
+  );
+};

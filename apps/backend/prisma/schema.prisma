@@ -47,6 +47,7 @@ model RemnawaveSettings {
 }
 
 model Users {
+  nodifyEntitlement NodifyEntitlement?
   id                     BigInt    @id @default(autoincrement()) @map("id")
   shortUuid              String    @unique @map("short_uuid")
   username               String    @unique @map("username")
@@ -167,6 +168,7 @@ model Keygen {
 }
 
 model Nodes {
+  managedServer NodifyServer?
   id       BigInt  @id @default(autoincrement()) @map("id")
   uuid     String  @unique @default(uuid())
   name     String  @unique @map("name")
@@ -273,6 +275,7 @@ model NodesUsageHistory {
 }
 
 model Hosts {
+  managedInbound NodifyInbound?
   uuid                         String   @id @default(uuid())
   viewPosition                 Int      @default(0) @map("view_position")
   remark                       String   @map("remark")
@@ -689,4 +692,423 @@ model TorrentBlockerReports {
   node Nodes @relation(fields: [nodeId], references: [id], onDelete: Cascade)
 
   @@map("torrent_blocker_reports")
+}
+
+model AgentEnrollment {
+  uuid        String    @id @default(uuid())
+  token       String    @unique
+  name        String
+  countryCode String    @default("XX") @map("country_code")
+  nodePort    Int       @default(2222) @map("node_port")
+  status      String    @default("pending")
+  secretKey   String    @map("secret_key")
+  nodeUuid    String?   @map("node_uuid")
+  reportedAddress String? @map("reported_address")
+  expiresAt   DateTime  @map("expires_at")
+  usedAt      DateTime? @map("used_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  @@map("agent_enrollments")
+}
+
+model NodifyServer {
+  id String @id @default(uuid())
+  nodeUuid String @unique
+  node Nodes @relation(fields: [nodeUuid], references: [uuid], onDelete: Cascade)
+  tokenHash String? @unique
+  nextTokenHash String? @unique
+  enrollmentHash String? @unique
+  enrollmentExpiresAt DateTime?
+  lastSeenAt DateTime?
+  version String?
+  hostname String?
+  metrics Json @default("{}")
+  protocolTraffic Json @default("{}")
+  networkTraffic Json @default("{}")
+  networkBatches NodifyNetworkBatch[]
+  networkDaily NodifyNetworkDaily[]
+  trafficSettings Json @default("{\"direction\":\"both\",\"limitBytes\":null}")
+  trafficSettingsVersion Int @default(1)
+  trafficEpoch Int @default(1)
+  trafficAccounting NodifyTrafficAccounting[]
+  ledgerStartedAt DateTime?
+  dailyTraffic NodifyDailyTraffic[]
+  desiredVersion Int @default(0)
+  appliedVersion Int @default(0)
+  policyHash String @default("")
+  createdAt DateTime @default(now())
+  revisions NodifyConfigRevision[]
+  operations NodifyOperation[]
+  terminals NodifyTerminalSession[]
+  connection NodifyAgentConnection?
+  inbounds NodifyInbound[]
+  websites NodifyWebsite[]
+  batches NodifyTrafficBatch[]
+  sessions NodifyAgentSession[]
+}
+
+model NodifyAgentConnection {
+  serverId String @id
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  enabled Boolean @default(false)
+  version Int @default(1)
+  encryptedData String
+  lastContactAt DateTime?
+  lastError String @default("")
+  leaseOwner String?
+  leaseUntil DateTime?
+}
+
+model NodifyAgentSession {
+  id String @id
+  serverId String
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  startedAt DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+  version String
+  @@index([serverId, lastSeenAt])
+}
+
+model NodifyNetworkBatch {
+  serverId String
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  session String
+  sequence BigInt
+  bootId String
+  collectedAt DateTime
+  accountingDay String
+  timeSource String
+  receivedAt DateTime @default(now())
+  @@id([serverId, session, sequence])
+}
+
+model NodifyTrafficAccounting {
+  id String @id @default(uuid())
+  serverId String
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  epoch Int
+  periodStart String
+  periodEnd String?
+  settings Json
+  baselineUpload String @default("0")
+  baselineDownload String @default("0")
+  adjustment String @default("0")
+  calibrated Boolean @default(false)
+  version Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  events NodifyTrafficAdjustment[]
+  @@unique([serverId, epoch, periodStart])
+}
+
+model NodifyTrafficAdjustment {
+  id String @id
+  accountingId String
+  accounting NodifyTrafficAccounting @relation(fields: [accountingId], references: [id], onDelete: Cascade)
+  request Json
+  before Json
+  after Json
+  createdAt DateTime @default(now())
+  @@index([accountingId, createdAt])
+}
+
+model NodifyNetworkDaily {
+  serverId String
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  day String
+  interface String
+  upload String @default("0")
+  download String @default("0")
+  reports Int @default(0)
+  discontinuities Int @default(0)
+  crossDateReports Int @default(0)
+  receivedDateReports Int @default(0)
+  updatedAt DateTime @updatedAt
+  @@id([serverId, day, interface])
+  @@index([day, serverId])
+}
+
+model NodifyConfigRevision {
+  id String @id @default(uuid())
+  serverId String
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  version Int
+  config Json
+  state String @default("draft")
+  message String @default("")
+  createdAt DateTime @default(now())
+  @@unique([serverId, version])
+}
+
+model NodifyOperation {
+  id String @id @default(uuid())
+  serverId String?
+  server NodifyServer? @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  kind String
+  payload String
+  state String @default("queued")
+  message String @default("")
+  result Json @default("{}")
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  finishedAt DateTime?
+  executor String @default("agent")
+  localKey String? @unique
+  leaseOwner String?
+  leaseUntil DateTime?
+  attempts Int @default(0)
+  retryOf String? @unique
+  @@index([serverId, state])
+  @@index([executor, state, leaseUntil])
+}
+
+model NodifyTerminalSession {
+  id String @id
+  serverId String
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  operationId String @unique
+  state String @default("pending")
+  reason String @default("")
+  encryptedData String
+  inputSequence Int @default(0)
+  output NodifyTerminalOutput[]
+  inputAck Int @default(0)
+  outputSequence Int @default(0)
+  outputBytes Int @default(0)
+  exitCode Int?
+  agentSeenAt DateTime?
+  clientUntil DateTime
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  @@index([serverId, state])
+  @@index([expiresAt])
+}
+
+model NodifyTerminalOutput {
+  sessionId String
+  session NodifyTerminalSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sequence Int
+  encryptedData String
+  @@id([sessionId, sequence])
+}
+
+model NodifyInbound {
+  id String @id
+  serverId String
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  hostUuid String @unique
+  host Hosts @relation(fields: [hostUuid], references: [uuid], onDelete: Cascade)
+  config Json
+}
+
+model NodifyWebsite {
+  id String @id @default(uuid())
+  serverId String
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  domain String
+  config Json
+  state String @default("pending")
+  version Int @default(0)
+  appliedVersion Int @default(0)
+  deployment Int @default(0)
+  appliedDeployment Int @default(0)
+  appliedConfig Json?
+  operationId String?
+  revisions NodifyWebsiteRevision[]
+  @@unique([serverId, domain])
+}
+
+model NodifyWebsiteRevision {
+  id String @id @default(uuid())
+  websiteId String
+  website NodifyWebsite @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  version Int
+  config Json
+  createdAt DateTime @default(now())
+  @@unique([websiteId, version])
+}
+
+model NodifyCertificate {
+  id String @id @default(uuid())
+  name String
+  domains Json
+  certPem String
+  encryptedKey String
+  expiresAt DateTime
+  provider String @default("manual")
+  encryptedAccount String?
+  lastError String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NodifyPackage {
+  id String @id @default(uuid())
+  name String
+  config Json
+  createdAt DateTime @default(now())
+  entitlements NodifyEntitlement[]
+}
+
+model NodifyEntitlement {
+  id String @id @default(uuid())
+  userId BigInt @unique
+  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  packageId String
+  package NodifyPackage @relation(fields: [packageId], references: [id], onDelete: Restrict)
+  snapshot Json
+  tokenHash String @unique
+  encryptedToken String
+  anytlsPassword String
+  usedBytes BigInt @default(0)
+  uploadBytes BigInt @default(0)
+  downloadBytes BigInt @default(0)
+  nextResetAt DateTime?
+  generation Int @default(0)
+  createdAt DateTime @default(now())
+  subscriptionFiles NodifySubscriptionFile[]
+}
+
+model NodifyTrafficBatch {
+  id String @id @default(uuid())
+  serverId String
+  server NodifyServer @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  session String
+  sequence BigInt
+  collectedAt DateTime?
+  accountingDay String?
+  timeSource String @default("unavailable")
+  createdAt DateTime @default(now())
+  @@unique([serverId, session, sequence])
+}
+model NodifyDailyTraffic {
+  serverId String
+  server NodifyServer @relation(fields:[serverId],references:[id],onDelete:Cascade)
+  day String
+  userId String
+  upload String @default("0")
+  download String @default("0")
+  charged String @default("0")
+  rated String @default("0")
+  unratedRaw String @default("0")
+  unchargedRaw String @default("0")
+  reports Int @default(0)
+  receivedDateReports Int @default(0)
+  updatedAt DateTime @updatedAt
+  @@id([serverId,day,userId])
+  @@index([userId,day])
+  @@index([day])
+}
+
+model NodifySubscriptionSource {
+  id String @id @default(uuid())
+  name String
+  encryptedUrl String
+  intervalMinutes Int @default(360)
+  enabled Boolean @default(true)
+  version Int @default(1)
+  tags Json @default("[]")
+  nodeOverrides Json @default("{}")
+  operationId String?
+  nodes Json @default("[]")
+  lastSyncedAt DateTime?
+  lastAttemptAt DateTime?
+  lastError String?
+  traffic Json?
+  trafficDirection String @default("both")
+  trafficStale Boolean @default(true)
+}
+
+model NodifyBackup {
+  id String @id @default(uuid())
+  filename String
+  state String @default("running")
+  message String @default("")
+  createdAt DateTime @default(now())
+}
+
+model NodifySetting {
+  key String @id
+  value String
+}
+
+model NodifyOverviewSettings {
+  id String @id
+  version Int @default(0)
+  includeExternal Boolean @default(false)
+}
+
+model NodifyRuleSet {
+  id String @id @default(uuid())
+  name String
+  enabled Boolean @default(true)
+  rules Json
+  position Int @default(0)
+  version Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  subscriptionFiles NodifySubscriptionFileRule[]
+  subscriptionTemplates NodifySubscriptionTemplateRule[]
+}
+
+model NodifySubscriptionTemplate {
+  id String @id @default(uuid())
+  name String
+  document Json
+  ruleMode String @default("all")
+  ruleSets NodifySubscriptionTemplateRule[]
+  version Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  subscriptionFiles NodifySubscriptionFile[]
+}
+
+model NodifySubscriptionTemplateRule {
+  templateId String
+  template NodifySubscriptionTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  ruleSetId String
+  ruleSet NodifyRuleSet @relation(fields: [ruleSetId], references: [id], onDelete: Restrict)
+  @@id([templateId, ruleSetId])
+  @@index([ruleSetId])
+}
+
+model NodifySubscriptionFile {
+  id String @id @default(uuid())
+  name String
+  statisticServerIds Json @default("[]")
+  displayTrafficLimitBytes String?
+  alias NodifySubscriptionAlias?
+  entitlementId String
+  entitlement NodifyEntitlement @relation(fields: [entitlementId], references: [id], onDelete: Cascade)
+  templateId String?
+  template NodifySubscriptionTemplate? @relation(fields: [templateId], references: [id], onDelete: Restrict)
+  enabled Boolean @default(true)
+  nodeMode String @default("all")
+  nodeIds Json @default("[]")
+  tags Json @default("[]")
+  ruleMode String @default("all")
+  ruleSets NodifySubscriptionFileRule[]
+  expiresAt DateTime?
+  tokenHash String @unique
+  encryptedToken String
+  entitlementTokenHash String
+  version Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([entitlementId])
+}
+model NodifySubscriptionAlias {
+  hash String @id
+  fileId String? @unique
+  file NodifySubscriptionFile? @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  encryptedAlias String?
+  createdAt DateTime @default(now())
+}
+model NodifySubscriptionFileRule {
+  fileId String
+  file NodifySubscriptionFile @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  ruleSetId String
+  ruleSet NodifyRuleSet @relation(fields: [ruleSetId], references: [id], onDelete: Restrict)
+  @@id([fileId, ruleSetId])
 }

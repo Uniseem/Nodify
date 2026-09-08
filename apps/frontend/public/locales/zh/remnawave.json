@@ -1084,7 +1084,23 @@
     "content-for-the-remnawave-node-below": "以下是 Remnawave 节点的内容。",
     "learn-more": "了解更多。",
     "domain-or-ip": "域名或IP",
-    "additional-options": "附加参数"
+    "additional-options": "附加参数",
+    "agent-intro": "先生成一条只属于这台机器的安装链接，在服务器上执行。Agent 回报地址后继续下一步。如果 Agent 已经在跑，也可以自己填地址。",
+    "address-hint": "Agent 安装完成后会自动填入，也可以手动填写。"
+  },
+  "agent-install-link": {
+    "widget": {
+      "generate": "生成唯一安装链接",
+      "run-on-server": "用 root 在服务器上执行这条命令。链接只对应这一台 Agent。",
+      "copy-command": "复制安装命令",
+      "copied": "已复制",
+      "waiting-title": "正在等待 Agent",
+      "waiting-body": "安装脚本跑完后，面板会收到这台服务器的地址。",
+      "ready-title": "Agent 已安装",
+      "ready-body": "回报地址：",
+      "expired": "这条安装链接已经过期。",
+      "generate-again": "关掉窗口，重新添加节点再生成一条链接。"
+    }
   },
   "create-node-step-3-status": {
     "establishing-mtls-connection": "正在建立mTLS连接...",

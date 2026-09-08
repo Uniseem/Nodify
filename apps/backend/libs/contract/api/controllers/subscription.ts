@@ -1,4 +1,5 @@
-export const SUBSCRIPTION_CONTROLLER = 'sub' as const;
+// Keep the retained advanced subscription API separate from Nodify's entitlement tokens.
+export const SUBSCRIPTION_CONTROLLER = 'legacy-sub' as const;
 
 export const SUBSCRIPTION_ROUTES = {
     GET: '',

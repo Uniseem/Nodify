@@ -1,4 +1,3 @@
-import consola from 'consola/browser'
 import { createContext, ReactNode, useEffect, useMemo, useState } from 'react'
 
 import { logoutEvents } from '@shared/emitters'
@@ -20,10 +19,10 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [isInitialized, setIsInitialized] = useState(false)
-    const [isLoggedOut, setIsLoggedOut] = useState(false)
     const token = useToken()
+    const [isAuthenticated, setIsAuthenticated] = useState(() => Boolean(token))
+    const isInitialized = true
+    const [isLoggedOut, setIsLoggedOut] = useState(false)
 
     const logoutUser = () => {
         if (isLoggedOut) {
@@ -49,24 +48,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }, [])
 
     useEffect(() => {
-        ;(async () => {
-            if (!token) {
-                setIsAuthenticated(false)
-                setIsInitialized(true)
-                return
-            }
+        if (token) {
+            setIsAuthenticated(true)
+            setIsLoggedOut(false)
+            return
+        }
 
-            try {
-                setIsAuthenticated(true)
-                setIsLoggedOut(false)
-            } catch (error) {
-                consola.error(error)
-                logoutUser()
-            } finally {
-                setIsInitialized(true)
-            }
-        })()
-    }, [])
+        setIsAuthenticated(false)
+    }, [token])
 
     const value = useMemo(
         () => ({ isAuthenticated, isInitialized, setIsAuthenticated }),

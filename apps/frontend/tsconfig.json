@@ -33,6 +33,7 @@
     /* ------------------------------------------------------------ */
     "baseUrl": ".",
     "paths": {
+      "@nodify/contract": ["../../packages/nodify-contract/index.ts"],
       "@entities/*": ["./src/entities/*"],
       "@features/*": ["./src/features/*"],
       "@pages/*": ["./src/pages/*"],

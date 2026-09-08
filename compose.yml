@@ -1,0 +1,35 @@
+name: nodify
+services:
+  panel:
+    image: nodify/panel:0.3.0
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+      target: panel
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: file:/opt/app/data/nodify.db
+      REDIS_HOST: valkey
+      REDIS_PORT: 6379
+      REDIS_SOCKET: ''
+      NODIFY_DATA_DIR: /opt/app/data/nodify
+      NODIFY_LISTEN_HOST: 0.0.0.0
+    ports: ['127.0.0.1:3000:3000']
+    volumes: ['panel-data:/opt/app/data']
+    depends_on:
+      valkey:
+        condition: service_healthy
+  valkey:
+    image: valkey/valkey:9.0.0-alpine
+    restart: unless-stopped
+    command: ['valkey-server', '--appendonly', 'yes']
+    volumes: ['valkey-data:/data']
+    healthcheck:
+      test: ['CMD', 'valkey-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+volumes:
+  panel-data:
+  valkey-data:

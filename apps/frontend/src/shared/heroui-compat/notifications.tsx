@@ -41,8 +41,9 @@ export function Notifications(_props: { position?: string }) {
 
 export function NotificationsProvider({ children }: { children: ReactNode }) {
     return (
-        <Toast.Provider placement="top end" maxVisibleToasts={5}>
+        <>
             {children}
-        </Toast.Provider>
+            <Toast.Provider placement="top end" maxVisibleToasts={5} />
+        </>
     )
 }

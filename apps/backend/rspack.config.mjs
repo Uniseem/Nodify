@@ -52,6 +52,7 @@ function buildEntry() {
         scheduler: './src/bin/scheduler/scheduler.ts',
         cli: './src/bin/cli/cli.ts',
         seed: './prisma/seed/config.seed.ts',
+        'tunnel-config': './src/bin/tunnel-config.ts',
     };
 }
 

@@ -307,7 +307,16 @@ export class ConfigProfileRepository {
         return jsonArrayFrom(
             eb
                 .selectFrom('configProfileInbounds')
-                .selectAll('configProfileInbounds')
+                .select([
+                    'configProfileInbounds.uuid',
+                    'configProfileInbounds.profileUuid',
+                    'configProfileInbounds.tag',
+                    'configProfileInbounds.type',
+                    'configProfileInbounds.network',
+                    'configProfileInbounds.security',
+                    'configProfileInbounds.port',
+                    'configProfileInbounds.rawInbound',
+                ])
                 .whereRef('configProfileInbounds.profileUuid', '=', 'configProfiles.uuid'),
         ).as('inbounds');
     }

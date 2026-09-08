@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
+import { NodifyModule } from './nodify/nodify.module';
 import { ConditionalModule } from '@nestjs/config';
 
 import { isRestApi, isScheduler } from '@common/utils/startup-app';
 
 import { AdminModule } from './admin/admin.module';
+import { AgentEnrollmentsModule } from './agent-enrollments/agent-enrollments.module';
 import { ApiTokensModule } from './api-tokens/api-tokens.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigProfileModule } from './config-profiles/config-profile.module';
@@ -35,6 +37,7 @@ import { UsersModule } from './users/users.module';
 @Module({
     imports: [
         RemnawaveSettingsModule,
+        ConditionalModule.registerWhen(NodifyModule, () => isRestApi()),
         ConditionalModule.registerWhen(AdminModule, () => isRestApi()),
         ConditionalModule.registerWhen(AuthModule, () => isRestApi()),
         ConditionalModule.registerWhen(SubscriptionPageConfigModule, () => isRestApi()),
@@ -42,6 +45,7 @@ import { UsersModule } from './users/users.module';
         ConditionalModule.registerWhen(SubscriptionResponseRulesModule, () => isRestApi()),
         ConditionalModule.registerWhen(SubscriptionModule, () => isRestApi()),
         ConditionalModule.registerWhen(ApiTokensModule, () => isRestApi()),
+        ConditionalModule.registerWhen(AgentEnrollmentsModule, () => isRestApi()),
         ConfigProfileModule,
         InternalSquadModule,
         ExternalSquadModule,

@@ -1,3 +1,4 @@
+export * from './agent-enrollments/agent-enrollments.hooks'
 export * from './api-tokens/api-tokens.mutation.hooks'
 export * from './api-tokens/api-tokens.query.hooks'
 

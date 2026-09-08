@@ -1,3 +1,4 @@
+export * from './agent-enrollments';
 export * from './api-tokens';
 export * from './auth';
 export * from './bandwidth-stats';

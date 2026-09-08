@@ -14,12 +14,14 @@
       "es2020"
     ],
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": true
   },
   "exclude": [
     "scripts/**/*",
     "tests/**/*",
     "**/*.spec.ts",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "build",
+    "node_modules"
   ]
 }

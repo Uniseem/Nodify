@@ -1,4 +1,6 @@
 import { LoginPage } from '@pages/auth/login'
+import { NodifyPage } from '@pages/dashboard/nodify/nodify.page'
+import { NodifySubscriptionPage } from '@pages/dashboard/nodify/subscription.page'
 import { Oauth2CallbackPage } from '@pages/auth/oauth2-callback/oauth2-callback.page'
 import { ConfigProfilesPageConnector } from '@pages/dashboard/config-profiles/connectors'
 import { ConfigProfileByUuidPageConnector } from '@pages/dashboard/config-profiles/connectors/config-profile-by-uuid.page.connector'
@@ -47,6 +49,7 @@ import { MainLayout } from '../layouts/dashboard/main-layout/layout'
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route element={<ErrorBoundaryHoc FallbackComponent={ErrorPageComponent} />}>
+            <Route element={<NodifySubscriptionPage />} path="/subscription/:token" />
             <Route element={<AuthLayout />} path={ROUTES.OAUTH2.ROOT}>
                 <Route element={<Oauth2CallbackPage />} path={ROUTES.OAUTH2.ROOT} />
             </Route>
@@ -58,7 +61,8 @@ const router = createBrowserRouter(
                 </Route>
 
                 <Route element={<MainLayout />} path={ROUTES.DASHBOARD.ROOT}>
-                    <Route element={<Navigate replace to={ROUTES.DASHBOARD.HOME} />} index />
+                    <Route element={<NodifyPage />} path="nodify/:section" />
+                    <Route element={<Navigate replace to="/dashboard/nodify/overview" />} index />
                     <Route element={<HomePageConnector />} path={ROUTES.DASHBOARD.HOME} />
                     <Route element={<OpenEntityPage />} path={ROUTES.DASHBOARD.OPEN_ENTITY} />
 

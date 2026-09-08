@@ -11,23 +11,19 @@ import { useGetConfigProfiles } from '@shared/api/hooks'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { SectionCard } from '@shared/ui/section-card'
 
-import { CopyDockerComposeWidget } from './copy-docker-compose.widget'
-
 interface IProps {
     // oxlint-disable-next-line
     form: UseFormReturnType<CreateNodeCommand.RequestBody, any>
     isCreating: boolean
     onCreateNode: () => void
     onPrev: () => void
-    port: number
 }
 
 export const CreateNodeStep2ConfigProfiles = ({
     form,
     isCreating,
     onCreateNode,
-    onPrev,
-    port
+    onPrev
 }: IProps) => {
     const { t } = useTranslation()
 
@@ -105,8 +101,6 @@ export const CreateNodeStep2ConfigProfiles = ({
             </SectionCard.Root>
 
             <Stack gap="xs" mt="auto">
-                <CopyDockerComposeWidget port={port} />
-
                 <Group justify="space-between">
                     <Button
                         color="gray"

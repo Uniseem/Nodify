@@ -11,8 +11,7 @@ import { queryClient } from '@shared/api'
 import {
     configProfilesQueryKeys,
     QueryKeys,
-    useCreateNode,
-    useGetNodeSecretKey
+    useCreateNode
 } from '@shared/api/hooks'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 
@@ -30,8 +29,6 @@ export const CreateNodeModal = NiceModal.create(() => {
             queryClient.refetchQueries({ queryKey: QueryKeys.nodes.getAllNodes.queryKey })
         }
     })
-
-    const { data: secretKey } = useGetNodeSecretKey()
 
     const [activeStep, setActiveStep] = useState(0)
     const [createdNodeUuid, setCreatedNodeUuid] = useState<string>()
@@ -143,7 +140,6 @@ export const CreateNodeModal = NiceModal.create(() => {
                                 form={form}
                                 onNext={nextStep}
                                 port={selectedPort}
-                                secretKey={secretKey?.secretKey}
                             />
                         </div>
                     )}
@@ -163,7 +159,6 @@ export const CreateNodeModal = NiceModal.create(() => {
                                 isCreating={isCreateNodePending}
                                 onCreateNode={handleCreateNode}
                                 onPrev={prevStep}
-                                port={selectedPort}
                             />
                         </div>
                     )}

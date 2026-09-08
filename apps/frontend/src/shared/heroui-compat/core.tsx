@@ -1,7 +1,6 @@
 import {
     Alert as HeroAlert,
     Avatar as HeroAvatar,
-    Badge as HeroBadge,
     Breadcrumbs as HeroBreadcrumbs,
     Button as HeroButton,
     Card as HeroCard,
@@ -229,6 +228,7 @@ export const Text = forwardRef<any, AnyProps>(function Text(props, ref) {
             ref={ref}
             className={className}
             style={{
+                color: inherit ? 'inherit' : style.color || 'inherit',
                 margin: inherit ? undefined : 0,
                 overflow: truncate || lineClamp ? 'hidden' : undefined,
                 textOverflow: truncate ? 'ellipsis' : undefined,
@@ -250,7 +250,7 @@ export const Title = forwardRef<any, AnyProps>(function Title(props, ref) {
     const { style, className, children, rest } = pickBoxProps(other)
     const Component = (`h${order}` as 'h1') || 'h2'
     return (
-        <Component ref={ref} className={className} style={{ margin: 0, fontWeight: 600, ...style }} {...rest}>
+        <Component ref={ref} className={className} style={{ margin: 0, fontWeight: 600, color: style.color || 'inherit', ...style }} {...rest}>
             {children}
         </Component>
     )
@@ -627,15 +627,18 @@ export const Badge = forwardRef<any, AnyProps>(function Badge(props, ref) {
     const { children, variant, color, ...other } = props
     const { style, className, rest } = pickBoxProps(other)
     return (
-        <HeroBadge
+        <span
             ref={ref}
-            className={className}
-            style={{ background: resolveColor(color), ...style }}
-            variant={variant === 'filled' ? 'primary' : 'secondary'}
+            className={mergeClassNames(className, undefined, 'inline-flex items-center rounded-full px-2.5 py-1 text-sm')}
+            style={{
+                background: resolveColor(color) || 'var(--accent, #22d3ee)',
+                color: variant === 'filled' ? '#061018' : '#e6edf3',
+                ...style
+            }}
             {...rest}
         >
             {children}
-        </HeroBadge>
+        </span>
     )
 })
 
@@ -1077,6 +1080,8 @@ export const AppShell = Object.assign(
                         ['--app-shell-header-height' as any]: `${headerHeight}px`,
                         ['--mantine-spacing-md' as any]: '1rem',
                         minHeight: '100vh',
+                        background: '#0d1117',
+                        color: '#e6edf3',
                         padding: padding === 'xl' ? '1.5rem' : resolveSpacing(padding)
                     }}
                 >

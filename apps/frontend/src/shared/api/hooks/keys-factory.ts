@@ -1,5 +1,6 @@
 import { inferQueryKeyStore, mergeQueryKeys } from '@lukemorales/query-key-factory'
 
+import { agentEnrollmentsQueryKeys } from './agent-enrollments/agent-enrollments.hooks'
 import { apiTokensQueryKeys } from './api-tokens/api-tokens.query.hooks'
 import { authQueryKeys } from './auth/auth.query.hooks'
 import { bandwidthStatsQueryKeys } from './bandwidth-stats/bandwidth-stats.query.hooks'
@@ -24,6 +25,7 @@ import { systemQueryKeys } from './system/system.query.hooks'
 import { usersQueryKeys } from './users/users.query.hooks'
 
 export const QueryKeys = mergeQueryKeys(
+    agentEnrollmentsQueryKeys,
     usersQueryKeys,
     systemQueryKeys,
     hostsQueryKeys,

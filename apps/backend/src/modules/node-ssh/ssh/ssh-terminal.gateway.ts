@@ -19,6 +19,8 @@ import { AdminEntity } from '@modules/admin/entities/admin.entity';
 import { GetAdminByUsernameQuery } from '@modules/admin/queries/get-admin-by-username';
 import type { IJWTAuthPayload } from '@modules/auth/interfaces';
 import { NodesEntity } from '@modules/nodes/entities/nodes.entity';
+import { NodifyService } from '@modules/nodify/nodify.service';
+import { PublicationSettings } from '@modules/nodify/publication';
 import { GetNodeByUuidQuery } from '@modules/nodes/queries/get-node-by-uuid/get-node-by-uuid.query';
 
 import { IAdminIdentity, ISshCredentials } from '../interfaces';
@@ -42,6 +44,7 @@ export class SshTerminalGateway implements OnApplicationBootstrap, OnModuleDestr
         private readonly httpAdapterHost: HttpAdapterHost,
         private readonly nodeSshService: NodeSshService,
         private readonly queryBus: QueryBus,
+        private readonly nodify: NodifyService,
     ) {}
 
     onApplicationBootstrap(): void {
@@ -102,6 +105,10 @@ export class SshTerminalGateway implements OnApplicationBootstrap, OnModuleDestr
 
         const url = new URL(request.url ?? '', 'http://localhost');
         if (url.pathname !== SSH_TERMINAL_WS_PATH) {
+            return;
+        }
+
+        if (!(await new PublicationSettings(this.nodify).allows(request.headers.host, 'UPGRADE', request.url ?? '/'))) {
             return reject(socket, 404, 'Not Found');
         }
 

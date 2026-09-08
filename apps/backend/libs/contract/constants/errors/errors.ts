@@ -1289,4 +1289,39 @@ export const ERRORS = {
         message: 'Set tags error',
         httpCode: 500,
     },
+    AGENT_ENROLLMENT_NOT_FOUND: {
+        code: 'A258',
+        message: 'Agent enrollment not found',
+        httpCode: 404,
+    },
+    AGENT_ENROLLMENT_EXPIRED: {
+        code: 'A259',
+        message: 'Agent install link has expired',
+        httpCode: 410,
+    },
+    AGENT_ENROLLMENT_ALREADY_USED: {
+        code: 'A260',
+        message: 'Agent install link has already been used',
+        httpCode: 409,
+    },
+    AGENT_ENROLLMENT_REVOKED: {
+        code: 'A261',
+        message: 'Agent install link has been revoked',
+        httpCode: 410,
+    },
+    CREATE_AGENT_ENROLLMENT_ERROR: {
+        code: 'A262',
+        message: 'Create agent enrollment error',
+        httpCode: 500,
+    },
+    COMPLETE_AGENT_ENROLLMENT_ERROR: {
+        code: 'A263',
+        message: 'Complete agent enrollment error',
+        httpCode: 500,
+    },
+    AGENT_ENROLLMENT_INVALID_ADDRESS: {
+        code: 'A264',
+        message: 'Reported agent address is invalid',
+        httpCode: 400,
+    },
 } as const;

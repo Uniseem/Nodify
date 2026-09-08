@@ -2,6 +2,34 @@
 @import '@heroui/styles';
 
 html,
+html.dark,
+html[data-theme='dark'] {
+    color-scheme: dark;
+    --background: #0d1117;
+    --foreground: #e6edf3;
+    --snow: #f6f8fa;
+    --eclipse: #c9d1d9;
+    --surface: #161b22;
+    --surface-foreground: #e6edf3;
+    --surface-secondary: #21262d;
+    --surface-secondary-foreground: #e6edf3;
+    --muted: #8b949e;
+    --border: #30363d;
+    --default: #21262d;
+    --default-foreground: #e6edf3;
+    --overlay: #161b22;
+    --overlay-foreground: #e6edf3;
+}
+
+html,
+body,
+#root,
+.root {
+    background-color: #0d1117;
+    color: #e6edf3;
+}
+
+html,
 body {
     min-height: 100vh;
     --custom-safe-area-top: env(safe-area-inset-top, 0px);

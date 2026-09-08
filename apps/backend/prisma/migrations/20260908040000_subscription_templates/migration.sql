@@ -1,0 +1,8 @@
+CREATE TABLE "NodifySubscriptionTemplate" (
+  "id" TEXT NOT NULL PRIMARY KEY,
+  "name" TEXT NOT NULL,
+  "document" JSONB NOT NULL,
+  "version" INTEGER NOT NULL DEFAULT 1,
+  "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" DATETIME NOT NULL
+);

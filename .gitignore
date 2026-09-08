@@ -20,3 +20,5 @@ Thumbs.db
 *.db-shm
 apps/backend/data/
 apps/backend/prisma/data/
+.local-tmp/
+releases/

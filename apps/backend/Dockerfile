@@ -1,115 +1,50 @@
-FROM alpine:3.19 AS frontend
-WORKDIR /opt/frontend
+# Build from the repository root: docker build -f deploy/Dockerfile --target panel .
+FROM golang:1.26 AS engines
+ENV CGO_ENABLED=0 GOBIN=/out
+RUN go install github.com/xtls/xray-core/main@5ca6f4b7d4dc20a881d4330e498892697627ec0c && mv /out/main /out/xray
+RUN go install -tags with_v2ray_api,with_utls,with_quic -ldflags '-X github.com/sagernet/sing-box/constant.Version=1.14.0' github.com/sagernet/sing-box/cmd/sing-box@v1.14.0
+RUN go install github.com/go-acme/lego/v4/cmd/lego@v4.31.0
+RUN curl -fsSL https://github.com/valkey-io/valkey/archive/5018b12b0de2d2322a1bbf6b041c43740587c0f2.tar.gz -o /tmp/valkey.tar.gz \
+    && mkdir /tmp/valkey && tar -xzf /tmp/valkey.tar.gz --strip-components=1 -C /tmp/valkey \
+    && make -C /tmp/valkey -j2 MALLOC=libc LDFLAGS=-static \
+    && cp /tmp/valkey/src/valkey-server /out/valkey-server
 
-ARG BRANCH=main
-ARG FRONTEND_URL=https://github.com/remnawave/frontend/releases/latest/download/remnawave-frontend.zip
-ARG SINGBOX_SCHEMA_URL=https://github.com/BlackDuty/sing-box-schema/releases/download/v1.13.13/schema.json
-ARG MIHOMO_SCHEMA_URL=https://github.com/dongchengjie/meta-json-schema/releases/download/v1.19.29/meta-json-schema.json
+FROM node:24.20-trixie-slim AS build
+WORKDIR /src
+COPY . .
+RUN npm run setup && npm run build
+RUN node -e "require('fs').writeFileSync('/tmp/nodify-version.json',JSON.stringify({version:require('./package.json').version}))"
 
-RUN apk add --no-cache curl unzip ca-certificates \
-    && curl -L ${FRONTEND_URL} -o frontend.zip \
-    && unzip frontend.zip -d frontend_temp \
-    && curl -L https://validator.remna.dev/wasm_exec.js -o frontend_temp/dist/assets/wasm_exec.js \
-    && curl -L https://validator.remna.dev/xray.schema.json -o frontend_temp/dist/assets/xray.schema.json \
-    && curl -L https://validator.remna.dev/xray.schema.cn.json -o frontend_temp/dist/assets/xray.schema.cn.json \
-    && curl -L ${SINGBOX_SCHEMA_URL} -o frontend_temp/dist/assets/singbox.schema.json \
-    && curl -L ${MIHOMO_SCHEMA_URL} -o frontend_temp/dist/assets/mihomo.schema.json \
-    && curl -L https://validator.remna.dev/main.wasm -o frontend_temp/dist/assets/main.wasm
+FROM build AS release
+COPY --from=engines /out /release-engines
+ENV NODIFY_ENGINE_DIR=/release-engines
+RUN npm run release
 
-FROM node:24.20-trixie-slim AS backend-build
+FROM scratch AS release-artifacts
+COPY --from=release /src/releases/*.tar.gz /
+COPY --from=release /src/releases/SHA256SUMS /
+
+FROM node:24.20-trixie-slim AS panel
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl sqlite3 && rm -rf /var/lib/apt/lists/*
 WORKDIR /opt/app
+COPY --from=build /src/apps/backend ./
+COPY --from=build /src/apps/frontend/dist ./frontend
+COPY --from=build /src/deploy ./deploy
+COPY --from=build /tmp/nodify-version.json ./manifest.json
+COPY --from=engines /out/lego /usr/local/bin/lego
+ENV NODE_ENV=production NODIFY_DATA_DIR=/opt/app/data/nodify NODIFY_FRONTEND_DIR=/opt/app/frontend
+EXPOSE 3000
+ENTRYPOINT ["node", "deploy/panel-supervisor.mjs"]
 
-COPY package*.json ./
-COPY patches ./patches
-COPY prisma ./prisma
-COPY rspack.config.mjs ./
-COPY prisma.config.ts ./prisma.config.ts
-COPY @types ./@types
+FROM node:24.20-trixie-slim AS agent
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates nginx-light && rm -rf /var/lib/apt/lists/*
+WORKDIR /opt/nodify-agent
+COPY --from=build /src/apps/node/agent ./agent
+COPY --from=build /tmp/nodify-version.json ./manifest.json
+COPY --from=build /src/apps/node/node_modules/ws ./node_modules/ws
+COPY --from=engines /out/xray /usr/local/bin/xray
+COPY --from=engines /out/sing-box /usr/local/bin/sing-box
+ENV NODE_ENV=production NODIFY_AGENT_DATA=/var/lib/nodify-agent
+ENTRYPOINT ["node", "agent/supervisor.mjs"]
 
-RUN npm ci --prefer-offline --no-audit --no-fund
-
-COPY tsconfig*.json ./
-COPY src ./src
-COPY libs ./libs
-
-RUN npm run migrate:generate \
-    && npm run generate:openapi \
-    && test -s openapi.json \
-    && npm run build \
-    && npm prune --omit=dev \
-    && npm cache clean --force
-
-RUN cd node_modules/@prisma/client/runtime && \
-    find . -maxdepth 1 -type f ! -name 'library.js' ! -name 'package.json' -delete && \
-    cd /opt/app/node_modules/.prisma/client && \
-    find . -maxdepth 1 -type f \
-      \( -name 'edge.*' -o -name 'index-browser.js' -o -name 'wasm.*' \
-         -o -name 'query_engine_bg.*' -o -name '*-loader.mjs' \) -delete && \
-    cd /opt/app && \
-    rm -rf node_modules/typescript \
-           node_modules/effect/dist/esm \
-           node_modules/effect/dist/dts \
-           node_modules/effect/src && \
-    find node_modules \( -name '*.js.map' -o -name '*.mjs.map' \) -delete && \
-    find node_modules \( -name '*.d.ts' -o -name '*.d.cts' -o -name '*.d.mts' \) -delete
-
-FROM node:24.20-trixie-slim
-
-LABEL org.opencontainers.image.title="Remnawave"
-LABEL org.opencontainers.image.description="Powerful proxy management tool"
-LABEL org.opencontainers.image.url="https://github.com/remnawave/backend"
-LABEL org.opencontainers.image.source="https://github.com/remnawave/backend"
-LABEL org.opencontainers.image.vendor="Remnawave"
-LABEL org.opencontainers.image.licenses="AGPL-3.0"
-LABEL org.opencontainers.image.documentation="https://docs.rw"
-
-WORKDIR /opt/app
-
-ARG BRANCH=main
-ARG __RW_METADATA_VERSION=1.1.1
-ARG __RW_METADATA_GIT_BACKEND_COMMIT=0f344f388807f5323b49024a563b3f8146d66857
-ARG __RW_METADATA_GIT_FRONTEND_COMMIT=0f344f388807f5323b49024a563b3f8146d66857
-ARG __RW_METADATA_GIT_BRANCH=dev
-ARG __RW_METADATA_BUILD_TIME=2011-11-11T11:11:11Z
-ARG __RW_METADATA_BUILD_NUMBER=0
-
-RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
-
-ENV REMNAWAVE_BRANCH=${BRANCH}
-ENV PRISMA_HIDE_UPDATE_MESSAGE=true
-ENV PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
-ENV PM2_DISABLE_VERSION_CHECK=true
-ENV NODE_OPTIONS="--max-old-space-size=16384"
-ENV __RW_METADATA_VERSION=${__RW_METADATA_VERSION}
-ENV __RW_METADATA_GIT_BACKEND_COMMIT=${__RW_METADATA_GIT_BACKEND_COMMIT}
-ENV __RW_METADATA_GIT_FRONTEND_COMMIT=${__RW_METADATA_GIT_FRONTEND_COMMIT}
-ENV __RW_METADATA_GIT_BRANCH=${__RW_METADATA_GIT_BRANCH}
-ENV __RW_METADATA_BUILD_TIME=${__RW_METADATA_BUILD_TIME}
-ENV __RW_METADATA_BUILD_NUMBER=${__RW_METADATA_BUILD_NUMBER}
-
-COPY --from=backend-build /opt/app/dist ./dist
-COPY --from=backend-build /opt/app/openapi.json ./openapi.json
-COPY --from=frontend /opt/frontend/frontend_temp/dist ./frontend
-COPY --from=backend-build /opt/app/prisma/generated ./prisma/generated
-COPY --from=backend-build /opt/app/prisma/migrations ./prisma/migrations
-COPY --from=backend-build /opt/app/prisma/schema.prisma ./prisma/schema.prisma
-COPY --from=backend-build /opt/app/node_modules ./node_modules
-
-COPY configs /var/lib/remnawave/configs
-COPY package*.json ./
-COPY prisma.config.ts ./prisma.config.ts
-COPY ecosystem.config.js ./
-COPY docker-entrypoint.sh ./
-
-RUN npm install -g pm2 \
-    && chmod +x /opt/app/dist/cli.js \
-    && ln -s /opt/app/dist/cli.js /usr/local/bin/cli \
-    && rm -rf /usr/local/lib/node_modules/npm \
-        /usr/local/lib/node_modules/corepack \
-        /usr/local/bin/npm \
-        /usr/local/bin/npx \
-        /usr/local/bin/corepack \
-        /usr/local/include/node
-
-ENTRYPOINT [ "/bin/sh", "docker-entrypoint.sh" ]
-CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", "production" ]
+FROM panel AS default

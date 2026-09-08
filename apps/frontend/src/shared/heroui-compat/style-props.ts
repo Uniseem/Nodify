@@ -41,15 +41,26 @@ const COLOR_ALIASES: Record<string, string> = {
     inherit: 'inherit'
 }
 
+function unwrapResponsive(value: unknown): unknown {
+    if (value && typeof value === 'object' && !Array.isArray(value) && 'base' in (value as object)) {
+        return (value as { base: unknown }).base
+    }
+    return value
+}
+
 export function resolveSpacing(value: StyleValue): string | undefined {
+    value = unwrapResponsive(value) as StyleValue
     if (value === undefined || value === null) return undefined
+    if (typeof value === 'object') return undefined
     if (typeof value === 'number') return `${value}px`
     if (value in SPACING) return SPACING[value]
     return value
 }
 
 export function resolveColor(value: StyleValue): string | undefined {
+    value = unwrapResponsive(value) as StyleValue
     if (value === undefined || value === null) return undefined
+    if (typeof value === 'object') return undefined
     const raw = String(value)
     if (COLOR_ALIASES[raw]) return COLOR_ALIASES[raw]
     if (raw.startsWith('#') || raw.startsWith('rgb') || raw.startsWith('hsl') || raw.startsWith('var(')) {
@@ -201,7 +212,8 @@ export function stylePropsToCss(props: ExtractedStyleProps, extra?: CSSPropertie
     if (props.right !== undefined) style.right = resolveSpacing(props.right)
     if (props.bottom !== undefined) style.bottom = resolveSpacing(props.bottom)
     if (props.inset !== undefined) style.inset = resolveSpacing(props.inset)
-    if (props.display) style.display = props.display
+    const display = unwrapResponsive(props.display)
+    if (typeof display === 'string') style.display = display
     if (props.flex !== undefined) style.flex = String(props.flex)
     if (props.gap !== undefined) style.gap = resolveSpacing(props.gap)
     if (props.rowGap !== undefined) style.rowGap = resolveSpacing(props.rowGap)

@@ -1,0 +1,16 @@
+services:
+  agent:
+    image: nodify/agent:0.3.0
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      target: agent
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      NODIFY_PANEL: ${NODIFY_PANEL:?Set the public HTTPS panel URL}
+      NODIFY_ENROLLMENT: ${NODIFY_ENROLLMENT:?Set the one-time enrollment token}
+    volumes:
+      - agent-data:/var/lib/nodify-agent
+volumes:
+  agent-data:

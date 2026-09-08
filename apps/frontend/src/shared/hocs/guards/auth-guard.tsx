@@ -14,14 +14,14 @@ export function AuthGuard() {
 
     const { isAuthenticated, isInitialized } = useAuth()
 
-    const { isLoading } = useGetAuthStatus()
+    useGetAuthStatus()
     const updatesStoreActions = useUpdatesStoreActions()
 
     useLayoutEffect(() => {
         updatesStoreActions.getRemnawaveInfo()
     }, [])
 
-    if (!isInitialized || isLoading) {
+    if (!isInitialized) {
         return <LoadingProgress />
     }
 
